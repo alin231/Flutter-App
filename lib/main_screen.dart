@@ -24,7 +24,7 @@ class _MainScreenState extends State<MainScreen> {
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
-        backgroundColor: Colors.indigo,
+        backgroundColor: const Color.fromARGB(255, 123, 130, 172),
         title: const Text(
           'Gemini AI Demo',
           style: TextStyle(
