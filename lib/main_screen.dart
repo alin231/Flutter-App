@@ -33,12 +33,12 @@ class _MainScreenState extends State<MainScreen> {
         ),
       ),
       body: Container(
-        padding: EdgeInsets.all(10.0),
+        padding: const EdgeInsets.all(10.0),
         color: Colors.white,
         child: SingleChildScrollView(
           child: Column(
             children: [
-              SizedBox(height: 20),
+              const SizedBox(height: 20),
               Padding(
                 padding: const EdgeInsets.all(10.0),
                 child: TextFormField(
@@ -46,13 +46,13 @@ class _MainScreenState extends State<MainScreen> {
                   decoration: InputDecoration(
                     focusedBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(10.0),
-                      borderSide: BorderSide(
+                      borderSide: const BorderSide(
                         color: Colors.green,
                       ),
                     ),
                     enabledBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(10.0),
-                      borderSide: BorderSide(
+                      borderSide: const BorderSide(
                         color: Colors.black,
                         width: 1.0,
                       ),
@@ -132,7 +132,7 @@ class _MainScreenState extends State<MainScreen> {
                 ),
               ),
               const SizedBox(height: 20),
-              Text('Here you go...',                 
+              const Text('Here you go...',                 
                 style: TextStyle(fontSize: 18, color: Colors.black), ),
               Container(
                 child: Text(answer),
