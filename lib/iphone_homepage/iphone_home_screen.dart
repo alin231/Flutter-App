@@ -4,6 +4,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'iphone_home_bloc.dart';
 import 'package:myapp/iphone_14_15_pro_two/iphone_14_15_pro_two_screen.dart';
 import 'package:myapp/iphone_flashcards/iphone_flashcards_screen.dart';
+import 'package:myapp/iphone_daily_pun/iphone_daily_pun_screen.dart';
 
 ///SelectionPopupModel is common model
 ///used for setting data into dropdowns
@@ -370,53 +371,64 @@ class IphoneHomeScreen extends StatelessWidget {
 
   /// Section Widget
   Widget _buildDailyPunSection(BuildContext context) {
-    return Container(
-      padding: EdgeInsets.symmetric(
-        horizontal: 14,
-        vertical: 18,
-      ),
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(
-          8,
+    return GestureDetector(
+      onTap: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => IphoneDailyPunScreen.builder(context),
+          ),
+        );
+      },
+      child: Container(
+        padding: EdgeInsets.symmetric(
+          horizontal: 14,
+          vertical: 18,
         ),
-        gradient: LinearGradient(
-          begin: Alignment(0.62, -0.43),
-          end: Alignment(0.08, 1.6),
-          colors: [Color(0XFF005AD4), Color(0XFF4991F3), Color(0XFF569EFF)],
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(
+            8,
+          ),
+          gradient: LinearGradient(
+            begin: Alignment(0.62, -0.43),
+            end: Alignment(0.08, 1.6),
+            colors: [Color(0XFF005AD4), Color(0XFF4991F3), Color(0XFF569EFF)],
+          ),
         ),
-      ),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Align(
-            alignment: Alignment.bottomCenter,
-            child: Padding(
-              padding: EdgeInsets.only(top: 2),
-              child: Text(
-                "Daily pun just for you!",
-                style: TextStyle(
-                  color: Color(0XFF3781E4),
-                  fontSize: 24.095813751220703,
-                  fontFamily: 'Google Sans',
-                  fontWeight: FontWeight.w500,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Align(
+              alignment: Alignment.bottomCenter,
+              child: Padding(
+                padding: EdgeInsets.only(top: 2),
+                child: Text(
+                  "Daily pun just for you!",
+                  style: TextStyle(
+                    color: Color(0XFF3781E4),
+                    fontSize: 24.1,
+                    fontFamily: 'Google Sans',
+                    fontWeight: FontWeight.w500,
+                  ),
                 ),
               ),
             ),
-          ),
-          SizedBox(width: 28),
-          Padding(
-            padding: EdgeInsets.zero,
-            child: Image.asset(
-              "assets/images/img_vector.png",
-              height: 28,
-              width: 28,
+            SizedBox(width: 28),
+            Padding(
+              padding: EdgeInsets.zero,
+              child: Image.asset(
+                "assets/images/img_vector.png",
+                height: 28,
+                width: 28,
+              ),
             ),
-          )
-        ],
+          ],
+        ),
       ),
     );
   }
+
 
   /// Section Widget
   Widget _buildLanguageSelectionSection(BuildContext context) {
