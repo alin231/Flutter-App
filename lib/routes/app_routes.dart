@@ -11,7 +11,7 @@ class AppRoutes {
 
   static Map<String, WidgetBuilder> routes = {
     iphoneDailyPunScreen: IphoneDailyPunScreen.builder,
-    punHomepageScreen: (context) => IphoneHomeScreen(),
-    initialRoute: (context) => IphoneHomeScreen()
+    punHomepageScreen: (context) => const IphoneHomeScreen(),
+    initialRoute: (context) => const IphoneHomeScreen()
   };
 }

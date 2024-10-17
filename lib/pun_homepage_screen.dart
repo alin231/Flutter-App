@@ -21,10 +21,7 @@ class SelectionPopupModel {
 }
 
 class IphoneHomeScreen extends StatelessWidget {
-  const IphoneHomeScreen({Key? key})
-      : super(
-          key: key,
-        );
+  const IphoneHomeScreen({super.key});
 
   static Widget builder(BuildContext context) {
     return BlocProvider<IphoneHomeBloc>(

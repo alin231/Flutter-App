@@ -57,7 +57,7 @@ class IphoneDailyPunModel extends Equatable {
 /// A bloc that manages the state of a IphoneDailyPun according to the event that is dispatched to it.
 class IphoneDailyPunBloc
     extends Bloc<IphoneDailyPunEvent, IphoneDailyPunState> {
-  IphoneDailyPunBloc(IphoneDailyPunState initialState) : super(initialState) {
+  IphoneDailyPunBloc(super.initialState) {
     on<IphoneDailyPunInitialEvent>(_onInitialize);
   }
 

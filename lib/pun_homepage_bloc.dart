@@ -31,7 +31,7 @@ class IphoneHomeModel extends Equatable {
 
 /// A bloc that manages the state of a IphoneHome according to the event that is dispatched to it.
 class IphoneHomeBloc extends Bloc<IphoneHomeEvent, IphoneHomeState> {
-  IphoneHomeBloc(IphoneHomeState initialState) : super(initialState) {
+  IphoneHomeBloc(super.initialState) {
     on<IphoneHomeInitialEvent>(_onInitialize);
     on<onSelected>(_onSelected);
     on<onSelected1>(_onSelected1);

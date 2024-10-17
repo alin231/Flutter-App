@@ -83,8 +83,7 @@ class RecentlyaddedlistItemModel extends Equatable {
 /// A bloc that manages the state of a IphoneFlashcards according to the event that is dispatched to it.
 class IphoneFlashcardsBloc
     extends Bloc<IphoneFlashcardsEvent, IphoneFlashcardsState> {
-  IphoneFlashcardsBloc(IphoneFlashcardsState initialState)
-      : super(initialState) {
+  IphoneFlashcardsBloc(super.initialState) {
     on<IphoneFlashcardsInitialEvent>(_onInitialize);
   }
 

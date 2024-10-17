@@ -6,7 +6,7 @@ import 'pun_result_screen.dart';
 /// This class defines the variables used in the [iphone_14_15_pro_two_screen],
 /// and is typically used to hold data that is passed between different parts of the application.
 class Iphone1415ProTwoModel extends Equatable {
-  Iphone1415ProTwoModel();
+  const Iphone1415ProTwoModel();
 
   Iphone1415ProTwoModel copyWith() {
     return Iphone1415ProTwoModel();
@@ -19,8 +19,7 @@ class Iphone1415ProTwoModel extends Equatable {
 /// A bloc that manages the state of a Iphone1415ProTwo according to the event that is dispatched to it.
 class Iphone1415ProTwoBloc
     extends Bloc<Iphone1415ProTwoEvent, Iphone1415ProTwoState> {
-  Iphone1415ProTwoBloc(Iphone1415ProTwoState initialState)
-      : super(initialState) {
+  Iphone1415ProTwoBloc(super.initialState) {
     on<Iphone1415ProTwoInitialEvent>(_onInitialize);
   }
 

@@ -4,10 +4,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'iphone_flashcards_bloc.dart';
 
 class IphoneFlashcardsScreen extends StatelessWidget {
-  const IphoneFlashcardsScreen({Key? key})
-      : super(
-          key: key,
-        );
+  const IphoneFlashcardsScreen({super.key});
 
   static Widget builder(BuildContext context) {
     return BlocProvider<IphoneFlashcardsBloc>(
@@ -15,7 +12,7 @@ class IphoneFlashcardsScreen extends StatelessWidget {
         iphoneFlashcardsModelObj: IphoneFlashcardsModel(),
       ))
         ..add(IphoneFlashcardsInitialEvent()),
-      child: IphoneFlashcardsScreen(),
+      child: const IphoneFlashcardsScreen(),
     );
   }
 
@@ -23,18 +20,18 @@ class IphoneFlashcardsScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        backgroundColor: Color(0XFFFFFFFF),
+        backgroundColor: const Color(0XFFFFFFFF),
         body: SizedBox(
           width: double.maxFinite,
           child: SingleChildScrollView(
             child: Container(
               width: double.maxFinite,
-              padding: EdgeInsets.only(top: 44),
+              padding: const EdgeInsets.only(top: 44),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   _buildNavigationSection(context),
-                  Padding(
+                  const Padding(
                     padding: EdgeInsets.only(left: 32),
                     child: Text(
                       "Ready for a quiz?",
@@ -46,10 +43,10 @@ class IphoneFlashcardsScreen extends StatelessWidget {
                       ),
                     ),
                   ),
-                  SizedBox(height: 16),
+                  const SizedBox(height: 16),
                   _buildQuizPreparationSection(context),
-                  SizedBox(height: 28),
-                  Padding(
+                  const SizedBox(height: 28),
+                  const Padding(
                     padding: EdgeInsets.only(left: 32),
                     child: Text(
                       "Recently Added",
@@ -61,9 +58,9 @@ class IphoneFlashcardsScreen extends StatelessWidget {
                       ),
                     ),
                   ),
-                  SizedBox(height: 10),
+                  const SizedBox(height: 10),
                   _buildRecentlyAddedList(context),
-                  SizedBox(height: 24),
+                  const SizedBox(height: 24),
                   Align(
                     alignment: Alignment.center,
                     child: Container(
@@ -73,7 +70,7 @@ class IphoneFlashcardsScreen extends StatelessWidget {
                         borderRadius: BorderRadius.circular(
                           18,
                         ),
-                        gradient: LinearGradient(
+                        gradient: const LinearGradient(
                           begin: Alignment(0.83, -1.59),
                           end: Alignment(0.07, 2.44),
                           colors: [
@@ -87,13 +84,13 @@ class IphoneFlashcardsScreen extends StatelessWidget {
                         style: ElevatedButton.styleFrom(
                           backgroundColor: Colors.transparent,
                           side: BorderSide.none,
-                          shape: RoundedRectangleBorder(
+                          shape: const RoundedRectangleBorder(
                               borderRadius: BorderRadius.zero),
                           padding: EdgeInsets.zero,
                           elevation: 0,
                         ),
                         onPressed: () {},
-                        child: Text(
+                        child: const Text(
                           "Show all results",
                           style: TextStyle(
                             color: Color(0XFFFFFFFF),
@@ -105,7 +102,7 @@ class IphoneFlashcardsScreen extends StatelessWidget {
                       ),
                     ),
                   ),
-                  SizedBox(height: 16)
+                  const SizedBox(height: 16)
                 ],
               ),
             ),
@@ -119,8 +116,8 @@ class IphoneFlashcardsScreen extends StatelessWidget {
   Widget _buildNavigationSection(BuildContext context) {
     return Container(
       width: double.maxFinite,
-      padding: EdgeInsets.symmetric(horizontal: 32),
-      decoration: BoxDecoration(
+      padding: const EdgeInsets.symmetric(horizontal: 32),
+      decoration: const BoxDecoration(
         color: Color(0XCCFFFFFF),
         boxShadow: [
           BoxShadow(
@@ -132,7 +129,7 @@ class IphoneFlashcardsScreen extends StatelessWidget {
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          SizedBox(height: 54),
+          const SizedBox(height: 54),
           SizedBox(
             width: double.maxFinite,
             child: Row(
@@ -147,7 +144,7 @@ class IphoneFlashcardsScreen extends StatelessWidget {
                     ),
                   ),
                 ),
-                Padding(
+                const Padding(
                   padding: EdgeInsets.only(left: 8),
                   child: Text(
                     "Back",
@@ -162,14 +159,14 @@ class IphoneFlashcardsScreen extends StatelessWidget {
               ],
             ),
           ),
-          SizedBox(height: 14),
+          const SizedBox(height: 14),
           Container(
             width: double.maxFinite,
-            margin: EdgeInsets.only(right: 8),
+            margin: const EdgeInsets.only(right: 8),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text(
+                const Text(
                   "Flashcards",
                   style: TextStyle(
                     color: Color(0XFF005AD4),
@@ -197,7 +194,7 @@ class IphoneFlashcardsScreen extends StatelessWidget {
   /// Section Widget
   Widget _buildQuizPreparationSection(BuildContext context) {
     return Container(
-      margin: EdgeInsets.only(left: 34),
+      margin: const EdgeInsets.only(left: 34),
       child: BlocSelector<IphoneFlashcardsBloc, IphoneFlashcardsState,
           IphoneFlashcardsModel?>(
         selector: (state) => state.iphoneFlashcardsModelObj,
@@ -231,17 +228,17 @@ class IphoneFlashcardsScreen extends StatelessWidget {
   /// Section Widget
   Widget _buildRecentlyAddedList(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.symmetric(horizontal: 26),
+      padding: const EdgeInsets.symmetric(horizontal: 26),
       child: BlocSelector<IphoneFlashcardsBloc, IphoneFlashcardsState,
           IphoneFlashcardsModel?>(
         selector: (state) => state.iphoneFlashcardsModelObj,
         builder: (context, iphoneFlashcardsModelObj) {
           return ListView.separated(
             padding: EdgeInsets.zero,
-            physics: NeverScrollableScrollPhysics(),
+            physics: const NeverScrollableScrollPhysics(),
             shrinkWrap: true,
             separatorBuilder: (context, index) {
-              return SizedBox(
+              return const SizedBox(
                 height: 12,
               );
             },
@@ -265,10 +262,7 @@ class IphoneFlashcardsScreen extends StatelessWidget {
 // ignore_for_file: must_be_immutable
 class QuizpreparationsectionItemWidget extends StatelessWidget {
   QuizpreparationsectionItemWidget(this.quizpreparationsectionItemModelObj,
-      {Key? key})
-      : super(
-          key: key,
-        );
+      {super.key});
 
   QuizpreparationsectionItemModel quizpreparationsectionItemModelObj;
 
@@ -278,7 +272,7 @@ class QuizpreparationsectionItemWidget extends StatelessWidget {
       height: 170,
       width: 166,
       decoration: BoxDecoration(
-        color: Color(0XFFD9D9D9),
+        color: const Color(0XFFD9D9D9),
         borderRadius: BorderRadius.circular(
           8,
         ),
@@ -289,10 +283,7 @@ class QuizpreparationsectionItemWidget extends StatelessWidget {
 
 // ignore_for_file: must_be_immutable
 class RecentlyaddedlistItemWidget extends StatelessWidget {
-  RecentlyaddedlistItemWidget(this.recentlyaddedlistItemModelObj, {Key? key})
-      : super(
-          key: key,
-        );
+  RecentlyaddedlistItemWidget(this.recentlyaddedlistItemModelObj, {super.key});
 
   RecentlyaddedlistItemModel recentlyaddedlistItemModelObj;
 
@@ -300,7 +291,7 @@ class RecentlyaddedlistItemWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Ink(
       decoration: BoxDecoration(
-        color: Color(0XFFF5F5F5),
+        color: const Color(0XFFF5F5F5),
         borderRadius: BorderRadius.circular(
           8,
         ),
@@ -314,32 +305,32 @@ class RecentlyaddedlistItemWidget extends StatelessWidget {
             8,
           ),
         ),
-        visualDensity: VisualDensity(
+        visualDensity: const VisualDensity(
           vertical: -4,
           horizontal: -4,
         ),
-        contentPadding: EdgeInsets.symmetric(
+        contentPadding: const EdgeInsets.symmetric(
           horizontal: 6,
           vertical: 12,
         ),
         title: Expanded(
           child: Padding(
-            padding: EdgeInsets.only(top: 2),
+            padding: const EdgeInsets.only(top: 2),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
                   recentlyaddedlistItemModelObj.dinosaur!,
-                  style: TextStyle(
+                  style: const TextStyle(
                     color: Color(0XFF5F6369),
                     fontSize: 24.095813751220703,
                     fontFamily: 'Google Sans',
                     fontWeight: FontWeight.w400,
                   ),
                 ),
-                SizedBox(height: 2),
+                const SizedBox(height: 2),
                 RichText(
-                  text: TextSpan(
+                  text: const TextSpan(
                     children: [
                       TextSpan(
                         text: "English  →  ",

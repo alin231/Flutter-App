@@ -4,10 +4,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'pun_result_bloc.dart';
 
 class Iphone1415ProTwoScreen extends StatelessWidget {
-  const Iphone1415ProTwoScreen({Key? key})
-      : super(
-          key: key,
-        );
+  const Iphone1415ProTwoScreen({super.key});
 
   static Widget builder(BuildContext context) {
     return BlocProvider<Iphone1415ProTwoBloc>(
@@ -15,7 +12,7 @@ class Iphone1415ProTwoScreen extends StatelessWidget {
         iphone1415ProTwoModelObj: Iphone1415ProTwoModel(),
       ))
         ..add(Iphone1415ProTwoInitialEvent()),
-      child: Iphone1415ProTwoScreen(),
+      child: const Iphone1415ProTwoScreen(),
     );
   }
 
@@ -31,7 +28,7 @@ class Iphone1415ProTwoScreen extends StatelessWidget {
             body: Container(
               width: double.maxFinite,
               height: MediaQuery.of(context).size.height,
-              decoration: BoxDecoration(
+              decoration: const BoxDecoration(
                 gradient: LinearGradient(
                   begin: Alignment(1.23, -0.04),
                   end: Alignment(-0.19, 1.13),
@@ -43,8 +40,8 @@ class Iphone1415ProTwoScreen extends StatelessWidget {
                 ),
               ),
               child: Container(
-                margin: EdgeInsets.only(top: 56),
-                padding: EdgeInsets.only(
+                margin: const EdgeInsets.only(top: 56),
+                padding: const EdgeInsets.only(
                   left: 26,
                   top: 8,
                   right: 26,
@@ -53,7 +50,7 @@ class Iphone1415ProTwoScreen extends StatelessWidget {
                   mainAxisSize: MainAxisSize.max,
                   children: [
                     _buildChineseLanguageSection(context),
-                    SizedBox(height: 16),
+                    const SizedBox(height: 16),
                     _buildKoreanLanguageSection(context)
                   ],
                 ),
@@ -74,7 +71,7 @@ class Iphone1415ProTwoScreen extends StatelessWidget {
       automaticallyImplyLeading: false,
       leadingWidth: 94,
       leading: Padding(
-        padding: EdgeInsets.only(left: 40),
+        padding: const EdgeInsets.only(left: 40),
         child: Row(
           children: [
             Padding(
@@ -87,7 +84,7 @@ class Iphone1415ProTwoScreen extends StatelessWidget {
                 ),
               ),
             ),
-            Padding(
+            const Padding(
               padding: EdgeInsets.only(left: 8),
               child: Text(
                 "Back",
@@ -103,9 +100,9 @@ class Iphone1415ProTwoScreen extends StatelessWidget {
         ),
       ),
       title: Padding(
-        padding: EdgeInsets.only(right: 11),
+        padding: const EdgeInsets.only(right: 11),
         child: RichText(
-          text: TextSpan(
+          text: const TextSpan(
             children: [
               TextSpan(
                 text: "G",
@@ -180,7 +177,7 @@ class Iphone1415ProTwoScreen extends StatelessWidget {
       ),
       actions: [
         Padding(
-          padding: EdgeInsets.only(
+          padding: const EdgeInsets.only(
             left: 119,
             bottom: 18,
           ),
@@ -198,18 +195,18 @@ class Iphone1415ProTwoScreen extends StatelessWidget {
   Widget _buildChineseLanguageSection(BuildContext context) {
     return Container(
       width: double.maxFinite,
-      padding: EdgeInsets.only(
+      padding: const EdgeInsets.only(
         left: 24,
         top: 24,
         bottom: 24,
       ),
       decoration: BoxDecoration(
-        color: Color(0XFFFFFFFF),
+        color: const Color(0XFFFFFFFF),
         borderRadius: BorderRadius.circular(
           8,
         ),
       ),
-      child: Column(
+      child: const Column(
         mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -245,12 +242,12 @@ class Iphone1415ProTwoScreen extends StatelessWidget {
         children: [
           Container(
             width: double.maxFinite,
-            padding: EdgeInsets.symmetric(
+            padding: const EdgeInsets.symmetric(
               horizontal: 24,
               vertical: 18,
             ),
             decoration: BoxDecoration(
-              color: Color(0XFFFFFFFF),
+              color: const Color(0XFFFFFFFF),
               borderRadius: BorderRadius.circular(
                 8,
               ),
@@ -259,8 +256,8 @@ class Iphone1415ProTwoScreen extends StatelessWidget {
               mainAxisSize: MainAxisSize.min,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                SizedBox(height: 6),
-                Text(
+                const SizedBox(height: 6),
+                const Text(
                   "Korean",
                   style: TextStyle(
                     color: Color(0XFF000000),
@@ -269,8 +266,8 @@ class Iphone1415ProTwoScreen extends StatelessWidget {
                     fontWeight: FontWeight.w400,
                   ),
                 ),
-                SizedBox(height: 16),
-                Text(
+                const SizedBox(height: 16),
+                const Text(
                   "여름",
                   style: TextStyle(
                     color: Color(0XFF5F6369),
@@ -279,7 +276,7 @@ class Iphone1415ProTwoScreen extends StatelessWidget {
                     fontWeight: FontWeight.w400,
                   ),
                 ),
-                Text(
+                const Text(
                   "yeo reum",
                   style: TextStyle(
                     color: Color(0XFF5F6369),
@@ -288,14 +285,14 @@ class Iphone1415ProTwoScreen extends StatelessWidget {
                     fontWeight: FontWeight.w400,
                   ),
                 ),
-                SizedBox(height: 28),
+                const SizedBox(height: 28),
                 Image.asset(
                   "assets/images/img_logo.png",
                   height: 20,
                   width: 24,
                 ),
-                SizedBox(height: 6),
-                Text(
+                const SizedBox(height: 6),
+                const Text(
                   "有熱嗎？",
                   style: TextStyle(
                     color: Color(0XFF005AD4),
@@ -304,8 +301,8 @@ class Iphone1415ProTwoScreen extends StatelessWidget {
                     fontWeight: FontWeight.w700,
                   ),
                 ),
-                SizedBox(height: 2),
-                Text(
+                const SizedBox(height: 2),
+                const Text(
                   "可以聯想成「有熱嗎」，因為夏天通常天氣炎熱。這樣透過「有熱嗎」的諧音，你就比較容易記住「여름」這個發音了。",
                   maxLines: 3,
                   overflow: TextOverflow.ellipsis,
@@ -316,8 +313,8 @@ class Iphone1415ProTwoScreen extends StatelessWidget {
                     fontWeight: FontWeight.w700,
                   ),
                 ),
-                SizedBox(height: 12),
-                Text(
+                const SizedBox(height: 12),
+                const Text(
                   "Pun in Chinese (Traditional)",
                   style: TextStyle(
                     color: Color(0XFF005AD4),
@@ -329,10 +326,10 @@ class Iphone1415ProTwoScreen extends StatelessWidget {
               ],
             ),
           ),
-          SizedBox(height: 16),
+          const SizedBox(height: 16),
           Container(
             width: double.maxFinite,
-            margin: EdgeInsets.only(
+            margin: const EdgeInsets.only(
               left: 4,
               right: 2,
             ),
@@ -346,7 +343,7 @@ class Iphone1415ProTwoScreen extends StatelessWidget {
                       borderRadius: BorderRadius.circular(
                         6,
                       ),
-                      gradient: LinearGradient(
+                      gradient: const LinearGradient(
                         begin: Alignment(1.26, -3.3),
                         end: Alignment(0, 1.34),
                         colors: [
@@ -360,7 +357,7 @@ class Iphone1415ProTwoScreen extends StatelessWidget {
                       style: ElevatedButton.styleFrom(
                         backgroundColor: Colors.transparent,
                         side: BorderSide.none,
-                        shape: RoundedRectangleBorder(
+                        shape: const RoundedRectangleBorder(
                             borderRadius: BorderRadius.zero),
                         padding: EdgeInsets.zero,
                         elevation: 0,
@@ -371,7 +368,7 @@ class Iphone1415ProTwoScreen extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
                           Container(
-                            margin: EdgeInsets.only(right: 8),
+                            margin: const EdgeInsets.only(right: 8),
                             child: Image.asset(
                               "assets/images/img_vector_14x14.png",
                               height: 14,
@@ -379,7 +376,7 @@ class Iphone1415ProTwoScreen extends StatelessWidget {
                               fit: BoxFit.contain,
                             ),
                           ),
-                          Text(
+                          const Text(
                             "Save",
                             style: TextStyle(
                               color: Color(0XFF005AD4),
@@ -393,7 +390,7 @@ class Iphone1415ProTwoScreen extends StatelessWidget {
                     ),
                   ),
                 ),
-                SizedBox(width: 16),
+                const SizedBox(width: 16),
                 Expanded(
                   child: Container(
                     width: double.maxFinite,
@@ -402,7 +399,7 @@ class Iphone1415ProTwoScreen extends StatelessWidget {
                       borderRadius: BorderRadius.circular(
                         6,
                       ),
-                      gradient: LinearGradient(
+                      gradient: const LinearGradient(
                         begin: Alignment(0.83, -1.59),
                         end: Alignment(0, 1),
                         colors: [
@@ -416,7 +413,7 @@ class Iphone1415ProTwoScreen extends StatelessWidget {
                       style: ElevatedButton.styleFrom(
                         backgroundColor: Colors.transparent,
                         side: BorderSide.none,
-                        shape: RoundedRectangleBorder(
+                        shape: const RoundedRectangleBorder(
                             borderRadius: BorderRadius.zero),
                         padding: EdgeInsets.zero,
                         elevation: 0,
@@ -427,7 +424,7 @@ class Iphone1415ProTwoScreen extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
                           Container(
-                            margin: EdgeInsets.only(right: 8),
+                            margin: const EdgeInsets.only(right: 8),
                             child: SvgPicture.asset(
                               "assets/images/img_shuffle24dp5f6368fill0wght400grad0opsz24_1.svg",
                               height: 16,
@@ -435,7 +432,7 @@ class Iphone1415ProTwoScreen extends StatelessWidget {
                               fit: BoxFit.contain,
                             ),
                           ),
-                          Text(
+                          const Text(
                             "Regenerate",
                             style: TextStyle(
                               color: Color(0XFFF0F5FA),
