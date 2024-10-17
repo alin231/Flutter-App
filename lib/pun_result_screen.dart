@@ -9,7 +9,7 @@ class Iphone1415ProTwoScreen extends StatelessWidget {
   static Widget builder(BuildContext context) {
     return BlocProvider<Iphone1415ProTwoBloc>(
       create: (context) => Iphone1415ProTwoBloc(Iphone1415ProTwoState(
-        iphone1415ProTwoModelObj: Iphone1415ProTwoModel(),
+        iphone1415ProTwoModelObj: const Iphone1415ProTwoModel(),
       ))
         ..add(Iphone1415ProTwoInitialEvent()),
       child: const Iphone1415ProTwoScreen(),

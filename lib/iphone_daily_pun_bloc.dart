@@ -1,7 +1,5 @@
-import 'package:flutter/material.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'iphone_daily_pun_screen.dart';
 
 /// This class is used in the [gridbasic_item_widget] screen.
 

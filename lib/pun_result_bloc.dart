@@ -9,7 +9,7 @@ class Iphone1415ProTwoModel extends Equatable {
   const Iphone1415ProTwoModel();
 
   Iphone1415ProTwoModel copyWith() {
-    return Iphone1415ProTwoModel();
+    return const Iphone1415ProTwoModel();
   }
 
   @override

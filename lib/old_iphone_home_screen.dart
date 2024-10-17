@@ -90,7 +90,7 @@ class DailyPun extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
+    return const Column(
       children: [
         DailyPunSection(),
       ],
@@ -247,7 +247,7 @@ class _IphoneHomeScreenState extends State<IphoneHomeScreen> {
                   ),
                 ),
                 const SizedBox(height: 18),
-                DailyPun(),
+                const DailyPun(),
                 const SizedBox(height: 22),
                 SizedBox(
                   width: 338,
