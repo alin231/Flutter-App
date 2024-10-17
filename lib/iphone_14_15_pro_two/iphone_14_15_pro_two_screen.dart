@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'iphone_14_15_pro_two_bloc.dart';
+import '/iphone_homepage/iphone_home_screen.dart';
+
 
 class Iphone1415ProTwoScreen extends StatelessWidget {
   const Iphone1415ProTwoScreen({Key? key})
@@ -64,135 +66,130 @@ class Iphone1415ProTwoScreen extends StatelessWidget {
       },
     );
   }
-
-  /// Section Widget
-  PreferredSizeWidget _buildAppBar(BuildContext context) {
-    return AppBar(
-      elevation: 0,
-      toolbarHeight: 56,
-      backgroundColor: Colors.transparent,
-      automaticallyImplyLeading: false,
-      leadingWidth: 94,
-      leading: Padding(
-        padding: EdgeInsets.only(left: 40),
-        child: Row(
-          children: [
-            Padding(
-              padding: EdgeInsets.zero,
-              child: SizedBox(
-                height: 14,
-                width: 14,
-                child: SvgPicture.asset(
-                  "assets/images/img_arrow_left_14x14.svg",
-                ),
+PreferredSizeWidget _buildAppBar(BuildContext context) {
+  return AppBar(
+    elevation: 0,
+    toolbarHeight: 56,
+    backgroundColor: Colors.transparent,
+    automaticallyImplyLeading: false,
+    title: Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        // Left part: Back button with text and icon
+        TextButton.icon(
+          onPressed: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => IphoneHomeScreen.builder(context),
+              ),
+            );
+          },
+          icon: SvgPicture.asset(
+            "assets/images/img_arrow_left.svg",
+            height: 14,
+            width: 14,
+          ),
+          label: Padding(
+            padding: EdgeInsets.only(left: 8),
+            child: Text(
+              "Back",
+              style: TextStyle(
+                color: Color(0XFF5F6369),
+                fontSize: 15,
+                fontFamily: 'Google Sans',
+                fontWeight: FontWeight.w400,
               ),
             ),
-            Padding(
-              padding: EdgeInsets.only(left: 8),
-              child: Text(
-                "Back",
-                style: TextStyle(
-                  color: Color(0XFF5F6369),
-                  fontSize: 15,
-                  fontFamily: 'Google Sans',
-                  fontWeight: FontWeight.w400,
-                ),
-              ),
-            )
-          ],
+          ),
+          style: TextButton.styleFrom(
+            padding: EdgeInsets.symmetric(horizontal: 16), // 增大左右點擊範圍
+          ),
         ),
-      ),
-      title: Padding(
-        padding: EdgeInsets.only(right: 11),
-        child: RichText(
-          text: TextSpan(
-            children: [
-              TextSpan(
-                text: "G",
-                style: TextStyle(
-                  color: Color(0XFF1C73E8),
-                  fontSize: 22.31357765197754,
-                  fontFamily: 'Google Sans',
-                  fontWeight: FontWeight.w700,
-                ),
+        // Middle part: Google Pun (centered)
+        Expanded(
+          child: Center(
+            child: RichText(
+              text: TextSpan(
+                children: [
+                  TextSpan(
+                    text: "G",
+                    style: TextStyle(
+                      color: Color(0XFF1C73E8),
+                      fontSize: 22.31,
+                      fontFamily: 'Google Sans',
+                      fontWeight: FontWeight.w700,
+                    ),
+                  ),
+                  TextSpan(
+                    text: "o",
+                    style: TextStyle(
+                      color: Color(0XFFEA4336),
+                      fontSize: 22.31,
+                      fontFamily: 'Google Sans',
+                      fontWeight: FontWeight.w700,
+                    ),
+                  ),
+                  TextSpan(
+                    text: "o",
+                    style: TextStyle(
+                      color: Color(0XFFFABD05),
+                      fontSize: 22.31,
+                      fontFamily: 'Google Sans',
+                      fontWeight: FontWeight.w700,
+                    ),
+                  ),
+                  TextSpan(
+                    text: "g",
+                    style: TextStyle(
+                      color: Color(0XFF386BF6),
+                      fontSize: 22.31,
+                      fontFamily: 'Google Sans',
+                      fontWeight: FontWeight.w700,
+                    ),
+                  ),
+                  TextSpan(
+                    text: "l",
+                    style: TextStyle(
+                      color: Color(0XFF34A853),
+                      fontSize: 22.31,
+                      fontFamily: 'Google Sans',
+                      fontWeight: FontWeight.w700,
+                    ),
+                  ),
+                  TextSpan(
+                    text: "e",
+                    style: TextStyle(
+                      color: Color(0XFFEA4336),
+                      fontSize: 22.31,
+                      fontFamily: 'Google Sans',
+                      fontWeight: FontWeight.w700,
+                    ),
+                  ),
+                  TextSpan(
+                    text: " ",
+                  ),
+                  TextSpan(
+                    text: "Pun",
+                    style: TextStyle(
+                      color: Color(0XFF005AD4),
+                      fontSize: 22.31,
+                      fontFamily: 'Google Sans',
+                      fontWeight: FontWeight.w500,
+                    ),
+                  ),
+                ],
               ),
-              TextSpan(
-                text: "o",
-                style: TextStyle(
-                  color: Color(0XFFEA4336),
-                  fontSize: 22.31357765197754,
-                  fontFamily: 'Google Sans',
-                  fontWeight: FontWeight.w700,
-                ),
-              ),
-              TextSpan(
-                text: "o",
-                style: TextStyle(
-                  color: Color(0XFFFABD05),
-                  fontSize: 22.31357765197754,
-                  fontFamily: 'Google Sans',
-                  fontWeight: FontWeight.w700,
-                ),
-              ),
-              TextSpan(
-                text: "g",
-                style: TextStyle(
-                  color: Color(0XFF386BF6),
-                  fontSize: 22.31357765197754,
-                  fontFamily: 'Google Sans',
-                  fontWeight: FontWeight.w700,
-                ),
-              ),
-              TextSpan(
-                text: "l",
-                style: TextStyle(
-                  color: Color(0XFF34A853),
-                  fontSize: 22.31357765197754,
-                  fontFamily: 'Google Sans',
-                  fontWeight: FontWeight.w700,
-                ),
-              ),
-              TextSpan(
-                text: "e",
-                style: TextStyle(
-                  color: Color(0XFFEA4336),
-                  fontSize: 22.31357765197754,
-                  fontFamily: 'Google Sans',
-                  fontWeight: FontWeight.w700,
-                ),
-              ),
-              TextSpan(
-                text: " ",
-              ),
-              TextSpan(
-                text: "Pun",
-                style: TextStyle(
-                  color: Color(0XFF005AD4),
-                  fontSize: 22.31357765197754,
-                  fontFamily: 'Google Sans',
-                  fontWeight: FontWeight.w500,
-                ),
-              )
-            ],
+              textAlign: TextAlign.center,
+            ),
           ),
-          textAlign: TextAlign.left,
         ),
-      ),
-      actions: [
-        Padding(
-          padding: EdgeInsets.only(
-            left: 119,
-            bottom: 18,
-          ),
-          child: Image.asset(
-            "assets/images/img_vector.png",
-            height: 14,
-            width: 16,
-          ),
-        )
+        // Right part: empty to balance layout
+        SizedBox(width: 40), // Placeholder for symmetry
       ],
-    );
-  }
+    ),
+  );
+}
 
   /// Section Widget
   Widget _buildChineseSection(BuildContext context) {
