@@ -1,6 +1,8 @@
+import 'package:flutter/material.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-// dfjajd;lfdsjflsd;
+import 'iphone_daily_pun_screen.dart';
+
 /// This class is used in the [gridbasic_item_widget] screen.
 
 // ignore_for_file: must_be_immutable
@@ -55,7 +57,7 @@ class IphoneDailyPunModel extends Equatable {
 /// A bloc that manages the state of a IphoneDailyPun according to the event that is dispatched to it.
 class IphoneDailyPunBloc
     extends Bloc<IphoneDailyPunEvent, IphoneDailyPunState> {
-  IphoneDailyPunBloc(super.initialState) {
+  IphoneDailyPunBloc(IphoneDailyPunState initialState) : super(initialState) {
     on<IphoneDailyPunInitialEvent>(_onInitialize);
   }
 

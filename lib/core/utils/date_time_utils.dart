@@ -2,7 +2,7 @@ import 'package:intl/intl.dart';
 import 'package:intl/date_symbol_data_local.dart';
 
 const String dateTimeFormatPattern = 'dd/MM/yyyy';
-// fuck mac
+
 extension DateTimeExtension on DateTime {
   String format({
     String pattern = dateTimeFormatPattern,

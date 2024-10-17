@@ -2,9 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'iphone_flashcards_bloc.dart';
-// dfjajd;lfdsjflsd;
+
 class IphoneFlashcardsScreen extends StatelessWidget {
-  const IphoneFlashcardsScreen({super.key});
+  const IphoneFlashcardsScreen({Key? key})
+      : super(
+          key: key,
+        );
 
   static Widget builder(BuildContext context) {
     return BlocProvider<IphoneFlashcardsBloc>(
@@ -12,7 +15,7 @@ class IphoneFlashcardsScreen extends StatelessWidget {
         iphoneFlashcardsModelObj: IphoneFlashcardsModel(),
       ))
         ..add(IphoneFlashcardsInitialEvent()),
-      child: const IphoneFlashcardsScreen(),
+      child: IphoneFlashcardsScreen(),
     );
   }
 
@@ -20,18 +23,18 @@ class IphoneFlashcardsScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        backgroundColor: const Color(0XFFFFFFFF),
+        backgroundColor: Color(0XFFFFFFFF),
         body: SizedBox(
           width: double.maxFinite,
           child: SingleChildScrollView(
             child: Container(
               width: double.maxFinite,
-              padding: const EdgeInsets.only(top: 44),
+              padding: EdgeInsets.only(top: 44),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   _buildNavigationSection(context),
-                  const Padding(
+                  Padding(
                     padding: EdgeInsets.only(left: 32),
                     child: Text(
                       "Ready for a quiz?",
@@ -43,10 +46,10 @@ class IphoneFlashcardsScreen extends StatelessWidget {
                       ),
                     ),
                   ),
-                  const SizedBox(height: 16),
+                  SizedBox(height: 16),
                   _buildQuizPreparationSection(context),
-                  const SizedBox(height: 28),
-                  const Padding(
+                  SizedBox(height: 28),
+                  Padding(
                     padding: EdgeInsets.only(left: 32),
                     child: Text(
                       "Recently Added",
@@ -58,9 +61,9 @@ class IphoneFlashcardsScreen extends StatelessWidget {
                       ),
                     ),
                   ),
-                  const SizedBox(height: 10),
+                  SizedBox(height: 10),
                   _buildRecentlyAddedList(context),
-                  const SizedBox(height: 24),
+                  SizedBox(height: 24),
                   Align(
                     alignment: Alignment.center,
                     child: Container(
@@ -70,7 +73,7 @@ class IphoneFlashcardsScreen extends StatelessWidget {
                         borderRadius: BorderRadius.circular(
                           18,
                         ),
-                        gradient: const LinearGradient(
+                        gradient: LinearGradient(
                           begin: Alignment(0.83, -1.59),
                           end: Alignment(0.07, 2.44),
                           colors: [
@@ -84,13 +87,13 @@ class IphoneFlashcardsScreen extends StatelessWidget {
                         style: ElevatedButton.styleFrom(
                           backgroundColor: Colors.transparent,
                           side: BorderSide.none,
-                          shape: const RoundedRectangleBorder(
+                          shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.zero),
                           padding: EdgeInsets.zero,
                           elevation: 0,
                         ),
                         onPressed: () {},
-                        child: const Text(
+                        child: Text(
                           "Show all results",
                           style: TextStyle(
                             color: Color(0XFFFFFFFF),
@@ -102,7 +105,7 @@ class IphoneFlashcardsScreen extends StatelessWidget {
                       ),
                     ),
                   ),
-                  const SizedBox(height: 16)
+                  SizedBox(height: 16)
                 ],
               ),
             ),
@@ -116,8 +119,8 @@ class IphoneFlashcardsScreen extends StatelessWidget {
   Widget _buildNavigationSection(BuildContext context) {
     return Container(
       width: double.maxFinite,
-      padding: const EdgeInsets.symmetric(horizontal: 32),
-      decoration: const BoxDecoration(
+      padding: EdgeInsets.symmetric(horizontal: 32),
+      decoration: BoxDecoration(
         color: Color(0XCCFFFFFF),
         boxShadow: [
           BoxShadow(
@@ -129,7 +132,7 @@ class IphoneFlashcardsScreen extends StatelessWidget {
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          const SizedBox(height: 54),
+          SizedBox(height: 54),
           SizedBox(
             width: double.maxFinite,
             child: Row(
@@ -140,11 +143,11 @@ class IphoneFlashcardsScreen extends StatelessWidget {
                     height: 14,
                     width: 14,
                     child: SvgPicture.asset(
-                      "assets/images/img_arrow_left_14x14.svg",
+                      "assets/images/img_arrow_left.svg",
                     ),
                   ),
                 ),
-                const Padding(
+                Padding(
                   padding: EdgeInsets.only(left: 8),
                   child: Text(
                     "Back",
@@ -159,14 +162,14 @@ class IphoneFlashcardsScreen extends StatelessWidget {
               ],
             ),
           ),
-          const SizedBox(height: 14),
+          SizedBox(height: 14),
           Container(
             width: double.maxFinite,
-            margin: const EdgeInsets.only(right: 8),
+            margin: EdgeInsets.only(right: 8),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                const Text(
+                Text(
                   "Flashcards",
                   style: TextStyle(
                     color: Color(0XFF005AD4),
@@ -194,7 +197,7 @@ class IphoneFlashcardsScreen extends StatelessWidget {
   /// Section Widget
   Widget _buildQuizPreparationSection(BuildContext context) {
     return Container(
-      margin: const EdgeInsets.only(left: 34),
+      margin: EdgeInsets.only(left: 34),
       child: BlocSelector<IphoneFlashcardsBloc, IphoneFlashcardsState,
           IphoneFlashcardsModel?>(
         selector: (state) => state.iphoneFlashcardsModelObj,
@@ -228,17 +231,17 @@ class IphoneFlashcardsScreen extends StatelessWidget {
   /// Section Widget
   Widget _buildRecentlyAddedList(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 26),
+      padding: EdgeInsets.symmetric(horizontal: 26),
       child: BlocSelector<IphoneFlashcardsBloc, IphoneFlashcardsState,
           IphoneFlashcardsModel?>(
         selector: (state) => state.iphoneFlashcardsModelObj,
         builder: (context, iphoneFlashcardsModelObj) {
           return ListView.separated(
             padding: EdgeInsets.zero,
-            physics: const NeverScrollableScrollPhysics(),
+            physics: NeverScrollableScrollPhysics(),
             shrinkWrap: true,
             separatorBuilder: (context, index) {
-              return const SizedBox(
+              return SizedBox(
                 height: 12,
               );
             },
@@ -262,7 +265,10 @@ class IphoneFlashcardsScreen extends StatelessWidget {
 // ignore_for_file: must_be_immutable
 class QuizpreparationsectionItemWidget extends StatelessWidget {
   QuizpreparationsectionItemWidget(this.quizpreparationsectionItemModelObj,
-      {super.key});
+      {Key? key})
+      : super(
+          key: key,
+        );
 
   QuizpreparationsectionItemModel quizpreparationsectionItemModelObj;
 
@@ -272,7 +278,7 @@ class QuizpreparationsectionItemWidget extends StatelessWidget {
       height: 170,
       width: 166,
       decoration: BoxDecoration(
-        color: const Color(0XFFD9D9D9),
+        color: Color(0XFFD9D9D9),
         borderRadius: BorderRadius.circular(
           8,
         ),
@@ -283,7 +289,10 @@ class QuizpreparationsectionItemWidget extends StatelessWidget {
 
 // ignore_for_file: must_be_immutable
 class RecentlyaddedlistItemWidget extends StatelessWidget {
-  RecentlyaddedlistItemWidget(this.recentlyaddedlistItemModelObj, {super.key});
+  RecentlyaddedlistItemWidget(this.recentlyaddedlistItemModelObj, {Key? key})
+      : super(
+          key: key,
+        );
 
   RecentlyaddedlistItemModel recentlyaddedlistItemModelObj;
 
@@ -291,7 +300,7 @@ class RecentlyaddedlistItemWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Ink(
       decoration: BoxDecoration(
-        color: const Color(0XFFF5F5F5),
+        color: Color(0XFFF5F5F5),
         borderRadius: BorderRadius.circular(
           8,
         ),
@@ -305,57 +314,55 @@ class RecentlyaddedlistItemWidget extends StatelessWidget {
             8,
           ),
         ),
-        visualDensity: const VisualDensity(
+        visualDensity: VisualDensity(
           vertical: -4,
           horizontal: -4,
         ),
-        contentPadding: const EdgeInsets.symmetric(
+        contentPadding: EdgeInsets.symmetric(
           horizontal: 6,
           vertical: 12,
         ),
-        title: Expanded(
-          child: Padding(
-            padding: const EdgeInsets.only(top: 2),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  recentlyaddedlistItemModelObj.dinosaur!,
-                  style: const TextStyle(
-                    color: Color(0XFF5F6369),
-                    fontSize: 24.095813751220703,
-                    fontFamily: 'Google Sans',
-                    fontWeight: FontWeight.w400,
-                  ),
+        title: Padding(
+          padding: EdgeInsets.only(top: 2),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                recentlyaddedlistItemModelObj.dinosaur!,
+                style: TextStyle(
+                  color: Color(0XFF5F6369),
+                  fontSize: 24.095813751220703,
+                  fontFamily: 'Google Sans',
+                  fontWeight: FontWeight.w400,
                 ),
-                const SizedBox(height: 2),
-                RichText(
-                  text: const TextSpan(
-                    children: [
-                      TextSpan(
-                        text: "English  →  ",
-                        style: TextStyle(
-                          color: Color(0XFF000000),
-                          fontSize: 11,
-                          fontFamily: 'Google Sans',
-                          fontWeight: FontWeight.w400,
-                        ),
+              ),
+              SizedBox(height: 2),
+              RichText(
+                text: TextSpan(
+                  children: [
+                    TextSpan(
+                      text: "English  →  ",
+                      style: TextStyle(
+                        color: Color(0XFF000000),
+                        fontSize: 11,
+                        fontFamily: 'Google Sans',
+                        fontWeight: FontWeight.w400,
                       ),
-                      TextSpan(
-                        text: "Chinese (Traditional)",
-                        style: TextStyle(
-                          color: Color(0XFF005AD4),
-                          fontSize: 11,
-                          fontFamily: 'Google Sans',
-                          fontWeight: FontWeight.w400,
-                        ),
-                      )
-                    ],
-                  ),
-                  textAlign: TextAlign.left,
-                )
-              ],
-            ),
+                    ),
+                    TextSpan(
+                      text: "Chinese (Traditional)",
+                      style: TextStyle(
+                        color: Color(0XFF005AD4),
+                        fontSize: 11,
+                        fontFamily: 'Google Sans',
+                        fontWeight: FontWeight.w400,
+                      ),
+                    )
+                  ],
+                ),
+                textAlign: TextAlign.left,
+              )
+            ],
           ),
         ),
         trailing: Padding(

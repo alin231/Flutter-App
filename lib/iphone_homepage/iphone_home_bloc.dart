@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'pun_homepage_screen.dart';
-// dfjajd;lfdsjflsd;
+import 'iphone_home_screen.dart';
+
 /// This class defines the variables used in the [iphone_home_screen],
 /// and is typically used to hold data that is passed between different parts of the application.
 
@@ -31,10 +31,29 @@ class IphoneHomeModel extends Equatable {
 
 /// A bloc that manages the state of a IphoneHome according to the event that is dispatched to it.
 class IphoneHomeBloc extends Bloc<IphoneHomeEvent, IphoneHomeState> {
-  IphoneHomeBloc(super.initialState) {
+  IphoneHomeBloc(IphoneHomeState initialState) : super(initialState) {
     on<IphoneHomeInitialEvent>(_onInitialize);
     on<onSelected>(_onSelected);
     on<onSelected1>(_onSelected1);
+  }
+
+  _onInitialize(
+    IphoneHomeInitialEvent event,
+    Emitter<IphoneHomeState> emit,
+  ) async {
+    emit(
+      state.copyWith(
+        frame2017oneController: TextEditingController(),
+      ),
+    );
+    emit(
+      state.copyWith(
+        iphoneHomeModelObj: state.iphoneHomeModelObj?.copyWith(
+          dropdownItemList: fillDropdownItemList(),
+          dropdownItemList1: fillDropdownItemList1(),
+        ),
+      ),
+    );
   }
 
   _onSelected(
@@ -89,25 +108,6 @@ class IphoneHomeBloc extends Bloc<IphoneHomeEvent, IphoneHomeState> {
         title: "Item Three",
       )
     ];
-  }
-
-  _onInitialize(
-    IphoneHomeInitialEvent event,
-    Emitter<IphoneHomeState> emit,
-  ) async {
-    emit(
-      state.copyWith(
-        frame2017oneController: TextEditingController(),
-      ),
-    );
-    emit(
-      state.copyWith(
-        iphoneHomeModelObj: state.iphoneHomeModelObj?.copyWith(
-          dropdownItemList: fillDropdownItemList(),
-          dropdownItemList1: fillDropdownItemList1(),
-        ),
-      ),
-    );
   }
 }
 

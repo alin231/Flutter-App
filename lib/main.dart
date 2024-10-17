@@ -1,25 +1,27 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'pun_homepage_screen.dart';
 import 'routes/app_routes.dart';
-// dfjajd;lfdsjflsd;
+
 var globalMessengerKey = GlobalKey<ScaffoldMessengerState>();
+
+
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
-  SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
-  runApp(const MyApp());
+  Future.wait([
+    SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp])
+  ]).then((value) {
+    runApp(MyApp());
+  });
 }
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
 
+class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'iphone_homepage_2',
+      title: 'iphone_homepage',
       debugShowCheckedModeBanner: false,
       initialRoute: AppRoutes.initialRoute,
       routes: AppRoutes.routes,
-      home: const IphoneHomeScreen(), // Added home screen
     );
   }
 }

@@ -3,9 +3,12 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:responsive_grid_list/responsive_grid_list.dart';
 import 'iphone_daily_pun_bloc.dart';
-// dfjajd;lfdsjflsd;
+
 class IphoneDailyPunScreen extends StatelessWidget {
-  const IphoneDailyPunScreen({super.key});
+  const IphoneDailyPunScreen({Key? key})
+      : super(
+          key: key,
+        );
 
   static Widget builder(BuildContext context) {
     return BlocProvider<IphoneDailyPunBloc>(
@@ -13,7 +16,7 @@ class IphoneDailyPunScreen extends StatelessWidget {
         iphoneDailyPunModelObj: IphoneDailyPunModel(),
       ))
         ..add(IphoneDailyPunInitialEvent()),
-      child: const IphoneDailyPunScreen(),
+      child: IphoneDailyPunScreen(),
     );
   }
 
@@ -21,18 +24,18 @@ class IphoneDailyPunScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        backgroundColor: const Color(0XFFFFFFFF),
+        backgroundColor: Color(0XFFFFFFFF),
         body: Container(
           width: double.maxFinite,
-          padding: const EdgeInsets.only(top: 44),
+          padding: EdgeInsets.only(top: 44),
           child: Column(
             children: [
               _buildDailyPunSection(context),
-              const SizedBox(height: 18),
+              SizedBox(height: 18),
               _buildTranslationSection(context),
-              const SizedBox(height: 18),
+              SizedBox(height: 18),
               _buildPunLibrariesSection(context),
-              const SizedBox(height: 54)
+              SizedBox(height: 54)
             ],
           ),
         ),
@@ -44,22 +47,29 @@ class IphoneDailyPunScreen extends StatelessWidget {
   Widget _buildDailyPunSection(BuildContext context) {
     return Container(
       width: double.maxFinite,
-      padding: const EdgeInsets.symmetric(
+      padding: EdgeInsets.symmetric(
         horizontal: 34,
         vertical: 8,
       ),
-      decoration: const BoxDecoration(
+      decoration: BoxDecoration(
         color: Color(0XFFFFFFFF),
+        boxShadow: [
+          BoxShadow(
+            spreadRadius: 2,
+            blurRadius: 2,
+          )
+        ],
       ),
       child: Column(
+        mainAxisSize: MainAxisSize.min,
         children: [
-          const SizedBox(height: 26),
+          SizedBox(height: 26),
           SizedBox(
             width: double.maxFinite,
             child: Row(
               children: [
                 Padding(
-                  padding: const EdgeInsets.all(0), // Add the required padding argument
+                  padding: EdgeInsets.zero,
                   child: SizedBox(
                     height: 14,
                     width: 14,
@@ -68,7 +78,7 @@ class IphoneDailyPunScreen extends StatelessWidget {
                     ),
                   ),
                 ),
-                const Padding(
+                Padding(
                   padding: EdgeInsets.only(left: 8),
                   child: Text(
                     "Back",
@@ -83,15 +93,15 @@ class IphoneDailyPunScreen extends StatelessWidget {
               ],
             ),
           ),
-          const SizedBox(height: 8),
+          SizedBox(height: 8),
           Container(
             width: double.maxFinite,
-            margin: const EdgeInsets.only(right: 6),
+            margin: EdgeInsets.only(right: 6),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const Align(
+                Align(
                   alignment: Alignment.center,
                   child: Text(
                     "Daily pun",
@@ -104,7 +114,7 @@ class IphoneDailyPunScreen extends StatelessWidget {
                   ),
                 ),
                 Padding(
-                  padding: const EdgeInsets.only(top: 10),
+                  padding: EdgeInsets.only(top: 10),
                   child: Image.asset(
                     "assets/images/img_vector.png",
                     height: 28,
@@ -123,13 +133,13 @@ class IphoneDailyPunScreen extends StatelessWidget {
   Widget _buildTranslationSection(BuildContext context) {
     return Container(
       width: double.maxFinite,
-      margin: const EdgeInsets.symmetric(horizontal: 26),
-      padding: const EdgeInsets.symmetric(
+      margin: EdgeInsets.symmetric(horizontal: 26),
+      padding: EdgeInsets.symmetric(
         horizontal: 4,
         vertical: 8,
       ),
       decoration: BoxDecoration(
-        color: const Color(0XFFF5F5F5),
+        color: Color(0XFFF5F5F5),
         borderRadius: BorderRadius.circular(
           8,
         ),
@@ -145,9 +155,9 @@ class IphoneDailyPunScreen extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Padding(
-                  padding: const EdgeInsets.only(left: 18),
+                  padding: EdgeInsets.only(left: 18),
                   child: RichText(
-                    text: const TextSpan(
+                    text: TextSpan(
                       children: [
                         TextSpan(
                           text: "English  →  ",
@@ -173,7 +183,7 @@ class IphoneDailyPunScreen extends StatelessWidget {
                   ),
                 ),
                 Padding(
-                  padding: const EdgeInsets.all(0), // Add the required padding argument
+                  padding: EdgeInsets.zero,
                   child: SizedBox(
                     height: 40,
                     width: 42,
@@ -185,8 +195,8 @@ class IphoneDailyPunScreen extends StatelessWidget {
               ],
             ),
           ),
-          const SizedBox(height: 4),
-          const Padding(
+          SizedBox(height: 4),
+          Padding(
             padding: EdgeInsets.only(left: 16),
             child: Text(
               "Dinosaur",
@@ -198,7 +208,7 @@ class IphoneDailyPunScreen extends StatelessWidget {
               ),
             ),
           ),
-          const Padding(
+          Padding(
             padding: EdgeInsets.only(left: 16),
             child: Text(
               "di • no • saur",
@@ -210,8 +220,8 @@ class IphoneDailyPunScreen extends StatelessWidget {
               ),
             ),
           ),
-          const SizedBox(height: 2),
-          const Padding(
+          SizedBox(height: 2),
+          Padding(
             padding: EdgeInsets.only(left: 16),
             child: Text(
               "恐龍",
@@ -223,14 +233,14 @@ class IphoneDailyPunScreen extends StatelessWidget {
               ),
             ),
           ),
-          const SizedBox(height: 4),
+          SizedBox(height: 4),
           Container(
             width: double.maxFinite,
-            margin: const EdgeInsets.symmetric(horizontal: 16),
+            margin: EdgeInsets.symmetric(horizontal: 16),
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const Align(
+                Align(
                   alignment: Alignment.center,
                   child: Text(
                     "呆腦獸",
@@ -242,8 +252,8 @@ class IphoneDailyPunScreen extends StatelessWidget {
                     ),
                   ),
                 ),
-                const Spacer(),
-                const Text(
+                Spacer(),
+                Text(
                   "powered by ",
                   style: TextStyle(
                     color: Color(0XFF5F6368),
@@ -253,7 +263,7 @@ class IphoneDailyPunScreen extends StatelessWidget {
                   ),
                 ),
                 Padding(
-                  padding: const EdgeInsets.only(
+                  padding: EdgeInsets.only(
                     left: 6,
                     top: 4,
                   ),
@@ -277,14 +287,14 @@ class IphoneDailyPunScreen extends StatelessWidget {
   Widget _buildPunLibrariesSection(BuildContext context) {
     return Container(
       width: double.maxFinite,
-      margin: const EdgeInsets.only(
+      margin: EdgeInsets.only(
         left: 26,
         right: 30,
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Text(
+          Text(
             "Pun Libraries",
             style: TextStyle(
               color: Color(0XFF4B4F56),
@@ -293,7 +303,7 @@ class IphoneDailyPunScreen extends StatelessWidget {
               fontWeight: FontWeight.w500,
             ),
           ),
-          const SizedBox(height: 18),
+          SizedBox(height: 18),
           BlocSelector<IphoneDailyPunBloc, IphoneDailyPunState,
               IphoneDailyPunModel?>(
             selector: (state) => state.iphoneDailyPunModelObj,
@@ -307,7 +317,7 @@ class IphoneDailyPunScreen extends StatelessWidget {
                 builder: (context, items) => ListView(
                   shrinkWrap: true,
                   padding: EdgeInsets.zero,
-                  physics: const NeverScrollableScrollPhysics(),
+                  physics: NeverScrollableScrollPhysics(),
                   children: items,
                 ),
                 gridItems: List.generate(
@@ -332,7 +342,10 @@ class IphoneDailyPunScreen extends StatelessWidget {
 
 // ignore_for_file: must_be_immutable
 class GridbasicItemWidget extends StatelessWidget {
-  GridbasicItemWidget(this.gridbasicItemModelObj, {super.key});
+  GridbasicItemWidget(this.gridbasicItemModelObj, {Key? key})
+      : super(
+          key: key,
+        );
 
   GridbasicItemModel gridbasicItemModelObj;
 
@@ -340,13 +353,13 @@ class GridbasicItemWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       width: double.maxFinite,
-      padding: const EdgeInsets.only(
+      padding: EdgeInsets.only(
         left: 12,
         top: 10,
         bottom: 10,
       ),
       decoration: BoxDecoration(
-        color: const Color(0XFFF5F5F5),
+        color: Color(0XFFF5F5F5),
         borderRadius: BorderRadius.circular(
           6,
         ),
@@ -356,7 +369,7 @@ class GridbasicItemWidget extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          const SizedBox(height: 2),
+          SizedBox(height: 2),
           SizedBox(
             height: 20,
             width: 28,
@@ -364,10 +377,10 @@ class GridbasicItemWidget extends StatelessWidget {
               gridbasicItemModelObj.basicEnglish!,
             ),
           ),
-          const SizedBox(height: 26),
+          SizedBox(height: 26),
           Text(
             gridbasicItemModelObj.basicenglish1!,
-            style: const TextStyle(
+            style: TextStyle(
               color: Color(0XFF333333),
               fontSize: 14,
               fontFamily: 'Google Sans',
