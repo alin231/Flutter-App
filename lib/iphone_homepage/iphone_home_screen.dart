@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'iphone_home_bloc.dart';
+import 'package:myapp/iphone_14_15_pro_two/iphone_14_15_pro_two_screen.dart';
+import 'package:myapp/iphone_flashcards/iphone_flashcards_screen.dart';
 
 ///SelectionPopupModel is common model
 ///used for setting data into dropdowns
@@ -278,7 +280,14 @@ class IphoneHomeScreen extends StatelessWidget {
                         ),
                       ),
                       IconButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => Iphone1415ProTwoScreen.builder(context),
+                            ),
+                          );
+                        },
                         constraints: BoxConstraints(
                           minHeight: 112,
                           minWidth: 112,
