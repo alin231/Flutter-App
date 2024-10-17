@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'iphone_flashcards_bloc.dart';
+import '/iphone_homepage/iphone_home_screen.dart';
 
 class IphoneFlashcardsScreen extends StatelessWidget {
   const IphoneFlashcardsScreen({Key? key})
@@ -133,33 +134,34 @@ class IphoneFlashcardsScreen extends StatelessWidget {
         mainAxisSize: MainAxisSize.min,
         children: [
           SizedBox(height: 54),
-          SizedBox(
-            width: double.maxFinite,
-            child: Row(
-              children: [
-                Padding(
-                  padding: EdgeInsets.zero,
-                  child: SizedBox(
-                    height: 14,
-                    width: 14,
-                    child: SvgPicture.asset(
-                      "assets/images/img_arrow_left.svg",
-                    ),
-                  ),
+          TextButton.icon(
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => IphoneHomeScreen.builder(context),
                 ),
-                Padding(
-                  padding: EdgeInsets.only(left: 8),
-                  child: Text(
-                    "Back",
-                    style: TextStyle(
-                      color: Color(0XFF5F6369),
-                      fontSize: 15,
-                      fontFamily: 'Google Sans',
-                      fontWeight: FontWeight.w400,
-                    ),
-                  ),
-                )
-              ],
+              );
+            },
+            icon: SvgPicture.asset(
+              "assets/images/img_arrow_left.svg",
+              height: 14,
+              width: 14,
+            ),
+            label: Padding(
+              padding: EdgeInsets.only(left: 8),
+              child: Text(
+                "Back",
+                style: TextStyle(
+                  color: Color(0XFF5F6369),
+                  fontSize: 15,
+                  fontFamily: 'Google Sans',
+                  fontWeight: FontWeight.w400,
+                ),
+              ),
+            ),
+            style: TextButton.styleFrom(
+              padding: EdgeInsets.symmetric(horizontal: 16), // 控制左右的 padding，讓點擊區域更大
             ),
           ),
           SizedBox(height: 14),
