@@ -4,7 +4,7 @@ import 'package:google_generative_ai/google_generative_ai.dart';
 import 'package:myapp/global_variables.dart';
 import 'package:image_picker/image_picker.dart';
 
-
+// dfjajd;lfdsjflsd;
 class MainScreen extends StatefulWidget {
   const MainScreen({super.key});
 

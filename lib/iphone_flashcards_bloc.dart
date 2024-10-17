@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 /// This class defines the variables used in the [iphone_flashcards_screen],
 /// and is typically used to hold data that is passed between different parts of the application.
-
+// dfjajd;lfdsjflsd;
 // ignore_for_file: must_be_immutable
 class IphoneFlashcardsModel extends Equatable {
   IphoneFlashcardsModel(
