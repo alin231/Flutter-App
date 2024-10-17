@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import '../pun_homepage_screen.dart';
 import '../iphone_daily_pun_screen.dart';
-
+// fuck mac
 // ignore_for_file: must_be_immutable
 class AppRoutes {
   static const String punHomepageScreen = '/pun_homepage_screen';
