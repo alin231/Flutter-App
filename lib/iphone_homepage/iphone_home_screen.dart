@@ -321,19 +321,30 @@ class IphoneHomeScreen extends StatelessWidget {
                       ),
                       Column(
                         children: [
-                          Padding(
-                            padding: EdgeInsets.only(
-                              left: 8,
-                              right: 10,
-                            ),
-                            child: SizedBox(
-                              height: 34,
-                              width: 34,
-                              child: SvgPicture.asset(
-                                "assets/images/img_content_copy_24.svg",
+                          IconButton(
+                            onPressed: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => IphoneFlashcardsScreen.builder(context),
+                                ),
+                              );
+                            },
+                            icon: Padding(
+                              padding: EdgeInsets.only(
+                                left: 8,
+                                right: 10,
+                              ),
+                              child: SizedBox(
+                                height: 34,
+                                width: 34,
+                                child: SvgPicture.asset(
+                                  "assets/images/img_content_copy_24.svg",
+                                ),
                               ),
                             ),
                           ),
+
                           SizedBox(height: 10),
                           Text(
                             "Flashcards",

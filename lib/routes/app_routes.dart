@@ -16,6 +16,6 @@ class AppRoutes {
     iphoneHomepage: IphoneHomeScreen.builder,
     iphoneFlashcardsScreen: IphoneFlashcardsScreen.builder,
     iphone1415ProTwoScreen: Iphone1415ProTwoScreen.builder,
-    initialRoute: IphoneHomeScreen.builder,
+    initialRoute: IphoneDailyPunScreen.builder,
   };
 }
