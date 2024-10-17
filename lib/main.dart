@@ -1,25 +1,23 @@
 import 'package:flutter/material.dart';
-import 'package:myapp/main_screen.dart';
+import 'package:flutter/services.dart';
+import 'iphone_home_screen.dart';
+import 'routes/app_routes.dart';
 
+var globalMessengerKey = GlobalKey<ScaffoldMessengerState>();
 void main() {
-  runApp(const MyApp());
+  WidgetsFlutterBinding.ensureInitialized();
+  SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
+  runApp(MyApp());
 }
-
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
-
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      title: 'iphone_homepage_2',
       debugShowCheckedModeBanner: false,
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.indigo),
-        useMaterial3: true,
-      ),
-      home: const MainScreen(),
+      initialRoute: AppRoutes.initialRoute,
+      routes: AppRoutes.routes,
+      home: IphoneHomeScreen(), // Added home screen
     );
   }
 }
-
-//test push
