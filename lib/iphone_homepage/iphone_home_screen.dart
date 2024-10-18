@@ -238,6 +238,8 @@ class IphoneHomeScreen extends StatelessWidget {
                     },
                   ),
                 ),
+                
+                
                 SizedBox(height: 18),
                 _buildLanguageSelectionSection(context),
                 Spacer(),
@@ -441,146 +443,156 @@ class IphoneHomeScreen extends StatelessWidget {
           BlocSelector<IphoneHomeBloc, IphoneHomeState, IphoneHomeModel?>(
             selector: (state) => state.iphoneHomeModelObj,
             builder: (context, iphoneHomeModelObj) {
-              return SizedBox(
-                width: 140,
-                child: DropdownButtonFormField<SelectionPopupModel>(
-                  focusNode: FocusNode(),
-                  autofocus: true,
-                  style: TextStyle(
-                    color: Color(0XFF666666),
-                    fontSize: 10.441558837890625,
-                    fontFamily: 'Google Sans',
-                    fontWeight: FontWeight.w400,
-                  ),
-                  onChanged: (value) {
-                    context
-                        .read<IphoneHomeBloc>()
-                        .add(onSelected(value: value!));
-                  },
-                  items: iphoneHomeModelObj?.dropdownItemList
-                      .map((SelectionPopupModel item) {
-                    return DropdownMenuItem<SelectionPopupModel>(
-                      value: item,
-                      child: Text(
-                        item.title,
-                        textAlign: TextAlign.left,
-                      ),
-                    );
-                  }).toList(),
-                  decoration: InputDecoration(
-                    hintText: "Select Language",
-                    hintStyle: TextStyle(
-                      color: Color(0XFF666666),
-                      fontSize: 10.441558837890625,
+              return Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    "Pun language (Your Native Language)",
+                    style: TextStyle(
+                      color: Color(0XFFFFFFFF),
+                      fontSize: 14,
                       fontFamily: 'Google Sans',
                       fontWeight: FontWeight.w400,
                     ),
-                    enabledBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(
-                        4,
+                  ),
+                  SizedBox(height: 8), // Add some space between the text and the dropdown
+                  SizedBox(
+                    width: 140,
+                    child: DropdownButtonFormField<SelectionPopupModel>(
+                      focusNode: FocusNode(),
+                      autofocus: true,
+                      style: TextStyle(
+                        color: Color(0XFF666666),
+                        fontSize: 10.441558837890625,
+                        fontFamily: 'Google Sans',
+                        fontWeight: FontWeight.w400,
                       ),
-                      borderSide: BorderSide.none,
-                    ),
-                    focusedBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(
-                        4,
+                      onChanged: (value) {
+                        context.read<IphoneHomeBloc>().add(onSelected(value: value!));
+                      },
+                      items: iphoneHomeModelObj?.dropdownItemList
+                          .map((SelectionPopupModel item) {
+                        return DropdownMenuItem<SelectionPopupModel>(
+                          value: item,
+                          child: Text(
+                            item.title,
+                            textAlign: TextAlign.left,
+                          ),
+                        );
+                      }).toList(),
+                      decoration: InputDecoration(
+                        hintText: "Select Language",
+                        hintStyle: TextStyle(
+                          color: Color(0XFF666666),
+                          fontSize: 10.441558837890625,
+                          fontFamily: 'Google Sans',
+                          fontWeight: FontWeight.w400,
+                        ),
+                        enabledBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(4),
+                          borderSide: BorderSide.none,
+                        ),
+                        focusedBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(4),
+                          borderSide: BorderSide.none,
+                        ),
+                        disabledBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(4),
+                          borderSide: BorderSide.none,
+                        ),
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(4),
+                          borderSide: BorderSide.none,
+                        ),
+                        filled: true,
+                        fillColor: Color(0XFFFFFFFF),
+                        isDense: true,
+                        contentPadding: EdgeInsets.symmetric(
+                          horizontal: 8,
+                          vertical: 12,
+                        ),
                       ),
-                      borderSide: BorderSide.none,
-                    ),
-                    disabledBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(
-                        4,
-                      ),
-                      borderSide: BorderSide.none,
-                    ),
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(
-                        4,
-                      ),
-                      borderSide: BorderSide.none,
-                    ),
-                    filled: true,
-                    fillColor: Color(0XFFFFFFFF),
-                    isDense: true,
-                    contentPadding: EdgeInsets.symmetric(
-                      horizontal: 8,
-                      vertical: 12,
                     ),
                   ),
-                ),
+                ],
               );
             },
           ),
           BlocSelector<IphoneHomeBloc, IphoneHomeState, IphoneHomeModel?>(
             selector: (state) => state.iphoneHomeModelObj,
             builder: (context, iphoneHomeModelObj) {
-              return SizedBox(
-                width: 140,
-                child: DropdownButtonFormField<SelectionPopupModel>(
-                  focusNode: FocusNode(),
-                  autofocus: true,
-                  style: TextStyle(
-                    color: Color(0XFF666666),
-                    fontSize: 10.441558837890625,
-                    fontFamily: 'Google Sans',
-                    fontWeight: FontWeight.w400,
-                  ),
-                  onChanged: (value) {
-                    context
-                        .read<IphoneHomeBloc>()
-                        .add(onSelected1(value: value!));
-                  },
-                  items: iphoneHomeModelObj?.dropdownItemList1
-                      .map((SelectionPopupModel item) {
-                    return DropdownMenuItem<SelectionPopupModel>(
-                      value: item,
-                      child: Text(
-                        item.title,
-                        textAlign: TextAlign.left,
-                      ),
-                    );
-                  }).toList(),
-                  decoration: InputDecoration(
-                    hintText: "Select Language",
-                    hintStyle: TextStyle(
-                      color: Color(0XFF666666),
-                      fontSize: 10.441558837890625,
+              return Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    "Target Language",
+                    style: TextStyle(
+                      color: Color(0XFFFFFFFF),
+                      fontSize: 14,
                       fontFamily: 'Google Sans',
                       fontWeight: FontWeight.w400,
                     ),
-                    enabledBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(
-                        4,
+                  ),
+                  SizedBox(height: 8), // Add some space between the text and the dropdown
+                  SizedBox(
+                    width: 140,
+                    child: DropdownButtonFormField<SelectionPopupModel>(
+                      focusNode: FocusNode(),
+                      autofocus: true,
+                      style: TextStyle(
+                        color: Color(0XFF666666),
+                        fontSize: 10.441558837890625,
+                        fontFamily: 'Google Sans',
+                        fontWeight: FontWeight.w400,
                       ),
-                      borderSide: BorderSide.none,
-                    ),
-                    focusedBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(
-                        4,
+                      onChanged: (value) {
+                        context.read<IphoneHomeBloc>().add(onSelected(value: value!));
+                      },
+                      items: iphoneHomeModelObj?.dropdownItemList
+                          .map((SelectionPopupModel item) {
+                        return DropdownMenuItem<SelectionPopupModel>(
+                          value: item,
+                          child: Text(
+                            item.title,
+                            textAlign: TextAlign.left,
+                          ),
+                        );
+                      }).toList(),
+                      decoration: InputDecoration(
+                        hintText: "Select Language",
+                        hintStyle: TextStyle(
+                          color: Color(0XFF666666),
+                          fontSize: 10.441558837890625,
+                          fontFamily: 'Google Sans',
+                          fontWeight: FontWeight.w400,
+                        ),
+                        enabledBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(4),
+                          borderSide: BorderSide.none,
+                        ),
+                        focusedBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(4),
+                          borderSide: BorderSide.none,
+                        ),
+                        disabledBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(4),
+                          borderSide: BorderSide.none,
+                        ),
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(4),
+                          borderSide: BorderSide.none,
+                        ),
+                        filled: true,
+                        fillColor: Color(0XFFFFFFFF),
+                        isDense: true,
+                        contentPadding: EdgeInsets.symmetric(
+                          horizontal: 8,
+                          vertical: 12,
+                        ),
                       ),
-                      borderSide: BorderSide.none,
-                    ),
-                    disabledBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(
-                        4,
-                      ),
-                      borderSide: BorderSide.none,
-                    ),
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(
-                        4,
-                      ),
-                      borderSide: BorderSide.none,
-                    ),
-                    filled: true,
-                    fillColor: Color(0XFFFFFFFF),
-                    isDense: true,
-                    contentPadding: EdgeInsets.symmetric(
-                      horizontal: 8,
-                      vertical: 12,
                     ),
                   ),
-                ),
+                ],
               );
             },
           )
