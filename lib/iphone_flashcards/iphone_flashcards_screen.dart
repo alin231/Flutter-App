@@ -122,7 +122,7 @@ class IphoneFlashcardsScreen extends StatelessWidget {
       width: double.maxFinite,
       padding: EdgeInsets.symmetric(horizontal: 32),
       decoration: BoxDecoration(
-        color: Color(0XCCFFFFFF),
+        color: Colors.white,
         boxShadow: [
           BoxShadow(
             spreadRadius: 2,
@@ -161,7 +161,7 @@ class IphoneFlashcardsScreen extends StatelessWidget {
               ),
             ),
             style: TextButton.styleFrom(
-              padding: EdgeInsets.symmetric(horizontal: 16), // 控制左右的 padding，讓點擊區域更大
+              padding: EdgeInsets.symmetric(horizontal: 16),
             ),
           ),
           SizedBox(height: 14),
@@ -169,7 +169,7 @@ class IphoneFlashcardsScreen extends StatelessWidget {
             width: double.maxFinite,
             margin: EdgeInsets.only(right: 8),
             child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Text(
                   "Flashcards",
@@ -180,19 +180,20 @@ class IphoneFlashcardsScreen extends StatelessWidget {
                     fontWeight: FontWeight.w500,
                   ),
                 ),
+                Spacer(),
                 Padding(
-                  padding: EdgeInsets.zero,
+                  padding: EdgeInsets.only(right: 8),
                   child: Image.asset(
                     "assets/images/img_content_copy_24.png",
                     height: 38,
                     width: 40,
                   ),
-                )
+                ),
               ],
             ),
-          )
+          ),
         ],
-      ),
+      )
     );
   }
 

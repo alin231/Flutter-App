@@ -406,7 +406,7 @@ class IphoneHomeScreen extends StatelessWidget {
                 child: Text(
                   "Daily pun just for you!",
                   style: TextStyle(
-                    color: Color(0XFF3781E4),
+                    color: Color.fromARGB(255, 255, 255, 255),
                     fontSize: 24.1,
                     fontFamily: 'Google Sans',
                     fontWeight: FontWeight.w500,
