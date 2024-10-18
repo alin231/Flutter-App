@@ -37,4 +37,9 @@ flutter:
     - assets/
     - assets/images/
     - assets/fonts/
-
+  fonts:
+    - family: Google Sans
+      fonts:
+        - asset: assets/fonts/GoogleSans-Regular copy.ttf
+        - asset: assets/fonts/GoogleSans-Bold copy.ttf
+        - asset: assets/fonts/GoogleSans-Medium copy.ttf
