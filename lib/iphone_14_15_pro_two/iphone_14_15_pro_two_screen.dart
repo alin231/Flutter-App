@@ -268,7 +268,7 @@ PreferredSizeWidget _buildAppBar(BuildContext context) {
       exit(1);
     }
     final model = GenerativeModel(
-        model: 'tunedModels/trainedmodel-4cayin7v72qz',
+        model: global.tunedModel,
         apiKey: apiKey,
         safetySettings: [
           //SafetySetting(HarmCategory.dangerousContent, HarmBlockThreshold.high)
