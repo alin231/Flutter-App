@@ -102,28 +102,39 @@ class TakePictureScreenState extends State<TakePictureScreen> {
     print(prompt);
     final model = GenerativeModel(
       model: 'gemini-1.5-flash-latest',
-      apiKey: apiKey,
+      apiKey: global.apiKey,
       safetySettings: [
         SafetySetting(HarmCategory.dangerousContent, HarmBlockThreshold.high)
       ],
       generationConfig: GenerationConfig(maxOutputTokens: 200),
     );
+    final imageFile = File(imagePath);
+    if (!await imageFile.exists()) {
+      print("Image file does not exist at $imagePath");
+      return "Image not found.";
+    }
+
     final imageBytes = await File(imagePath).readAsBytes();
     final encodedImage = base64Encode(imageBytes);
     print("hello3\n");
 
-    final response = await model.generateContent([
-      Content.text("$prompt"),
-      Content.text("$encodedImage"),
-    ]);
+    try {
+      final response = await model.generateContent([
+        Content.text(prompt),
+        Content.text(encodedImage),
+      ]);
+      String detectedText = response.text ?? 'No response';
+      print("API Response: $detectedText");
+      
+      if (detectedText.split(' ').length > 1) {
+        return "Cannot detect your target word.";
+      }
 
-    String detectedText = response.text ?? 'No response';
-
-    if (detectedText.split(' ').length > 1) {
-      return "Cannot detect your target word.";
+      return detectedText;
+    } catch (e) {
+      print("Error during API call: $e");
+      return "API call error.";
     }
-
-    return detectedText;
   }
 }
 
