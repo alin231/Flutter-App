@@ -3,6 +3,11 @@ String dailypun = "";
 String normresponse = "";
 String norminput = "";
 
+String otherlanguage = "";
+String translation = "";
+String pun = "";
+String pundef = "";
+
 enum PunLanguage {
   zh_cn, // Chinese, 
   en,
