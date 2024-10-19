@@ -504,14 +504,16 @@ BlocBuilder<IphoneDailyPunBloc, IphoneDailyPunState>(
 //   }
 // }
   /// Section Widget
-  Widget _buildRecentlyAddedList(BuildContext context) {
-    return Padding(
-      padding: EdgeInsets.symmetric(horizontal: 26),
-      child: BlocSelector<IphoneDailyPunBloc, IphoneDailyPunState,
-          IphoneDailyPunModel?>(
-        selector: (state) => state.iphoneDailyPunModelObj,
-        builder: (context, iphoneDailyPunModelObj) {
-          return ListView.separated(
+Widget _buildRecentlyAddedList(BuildContext context) {
+  return Padding(
+    padding: EdgeInsets.symmetric(horizontal: 26),
+    child: BlocSelector<IphoneDailyPunBloc, IphoneDailyPunState,
+        IphoneDailyPunModel?>(
+      selector: (state) => state.iphoneDailyPunModelObj,
+      builder: (context, iphoneDailyPunModelObj) {
+        return Container(
+          height: 300, // Set a fixed height or use MediaQuery to set a dynamic height
+          child: ListView.separated(
             padding: EdgeInsets.zero,
             physics: NeverScrollableScrollPhysics(),
             shrinkWrap: true,
@@ -530,12 +532,12 @@ BlocBuilder<IphoneDailyPunBloc, IphoneDailyPunState>(
                 model,
               );
             },
-          );
-        },
-      ),
-    );
-  }
-
+          ),
+        );
+      },
+    ),
+  );
+}
 
 // ignore_for_file: must_be_immutable
 class RecentlyaddedlistItemWidget extends StatelessWidget {
