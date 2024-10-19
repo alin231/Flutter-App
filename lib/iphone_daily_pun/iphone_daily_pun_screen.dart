@@ -561,7 +561,7 @@ class RecentlyaddedlistItemWidget extends StatelessWidget {
                 text: TextSpan(
                   children: [
                     TextSpan(
-                      text: "English  →  ",
+                      text: global.targetLanguage + "  →  ",
                       style: TextStyle(
                         color: Color(0XFF000000),
                         fontSize: 11,
@@ -570,7 +570,7 @@ class RecentlyaddedlistItemWidget extends StatelessWidget {
                       ),
                     ),
                     TextSpan(
-                      text: "Chinese (Traditional)",
+                      text: global.punLanguage,
                       style: TextStyle(
                         color: Color(0XFF005AD4),
                         fontSize: 11,
