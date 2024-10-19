@@ -56,6 +56,7 @@ class TakePictureScreenState extends State<TakePictureScreen> {
         child: Icon(Icons.camera_alt),
         onPressed: () async {
           try {
+            print("hello\n");
             await _initializeControllerFuture;
 
             final path = join(
