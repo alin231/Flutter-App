@@ -7,7 +7,26 @@ import 'package:myapp/iphone_flashcards/iphone_flashcards_screen.dart';
 import 'package:myapp/iphone_daily_pun/iphone_daily_pun_screen.dart';
 import 'package:myapp/global_variables.dart' as global;
 import 'package:myapp/ai_service.dart';
+import 'package:myapp/take_picture_screen.dart';
+import 'package:myapp/camera_available.dart';
+import 'package:camera/camera.dart';
 
+
+List<CameraDescription> cameras = [];
+CameraDescription? firstCamera;
+
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  cameras = await availableCameras();
+  firstCamera = cameras.first;
+
+  runApp(
+    MaterialApp(
+      theme: ThemeData.dark(),
+      home: TakePictureScreen(camera: firstCamera!),
+    ),
+  );
+}
 
 ///SelectionPopupModel is common model
 ///used for setting data into dropdowns
@@ -31,6 +50,12 @@ class IphoneHomeScreen extends StatelessWidget {
       : super(
           key: key,
         );
+  
+  static Future<void> initializeCamera() async {
+    WidgetsFlutterBinding.ensureInitialized();
+    cameras = await availableCameras();
+  }
+
 
   static Widget builder(BuildContext context) {
     return BlocProvider<IphoneHomeBloc>(
@@ -255,36 +280,78 @@ class IphoneHomeScreen extends StatelessWidget {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      SizedBox(
-                        width: 42,
-                        child: Column(
-                          children: [
-                            Padding(
-                              padding: EdgeInsets.only(
-                                left: 6,
-                                right: 4,
-                              ),
+                      // SizedBox(
+                      //   width: 42,
+                      //   child: Column(
+                      //     children: [
+                      //       Padding(
+                      //         padding: EdgeInsets.only(
+                      //           left: 6,
+                      //           right: 4,
+                      //         ),
+                      //         child: SizedBox(
+                      //           height: 26,
+                      //           width: double.maxFinite,
+                      //           child: SvgPicture.asset(
+                      //             "assets/images/img_vector_26x28.svg",
+                      //           ),
+                      //         ),
+                      //       ),
+                      //       SizedBox(height: 10),
+                      //       Text(
+                      //         "Camera",
+                      //         style: TextStyle(
+                      //           color: Color(0XFFD8E3F1),
+                      //           fontSize: 11,
+                      //           fontFamily: 'Google Sans',
+                      //           fontWeight: FontWeight.w500,
+                      //         ),
+                      //       )
+                      //     ],
+                      //   ),
+                      // ),
+                      // Camera Button
+                      Column(
+                        children: [
+                          IconButton(
+                            icon: Padding(
+                              padding: EdgeInsets.all(0),
                               child: SizedBox(
                                 height: 26,
-                                width: double.maxFinite,
+                                width: 26,
                                 child: SvgPicture.asset(
                                   "assets/images/img_vector_26x28.svg",
                                 ),
                               ),
                             ),
-                            SizedBox(height: 10),
-                            Text(
-                              "Camera",
-                              style: TextStyle(
-                                color: Color(0XFFD8E3F1),
-                                fontSize: 11,
-                                fontFamily: 'Google Sans',
-                                fontWeight: FontWeight.w500,
-                              ),
-                            )
-                          ],
-                        ),
+                            onPressed: () async {
+                              await initializeCamera(); // Ensure cameras are initialized
+                              if (cameras.isNotEmpty) {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => TakePictureScreen(camera: cameras.first),
+                                  ),
+                                );
+                              } else {
+                                print("No cameras available");
+                              }
+                            },
+                          ),
+                          SizedBox(height: 5),
+                          Text(
+                            "Camera",
+                            style: TextStyle(
+                              color: Color(0XFFD8E3F1),
+                              fontSize: 11,
+                              fontFamily: 'Google Sans',
+                              fontWeight: FontWeight.w500,
+                            ),
+                          ),
+                        ],
                       ),
+                      Column(
+                        children: [
                       IconButton(
                         onPressed: () {
                           final controller = context.read<IphoneHomeBloc>().state.frame2017oneController;
@@ -355,6 +422,8 @@ class IphoneHomeScreen extends StatelessWidget {
                             "assets/images/img_pun.png",
                           ),
                         ),
+                      ),
+                        ],
                       ),
                       Column(
                         children: [
