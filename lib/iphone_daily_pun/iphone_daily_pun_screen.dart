@@ -31,16 +31,16 @@ class IphoneDailyPunScreen extends StatelessWidget {
           width: double.maxFinite,
           padding: EdgeInsets.only(top: 44),
           child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               _buildDailyPunSection(context),
               SizedBox(height: 18),
               _buildTranslationSection(context),
-              SizedBox(height: 18),
               SizedBox(height: 28),
                   Padding(
                     padding: EdgeInsets.only(left: 32),
                     child: Text(
-                      "Recently Added",
+                      "Daily Pun History",
                       style: TextStyle(
                         color: Color(0XFF333333),
                         fontSize: 24.095813751220703,
@@ -55,7 +55,7 @@ class IphoneDailyPunScreen extends StatelessWidget {
                   Align(
                     alignment: Alignment.center,
                     child: Container(
-                      width: double.maxFinite,
+                        width: 200,
                       height: 38,
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(

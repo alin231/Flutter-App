@@ -68,7 +68,7 @@ class IphoneFlashcardsScreen extends StatelessWidget {
                   Align(
                     alignment: Alignment.center,
                     child: Container(
-                      width: double.maxFinite,
+                      width: 200,
                       height: 38,
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(
