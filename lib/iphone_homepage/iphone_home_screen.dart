@@ -9,7 +9,24 @@ import 'package:myapp/global_variables.dart' as global;
 import 'package:myapp/ai_service.dart';
 import 'package:myapp/take_picture_screen.dart';
 import 'package:myapp/camera_available.dart';
+import 'package:camera/camera.dart';
 
+
+List<CameraDescription> cameras = [];
+CameraDescription? firstCamera;
+
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  cameras = await availableCameras();
+  firstCamera = cameras.first;
+
+  runApp(
+    MaterialApp(
+      theme: ThemeData.dark(),
+      home: TakePictureScreen(camera: firstCamera!),
+    ),
+  );
+}
 
 ///SelectionPopupModel is common model
 ///used for setting data into dropdowns
@@ -33,6 +50,12 @@ class IphoneHomeScreen extends StatelessWidget {
       : super(
           key: key,
         );
+  
+  static Future<void> initializeCamera() async {
+    WidgetsFlutterBinding.ensureInitialized();
+    cameras = await availableCameras();
+  }
+
 
   static Widget builder(BuildContext context) {
     return BlocProvider<IphoneHomeBloc>(
@@ -301,17 +324,17 @@ class IphoneHomeScreen extends StatelessWidget {
                                 ),
                               ),
                             ),
-                            onPressed: () {
-                              if (firstCamera != null) {
+                            onPressed: () async {
+                              await initializeCamera(); // Ensure cameras are initialized
+                              if (cameras.isNotEmpty) {
                                 Navigator.push(
                                   context,
                                   MaterialPageRoute(
-                                    builder: (context) => TakePictureScreen(camera: firstCamera!),
+                                    builder: (context) => TakePictureScreen(camera: cameras.first),
                                   ),
                                 );
                               } else {
-                                // Handle the case when firstCamera is null
-                                print("Camera is not available");
+                                print("No cameras available");
                               }
                             },
                           ),
