@@ -40,19 +40,62 @@ class GridbasicItemModel extends Equatable {
 
 // ignore_for_file: must_be_immutable
 class IphoneDailyPunModel extends Equatable {
-  IphoneDailyPunModel({this.gridbasicItemList = const []});
+    IphoneDailyPunModel(
+      {this.quizpreparationsectionItemList = const [],
+      this.recentlyaddedlistItemList = const []});
 
-  List<GridbasicItemModel> gridbasicItemList;
+  List<QuizpreparationsectionItemModel> quizpreparationsectionItemList;
 
-  IphoneDailyPunModel copyWith({List<GridbasicItemModel>? gridbasicItemList}) {
+  List<RecentlyaddedlistItemModel> recentlyaddedlistItemList;
+
+  IphoneDailyPunModel copyWith({
+    List<QuizpreparationsectionItemModel>? quizpreparationsectionItemList,
+    List<RecentlyaddedlistItemModel>? recentlyaddedlistItemList,
+  }) {
     return IphoneDailyPunModel(
-      gridbasicItemList: gridbasicItemList ?? this.gridbasicItemList,
+      quizpreparationsectionItemList:
+          quizpreparationsectionItemList ?? this.quizpreparationsectionItemList,
+      recentlyaddedlistItemList:
+          recentlyaddedlistItemList ?? this.recentlyaddedlistItemList,
     );
   }
 
   @override
-  List<Object?> get props => [gridbasicItemList];
+  List<Object?> get props =>
+      [quizpreparationsectionItemList, recentlyaddedlistItemList];
+  // IphoneDailyPunModel({this.gridbasicItemList = const []});
+
+  // List<GridbasicItemModel> gridbasicItemList;
+
+  // IphoneDailyPunModel copyWith({List<GridbasicItemModel>? gridbasicItemList}) {
+  //   return IphoneDailyPunModel(
+  //     gridbasicItemList: gridbasicItemList ?? this.gridbasicItemList,
+  //   );
+  // }
+
+  // @override
+  // List<Object?> get props => [gridbasicItemList];
 }
+
+
+
+class QuizpreparationsectionItemModel extends Equatable {
+  QuizpreparationsectionItemModel({this.id}) {
+    id = id ?? "";
+  }
+
+  String? id;
+
+  QuizpreparationsectionItemModel copyWith({String? id}) {
+    return QuizpreparationsectionItemModel(
+      id: id ?? this.id,
+    );
+  }
+
+  @override
+  List<Object?> get props => [id];
+}
+
 
 /// A bloc that manages the state of a IphoneDailyPun according to the event that is dispatched to it.
 class IphoneDailyPunBloc
@@ -68,28 +111,55 @@ class IphoneDailyPunBloc
     emit(
       state.copyWith(
         iphoneDailyPunModelObj: state.iphoneDailyPunModelObj?.copyWith(
-          gridbasicItemList: fillGridbasicItemList(),
+          quizpreparationsectionItemList: fillQuizpreparationsectionItemList(),
+          recentlyaddedlistItemList: fillRecentlyaddedlistItemList(),
         ),
       ),
     );
   }
 
-  List<GridbasicItemModel> fillGridbasicItemList() {
+  List<QuizpreparationsectionItemModel> fillQuizpreparationsectionItemList() {
+    return List.generate(3, (index) => QuizpreparationsectionItemModel());
+  }
+
+  List<RecentlyaddedlistItemModel> fillRecentlyaddedlistItemList() {
     return [
-      GridbasicItemModel(
-          basicEnglish: "assets/images/img_vector_20x26.svg",
-          basicenglish1: "Basic English"),
-      GridbasicItemModel(
-          basicEnglish: "assets/images/img_vector_18x18.svg",
-          basicenglish1: "Plants"),
-      GridbasicItemModel(
-          basicEnglish: "assets/images/img_vector_20x14.svg",
-          basicenglish1: "Travel"),
-      GridbasicItemModel(basicenglish1: "Basic Chinese"),
-      GridbasicItemModel(basicenglish1: "Basic Swedish"),
-      GridbasicItemModel()
+      RecentlyaddedlistItemModel(dinosaur: "Dinosaur"),
+      RecentlyaddedlistItemModel(dinosaur: "Dinosaur"),
+      RecentlyaddedlistItemModel(dinosaur: "Dinosaur"),
+      RecentlyaddedlistItemModel(dinosaur: "Dinosaur"),
+      RecentlyaddedlistItemModel(dinosaur: "Dinosaur")
     ];
   }
+  // _onInitialize(
+  //   IphoneDailyPunInitialEvent event,
+  //   Emitter<IphoneDailyPunState> emit,
+  // ) async {
+  //   emit(
+  //     state.copyWith(
+  //       iphoneDailyPunModelObj: state.iphoneDailyPunModelObj?.copyWith(
+  //         gridbasicItemList: fillGridbasicItemList(),
+  //       ),
+  //     ),
+  //   );
+  // }
+
+  // List<GridbasicItemModel> fillGridbasicItemList() {
+  //   return [
+  //     GridbasicItemModel(
+  //         basicEnglish: "assets/images/img_vector_20x26.svg",
+  //         basicenglish1: "Basic English"),
+  //     GridbasicItemModel(
+  //         basicEnglish: "assets/images/img_vector_18x18.svg",
+  //         basicenglish1: "Plants"),
+  //     GridbasicItemModel(
+  //         basicEnglish: "assets/images/img_vector_20x14.svg",
+  //         basicenglish1: "Travel"),
+  //     GridbasicItemModel(basicenglish1: "Basic Chinese"),
+  //     GridbasicItemModel(basicenglish1: "Basic Swedish"),
+  //     GridbasicItemModel()
+  //   ];
+  // }
 }
 
 /// Represents the state of IphoneDailyPun in the application.
@@ -123,4 +193,33 @@ class IphoneDailyPunEvent extends Equatable {
 class IphoneDailyPunInitialEvent extends IphoneDailyPunEvent {
   @override
   List<Object?> get props => [];
+}
+
+
+
+
+
+
+class RecentlyaddedlistItemModel extends Equatable {
+  RecentlyaddedlistItemModel({this.dinosaur, this.id}) {
+    dinosaur = dinosaur ?? "Empty";
+    id = id ?? "";
+  }
+
+  String? dinosaur;
+
+  String? id;
+
+  RecentlyaddedlistItemModel copyWith({
+    String? dinosaur,
+    String? id,
+  }) {
+    return RecentlyaddedlistItemModel(
+      dinosaur: dinosaur ?? this.dinosaur,
+      id: id ?? this.id,
+    );
+  }
+
+  @override
+  List<Object?> get props => [dinosaur, id];
 }

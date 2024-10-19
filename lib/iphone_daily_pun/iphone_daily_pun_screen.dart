@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:responsive_grid_list/responsive_grid_list.dart';
 import 'iphone_daily_pun_bloc.dart';
 import '/iphone_homepage/iphone_home_screen.dart';
 
@@ -37,8 +36,64 @@ class IphoneDailyPunScreen extends StatelessWidget {
               SizedBox(height: 18),
               _buildTranslationSection(context),
               SizedBox(height: 18),
-              _buildPunLibrariesSection(context),
-              SizedBox(height: 54)
+              SizedBox(height: 28),
+                  Padding(
+                    padding: EdgeInsets.only(left: 32),
+                    child: Text(
+                      "Recently Added",
+                      style: TextStyle(
+                        color: Color(0XFF333333),
+                        fontSize: 24.095813751220703,
+                        fontFamily: 'Google Sans',
+                        fontWeight: FontWeight.w500,
+                      ),
+                    ),
+                  ),
+                  SizedBox(height: 10),
+                  _buildRecentlyAddedList(context),
+                  SizedBox(height: 24),
+                  Align(
+                    alignment: Alignment.center,
+                    child: Container(
+                      width: double.maxFinite,
+                      height: 38,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(
+                          18,
+                        ),
+                        gradient: LinearGradient(
+                          begin: Alignment(0.83, -1.59),
+                          end: Alignment(0.07, 2.44),
+                          colors: [
+                            Color(0XFF005AD4),
+                            Color(0XFF3781E4),
+                            Color(0XFF569EFF)
+                          ],
+                        ),
+                      ),
+                      child: ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: Colors.transparent,
+                          side: BorderSide.none,
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.zero),
+                          padding: EdgeInsets.zero,
+                          elevation: 0,
+                        ),
+                        onPressed: () {},
+                        child: Text(
+                          "Show all results",
+                          style: TextStyle(
+                            color: Color(0XFFFFFFFF),
+                            fontSize: 14,
+                            fontFamily: 'Google Sans',
+                            fontWeight: FontWeight.w400,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                  SizedBox(height: 16)
             ],
           ),
         ),
@@ -283,112 +338,255 @@ class IphoneDailyPunScreen extends StatelessWidget {
       ),
     );
   }
+}
+
+
+
+
+
+
+
+
+
+
 
   /// Section Widget
-  Widget _buildPunLibrariesSection(BuildContext context) {
-    return Container(
-      width: double.maxFinite,
-      margin: EdgeInsets.only(
-        left: 26,
-        right: 30,
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(
-            "Pun Libraries",
-            style: TextStyle(
-              color: Color(0XFF4B4F56),
-              fontSize: 24.095813751220703,
-              fontFamily: 'Google Sans',
-              fontWeight: FontWeight.w500,
-            ),
-          ),
-          SizedBox(height: 18),
-          BlocSelector<IphoneDailyPunBloc, IphoneDailyPunState,
-              IphoneDailyPunModel?>(
-            selector: (state) => state.iphoneDailyPunModelObj,
-            builder: (context, iphoneDailyPunModelObj) {
-              return ResponsiveGridListBuilder(
-                minItemWidth: 1,
-                minItemsPerRow: 2,
-                maxItemsPerRow: 2,
-                horizontalGridSpacing: 14,
-                verticalGridSpacing: 14,
-                builder: (context, items) => ListView(
-                  shrinkWrap: true,
-                  padding: EdgeInsets.zero,
-                  physics: NeverScrollableScrollPhysics(),
-                  children: items,
-                ),
-                gridItems: List.generate(
-                  iphoneDailyPunModelObj?.gridbasicItemList.length ?? 0,
-                  (index) {
-                    GridbasicItemModel model =
-                        iphoneDailyPunModelObj?.gridbasicItemList[index] ??
-                            GridbasicItemModel();
-                    return GridbasicItemWidget(
-                      model,
-                    );
-                  },
-                ),
+//   Widget _buildPunLibrariesSection(BuildContext context) {
+//     return Container(
+//       width: double.maxFinite,
+//       margin: EdgeInsets.only(
+//         left: 26,
+//         right: 30,
+//       ),
+//       child: Column(
+//         crossAxisAlignment: CrossAxisAlignment.start,
+//         children: [
+//           Text(
+//             "Pun Libraries",
+//             style: TextStyle(
+//               color: Color(0XFF4B4F56),
+//               fontSize: 24.095813751220703,
+//               fontFamily: 'Google Sans',
+//               fontWeight: FontWeight.w500,
+//             ),
+//           ),
+//           SizedBox(height: 18),
+//           BlocSelector<IphoneDailyPunBloc, IphoneDailyPunState,
+//               IphoneDailyPunModel?>(
+//             selector: (state) => state.iphoneDailyPunModelObj,
+//             builder: (context, iphoneDailyPunModelObj) {
+//               return ResponsiveGridListBuilder(
+//                 minItemWidth: 1,
+//                 minItemsPerRow: 2,
+//                 maxItemsPerRow: 2,
+//                 horizontalGridSpacing: 14,
+//                 verticalGridSpacing: 14,
+//                 builder: (context, items) => ListView(
+//                   shrinkWrap: true,
+//                   padding: EdgeInsets.zero,
+//                   physics: NeverScrollableScrollPhysics(),
+//                   children: items,
+//                 ),
+//                 gridItems: List.generate(
+//                   iphoneDailyPunModelObj?.gridbasicItemList.length ?? 0,
+//                   (index) {
+//                     GridbasicItemModel model =
+//                         iphoneDailyPunModelObj?.gridbasicItemList[index] ??
+//                             GridbasicItemModel();
+//                     return GridbasicItemWidget(
+//                       model,
+//                     );
+//                   },
+//                 ),
+//               );
+//             },
+//           )
+//         ],
+//       ),
+//     );
+//   }
+// }
+
+// ignore_for_file: must_be_immutable
+
+
+
+
+
+// class GridbasicItemWidget extends StatelessWidget {
+//   GridbasicItemWidget(this.gridbasicItemModelObj, {Key? key})
+//       : super(
+//           key: key,
+//         );
+
+//   GridbasicItemModel gridbasicItemModelObj;
+
+//   @override
+//   Widget build(BuildContext context) {
+//     return Container(
+//       width: double.maxFinite,
+//       padding: EdgeInsets.only(
+//         left: 12,
+//         top: 10,
+//         bottom: 10,
+//       ),
+//       decoration: BoxDecoration(
+//         color: Color(0XFFF5F5F5),
+//         borderRadius: BorderRadius.circular(
+//           6,
+//         ),
+//       ),
+//       child: Column(
+//         mainAxisSize: MainAxisSize.min,
+//         crossAxisAlignment: CrossAxisAlignment.start,
+//         mainAxisAlignment: MainAxisAlignment.center,
+//         children: [
+//           SizedBox(height: 2),
+//           SizedBox(
+//             height: 20,
+//             width: 28,
+//             child: SvgPicture.asset(
+//               gridbasicItemModelObj.basicEnglish!,
+//             ),
+//           ),
+//           SizedBox(height: 26),
+//           Text(
+//             gridbasicItemModelObj.basicenglish1!,
+//             style: TextStyle(
+//               color: Color(0XFF333333),
+//               fontSize: 14,
+//               fontFamily: 'Google Sans',
+//               fontWeight: FontWeight.w500,
+//             ),
+//           )
+//         ],
+//       ),
+//     );
+//   }
+// }
+  /// Section Widget
+  Widget _buildRecentlyAddedList(BuildContext context) {
+    return Padding(
+      padding: EdgeInsets.symmetric(horizontal: 26),
+      child: BlocSelector<IphoneDailyPunBloc, IphoneDailyPunState,
+          IphoneDailyPunModel?>(
+        selector: (state) => state.iphoneDailyPunModelObj,
+        builder: (context, iphoneDailyPunModelObj) {
+          return ListView.separated(
+            padding: EdgeInsets.zero,
+            physics: NeverScrollableScrollPhysics(),
+            shrinkWrap: true,
+            separatorBuilder: (context, index) {
+              return SizedBox(
+                height: 12,
               );
             },
-          )
-        ],
+            itemCount:
+                iphoneDailyPunModelObj?.recentlyaddedlistItemList.length ?? 0,
+            itemBuilder: (context, index) {
+              RecentlyaddedlistItemModel model =
+                  iphoneDailyPunModelObj?.recentlyaddedlistItemList[index] ??
+                      RecentlyaddedlistItemModel();
+              return RecentlyaddedlistItemWidget(
+                model,
+              );
+            },
+          );
+        },
       ),
     );
   }
-}
+
 
 // ignore_for_file: must_be_immutable
-class GridbasicItemWidget extends StatelessWidget {
-  GridbasicItemWidget(this.gridbasicItemModelObj, {Key? key})
+class RecentlyaddedlistItemWidget extends StatelessWidget {
+  RecentlyaddedlistItemWidget(this.recentlyaddedlistItemModelObj, {Key? key})
       : super(
           key: key,
         );
 
-  GridbasicItemModel gridbasicItemModelObj;
+  RecentlyaddedlistItemModel recentlyaddedlistItemModelObj;
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      width: double.maxFinite,
-      padding: EdgeInsets.only(
-        left: 12,
-        top: 10,
-        bottom: 10,
-      ),
+    return Ink(
       decoration: BoxDecoration(
         color: Color(0XFFF5F5F5),
         borderRadius: BorderRadius.circular(
-          6,
+          8,
         ),
       ),
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          SizedBox(height: 2),
-          SizedBox(
-            height: 20,
-            width: 28,
+      child: ListTile(
+        minVerticalPadding: 0,
+        minTileHeight: 0,
+        minLeadingWidth: 0,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(
+            8,
+          ),
+        ),
+        visualDensity: VisualDensity(
+          vertical: -4,
+          horizontal: -4,
+        ),
+        contentPadding: EdgeInsets.symmetric(
+          horizontal: 6,
+          vertical: 12,
+        ),
+        title: Padding(
+          padding: EdgeInsets.only(top: 2),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                recentlyaddedlistItemModelObj.dinosaur!,
+                style: TextStyle(
+                  color: Color(0XFF5F6369),
+                  fontSize: 24.095813751220703,
+                  fontFamily: 'Google Sans',
+                  fontWeight: FontWeight.w400,
+                ),
+              ),
+              SizedBox(height: 2),
+              RichText(
+                text: TextSpan(
+                  children: [
+                    TextSpan(
+                      text: "English  →  ",
+                      style: TextStyle(
+                        color: Color(0XFF000000),
+                        fontSize: 11,
+                        fontFamily: 'Google Sans',
+                        fontWeight: FontWeight.w400,
+                      ),
+                    ),
+                    TextSpan(
+                      text: "Chinese (Traditional)",
+                      style: TextStyle(
+                        color: Color(0XFF005AD4),
+                        fontSize: 11,
+                        fontFamily: 'Google Sans',
+                        fontWeight: FontWeight.w400,
+                      ),
+                    )
+                  ],
+                ),
+                textAlign: TextAlign.left,
+              )
+            ],
+          ),
+        ),
+        trailing: Padding(
+          padding: EdgeInsets.zero,
+          child: SizedBox(
+            height: 44,
+            width: 40,
             child: SvgPicture.asset(
-              gridbasicItemModelObj.basicEnglish!,
+              "assets/images/img_starrr.svg",
             ),
           ),
-          SizedBox(height: 26),
-          Text(
-            gridbasicItemModelObj.basicenglish1!,
-            style: TextStyle(
-              color: Color(0XFF333333),
-              fontSize: 14,
-              fontFamily: 'Google Sans',
-              fontWeight: FontWeight.w500,
-            ),
-          )
-        ],
+        ),
+        onTap: () {},
       ),
     );
   }
