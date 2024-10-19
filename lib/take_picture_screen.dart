@@ -8,8 +8,6 @@ import 'dart:convert';
 // Import your Google Generative AI package here
 import 'package:google_generative_ai/google_generative_ai.dart';
 
-
-// 創建並初始化 CameraController
 class TakePictureScreen extends StatefulWidget {
   final CameraDescription camera;
 
@@ -64,12 +62,20 @@ class TakePictureScreenState extends State<TakePictureScreen> {
               '${DateTime.now()}.png',
             );
 
+            // Take the picture and save it to the specified path
             XFile picture = await _controller.takePicture();
 
+            // Get the detected word from the image
+            String detectedWord = await _getWordFromImage(picture.path);
+
+            // Navigate to the display screen with the image path and result
             Navigator.push(
               context,
               MaterialPageRoute(
-                builder: (context) => DisplayPictureScreen(imagePath: path),
+                builder: (context) => DisplayPictureScreen(
+                  imagePath: picture.path,
+                  result: detectedWord, // Pass the detected word
+                ),
               ),
             );
           } catch (e) {
@@ -80,29 +86,22 @@ class TakePictureScreenState extends State<TakePictureScreen> {
     );
   }
 
-
-Future<String> _getWordFromImage(String imagePath) async {
-    // Initialize the Gemini model
+  Future<String> _getWordFromImage(String imagePath) async {
     final model = GenerativeModel("gemini-1.5-flash");
-
-    // Read the image file as bytes
     final imageBytes = await File(imagePath).readAsBytes();
 
-    // Send the request to the Gemini API with a specific prompt
     final response = await model.generateContent([
       'Detect the single word in the image. If detect successfully, just return the single word. If there are multiple words, respond with "Cannot detect your target word."',
       base64Encode(imageBytes),
     ]);
 
-    // Check the response for the specific phrase
     String detectedText = response.text ?? 'No response';
-    
-    // Handle the detection of multiple words
+
     if (detectedText.split(' ').length > 1) {
       return "Cannot detect your target word.";
     }
 
-    return detectedText; // Return the detected word if only one
+    return detectedText;
   }
 }
 
@@ -111,7 +110,7 @@ class DisplayPictureScreen extends StatelessWidget {
   final String imagePath;
   final String result;
 
-  const DisplayPictureScreen({Key? key, required this.imagePath}) : super(key: key);
+  const DisplayPictureScreen({Key? key, required this.imagePath, required this.result}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
