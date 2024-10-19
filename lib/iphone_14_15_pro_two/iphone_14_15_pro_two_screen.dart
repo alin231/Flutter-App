@@ -340,7 +340,7 @@ PreferredSizeWidget _buildAppBar(BuildContext context) {
   Widget _buildChineseSection(BuildContext context) {
   // Access the global variable for the AI response
   String aiResponse = global.normresponse; // Assuming this holds the AI response
-
+  String showPunLanguage = global.punLanguage;
   // Partition the response
   List<String> parts = partitionResponse(aiResponse);
 
@@ -360,7 +360,7 @@ PreferredSizeWidget _buildAppBar(BuildContext context) {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          "Chinese (Traditional)",
+          showPunLanguage.isNotEmpty ? showPunLanguage : "",
           style: TextStyle(
             color: Color(0XFF000000),
             fontSize: 11,
@@ -387,7 +387,7 @@ PreferredSizeWidget _buildAppBar(BuildContext context) {
   // /// Section Widget
   Widget _buildKoreanSection(BuildContext context) {
     String aiResponse = global.normresponse; // Assuming this holds the AI response
-
+    String showTargetLanguage = global.targetLanguage;
     // Partition the response
     List<String> parts = partitionResponse(aiResponse);
     return SizedBox(
@@ -412,7 +412,7 @@ PreferredSizeWidget _buildAppBar(BuildContext context) {
               children: [
                 SizedBox(height: 6),
                 Text(
-                  "Korean",
+                  showTargetLanguage.isNotEmpty ? showTargetLanguage : "",
                   style: TextStyle(
                     color: Color(0XFF000000),
                     fontSize: 11,
