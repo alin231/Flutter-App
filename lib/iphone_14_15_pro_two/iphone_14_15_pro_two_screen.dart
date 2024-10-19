@@ -581,7 +581,14 @@ PreferredSizeWidget _buildAppBar(BuildContext context) {
                         padding: EdgeInsets.zero,
                         elevation: 0,
                       ),
-                      onPressed: () {},
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => Iphone1415ProTwoScreen.builder(context),
+                          ),
+                        );
+                      },
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         crossAxisAlignment: CrossAxisAlignment.center,
