@@ -97,7 +97,7 @@ class TakePictureScreenState extends State<TakePictureScreen> {
       exit(1);
     }
 
-    final prompt = "Detect the single word in the image. If detect successfully, just return the single word. If there are multiple words, respond with ";
+    final prompt = "Detect the object in this image and return what this object is. If detect successfully, just return the word.";
     print(prompt);
     final model = GenerativeModel(
       model: 'gemini-1.5-flash-latest',
