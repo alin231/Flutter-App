@@ -7,6 +7,7 @@ import 'package:http/http.dart' as http;
 import 'dart:convert';
 // Import your Google Generative AI package here
 import 'package:google_generative_ai/google_generative_ai.dart';
+import 'global_variables.dart' as global;
 
 class TakePictureScreen extends StatefulWidget {
   final CameraDescription camera;
@@ -67,6 +68,7 @@ class TakePictureScreenState extends State<TakePictureScreen> {
 
             // Get the detected word from the image
             String detectedWord = await _getWordFromImage(picture.path);
+            print(detectedWord);
 
             // Navigate to the display screen with the image path and result
             Navigator.push(
@@ -87,12 +89,27 @@ class TakePictureScreenState extends State<TakePictureScreen> {
   }
 
   Future<String> _getWordFromImage(String imagePath) async {
-    final model = GenerativeModel("gemini-1.5-flash");
+    final apiKey = global.apiKey; // Ensure global is accessible
+    if (apiKey == null) {
+      stderr.writeln(r'No $GEMINI_API_KEY environment variable');
+      exit(1);
+    }
+    
+    final prompt = "Detect the single word in the image. If detect successfully, just return the single word. If there are multiple words, respond with ";
+    final model = GenerativeModel(
+      model: 'gemini-1.5-flash-latest',
+      apiKey: apiKey,
+      safetySettings: [
+        SafetySetting(HarmCategory.dangerousContent, HarmBlockThreshold.high)
+      ],
+      generationConfig: GenerationConfig(maxOutputTokens: 200),
+    );
     final imageBytes = await File(imagePath).readAsBytes();
+    final encodedImage = base64Encode(imageBytes);
 
     final response = await model.generateContent([
-      'Detect the single word in the image. If detect successfully, just return the single word. If there are multiple words, respond with "Cannot detect your target word."',
-      base64Encode(imageBytes),
+      Content.text("$prompt"),
+      Content.text("$encodedImage"),
     ]);
 
     String detectedText = response.text ?? 'No response';
