@@ -2,7 +2,7 @@ import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 import 'package:myapp/take_picture_screen.dart';
 Future<void> main() async {
-  // 確保初始化插件服務，這樣才能在 `runApp()` 之前調用 `availableCameras()`
+  // 確保初始化插件服務，這樣才能在 runApp() 之前調用 availableCameras()
   WidgetsFlutterBinding.ensureInitialized();
 
   // 獲取設備上可用相機的列表
