@@ -58,27 +58,40 @@ class QuizpreparationsectionItemModel extends Equatable {
 
 // ignore_for_file: must_be_immutable
 class RecentlyaddedlistItemModel extends Equatable {
-  RecentlyaddedlistItemModel({this.dinosaur, this.id}) {
+  RecentlyaddedlistItemModel({
+    this.dinosaur,
+    this.id,
+    this.englishWord,
+    this.pun,
+  }) {
     dinosaur = dinosaur ?? "Empty";
     id = id ?? "";
+    englishWord = englishWord ?? "";
+    pun = pun ?? "";
   }
 
   String? dinosaur;
-
   String? id;
+  String? englishWord; // 新增字段
+  String? pun;         // 新增字段
 
+  // 修改 copyWith 方法，加入 englishWord 和 pun 字段
   RecentlyaddedlistItemModel copyWith({
     String? dinosaur,
     String? id,
+    String? englishWord,
+    String? pun,
   }) {
     return RecentlyaddedlistItemModel(
       dinosaur: dinosaur ?? this.dinosaur,
       id: id ?? this.id,
+      englishWord: englishWord ?? this.englishWord,
+      pun: pun ?? this.pun,
     );
   }
 
   @override
-  List<Object?> get props => [dinosaur, id];
+  List<Object?> get props => [dinosaur, id, englishWord, pun]; // 更新 props
 }
 
 /// A bloc that manages the state of a IphoneFlashcards according to the event that is dispatched to it.
@@ -107,32 +120,33 @@ class IphoneFlashcardsBloc
     return List.generate(3, (index) => QuizpreparationsectionItemModel());
   }
 
-  // 修改的部分：從資料庫讀取資料，最多替換五個 Dinosaur 項目
   Future<List<RecentlyaddedlistItemModel>> fillRecentlyaddedlistItemList() async {
     // 預設值為 "Empty"
     List<RecentlyaddedlistItemModel> recentlyAddedItems = [
-      RecentlyaddedlistItemModel(dinosaur: "Empty"),
-      RecentlyaddedlistItemModel(dinosaur: "Empty"),
-      RecentlyaddedlistItemModel(dinosaur: "Empty"),
-      RecentlyaddedlistItemModel(dinosaur: "Empty"),
-      RecentlyaddedlistItemModel(dinosaur: "Empty")
+      RecentlyaddedlistItemModel(dinosaur: "Empty", englishWord: "", pun: ""),
+      RecentlyaddedlistItemModel(dinosaur: "Empty", englishWord: "", pun: ""),
+      RecentlyaddedlistItemModel(dinosaur: "Empty", englishWord: "", pun: ""),
+      RecentlyaddedlistItemModel(dinosaur: "Empty", englishWord: "", pun: ""),
+      RecentlyaddedlistItemModel(dinosaur: "Empty", englishWord: "", pun: "")
     ];
 
     DatabaseHelper dbHelper = DatabaseHelper();
 
     // 從資料庫中查詢最近的五筆資料
     List<Map<String, dynamic>> data = await dbHelper.getItems('user_words');
-  
+
     if (data.isNotEmpty) {
       // 確保最多只取 5 筆資料
       for (var i = 0; i < (data.length > 5 ? 5 : data.length); i++) {
         recentlyAddedItems[i] = RecentlyaddedlistItemModel(
-          dinosaur: data[i]['chinese_word'], // 假設從資料庫的 'chinese_word' 字段中取值
+          dinosaur: data[i]['chinese_word'],   // 從 'chinese_word' 字段取值
+          englishWord: data[i]['english_word'], // 從 'english_word' 字段取值
+          pun: data[i]['pun'],                 // 從 'pun' 字段取值
           id: data[i]['id'].toString(),
         );
       }
     }
-  
+
     return recentlyAddedItems;
   }
 }

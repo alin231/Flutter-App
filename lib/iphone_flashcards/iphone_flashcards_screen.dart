@@ -36,20 +36,7 @@ class IphoneFlashcardsScreen extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   _buildNavigationSection(context),
-                  Padding(
-                    padding: EdgeInsets.only(left: 32),
-                    child: Text(
-                      "Ready for a quiz?",
-                      style: TextStyle(
-                        color: Color(0XFF333333),
-                        fontSize: 24.095813751220703,
-                        fontFamily: 'Google Sans',
-                        fontWeight: FontWeight.w500,
-                      ),
-                    ),
-                  ),
-                  SizedBox(height: 16),
-                  _buildQuizPreparationSection(context),
+                  
                   SizedBox(height: 28),
                   Padding(
                     padding: EdgeInsets.only(left: 32),
@@ -195,40 +182,7 @@ class IphoneFlashcardsScreen extends StatelessWidget {
     );
   }
 
-  /// Section Widget
-  Widget _buildQuizPreparationSection(BuildContext context) {
-    return Container(
-      margin: EdgeInsets.only(left: 34),
-      child: BlocSelector<IphoneFlashcardsBloc, IphoneFlashcardsState,
-          IphoneFlashcardsModel?>(
-        selector: (state) => state.iphoneFlashcardsModelObj,
-        builder: (context, iphoneFlashcardsModelObj) {
-          return SingleChildScrollView(
-            scrollDirection: Axis.horizontal,
-            child: Wrap(
-              direction: Axis.horizontal,
-              spacing: 26,
-              children: List.generate(
-                iphoneFlashcardsModelObj
-                        ?.quizpreparationsectionItemList.length ??
-                    0,
-                (index) {
-                  QuizpreparationsectionItemModel model =
-                      iphoneFlashcardsModelObj
-                              ?.quizpreparationsectionItemList[index] ??
-                          QuizpreparationsectionItemModel();
-                  return QuizpreparationsectionItemWidget(
-                    model,
-                  );
-                },
-              ),
-            ),
-          );
-        },
-      ),
-    );
-  }
-
+  
   /// Section Widget
   Widget _buildRecentlyAddedList(BuildContext context) {
     return Padding(
@@ -263,30 +217,6 @@ class IphoneFlashcardsScreen extends StatelessWidget {
   }
 }
 
-// ignore_for_file: must_be_immutable
-class QuizpreparationsectionItemWidget extends StatelessWidget {
-  QuizpreparationsectionItemWidget(this.quizpreparationsectionItemModelObj,
-      {Key? key})
-      : super(
-          key: key,
-        );
-
-  QuizpreparationsectionItemModel quizpreparationsectionItemModelObj;
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      height: 170,
-      width: 166,
-      decoration: BoxDecoration(
-        color: Color(0XFFD9D9D9),
-        borderRadius: BorderRadius.circular(
-          8,
-        ),
-      ),
-    );
-  }
-}
 
 // ignore_for_file: must_be_immutable
 class RecentlyaddedlistItemWidget extends StatelessWidget {
@@ -333,6 +263,24 @@ class RecentlyaddedlistItemWidget extends StatelessWidget {
                 style: TextStyle(
                   color: Color(0XFF5F6369),
                   fontSize: 24.095813751220703,
+                  fontFamily: 'Google Sans',
+                  fontWeight: FontWeight.w400,
+                ),
+              ),
+              Text(
+                recentlyaddedlistItemModelObj.englishWord!,
+                style: TextStyle(
+                  color: Color(0XFF5F6369),
+                  fontSize: 24.095813751220703,
+                  fontFamily: 'Google Sans',
+                  fontWeight: FontWeight.w400,
+                ),
+              ),
+              Text(
+                recentlyaddedlistItemModelObj.pun!,
+                style: TextStyle(
+                  color: Color(0XFF5F6369),
+                  fontSize: 16,
                   fontFamily: 'Google Sans',
                   fontWeight: FontWeight.w400,
                 ),
