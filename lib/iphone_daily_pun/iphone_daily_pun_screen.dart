@@ -27,74 +27,76 @@ class IphoneDailyPunScreen extends StatelessWidget {
     return SafeArea(
       child: Scaffold(
         backgroundColor: Color(0XFFFFFFFF),
-        body: Container(
-          width: double.maxFinite,
-          padding: EdgeInsets.only(top: 44),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              _buildDailyPunSection(context),
-              SizedBox(height: 18),
-              _buildTranslationSection(context),
-              SizedBox(height: 28),
-                  Padding(
-                    padding: EdgeInsets.only(left: 32),
-                    child: Text(
-                      "Daily Pun History",
-                      style: TextStyle(
-                        color: Color(0XFF333333),
-                        fontSize: 24.095813751220703,
-                        fontFamily: 'Google Sans',
-                        fontWeight: FontWeight.w500,
+        body: SingleChildScrollView(
+          child: Container(
+            width: double.maxFinite,
+            padding: EdgeInsets.only(top: 44),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                _buildDailyPunSection(context),
+                SizedBox(height: 18),
+                _buildTranslationSection(context),
+                SizedBox(height: 28),
+                Padding(
+                  padding: EdgeInsets.only(left: 32),
+                  child: Text(
+                    "Daily Pun History",
+                    style: TextStyle(
+                      color: Color(0XFF333333),
+                      fontSize: 24.095813751220703,
+                      fontFamily: 'Google Sans',
+                      fontWeight: FontWeight.w500,
+                    ),
+                  ),
+                ),
+                SizedBox(height: 10),
+                _buildRecentlyAddedList(context),
+                SizedBox(height: 24),
+                Align(
+                  alignment: Alignment.center,
+                  child: Container(
+                    width: 200,
+                    height: 38,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(
+                        18,
+                      ),
+                      gradient: LinearGradient(
+                        begin: Alignment(0.83, -1.59),
+                        end: Alignment(0.07, 2.44),
+                        colors: [
+                          Color(0XFF005AD4),
+                          Color(0XFF3781E4),
+                          Color(0XFF569EFF)
+                        ],
+                      ),
+                    ),
+                    child: ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Colors.transparent,
+                        side: BorderSide.none,
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.zero),
+                        padding: EdgeInsets.zero,
+                        elevation: 0,
+                      ),
+                      onPressed: () {},
+                      child: Text(
+                        "Show all results",
+                        style: TextStyle(
+                          color: Color(0XFFFFFFFF),
+                          fontSize: 14,
+                          fontFamily: 'Google Sans',
+                          fontWeight: FontWeight.w400,
+                        ),
                       ),
                     ),
                   ),
-                  SizedBox(height: 10),
-                  _buildRecentlyAddedList(context),
-                  SizedBox(height: 24),
-                  Align(
-                    alignment: Alignment.center,
-                    child: Container(
-                        width: 200,
-                      height: 38,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(
-                          18,
-                        ),
-                        gradient: LinearGradient(
-                          begin: Alignment(0.83, -1.59),
-                          end: Alignment(0.07, 2.44),
-                          colors: [
-                            Color(0XFF005AD4),
-                            Color(0XFF3781E4),
-                            Color(0XFF569EFF)
-                          ],
-                        ),
-                      ),
-                      child: ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: Colors.transparent,
-                          side: BorderSide.none,
-                          shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.zero),
-                          padding: EdgeInsets.zero,
-                          elevation: 0,
-                        ),
-                        onPressed: () {},
-                        child: Text(
-                          "Show all results",
-                          style: TextStyle(
-                            color: Color(0XFFFFFFFF),
-                            fontSize: 14,
-                            fontFamily: 'Google Sans',
-                            fontWeight: FontWeight.w400,
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
-                  SizedBox(height: 16)
-            ],
+                ),
+                SizedBox(height: 16)
+              ],
+            ),
           ),
         ),
       ),
