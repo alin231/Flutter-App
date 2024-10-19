@@ -23,10 +23,9 @@ class DatabaseHelper {
 
   // 初始化資料庫
   Future<Database> _initDatabase() async {
-    // 定義資料庫的路徑
     String path = join(await getDatabasesPath(), 'example.db');
+    print('Initializing database at: $path');
 
-    // 打開資料庫並創建表格
     return await openDatabase(
       path,
       version: 1,
@@ -36,36 +35,62 @@ class DatabaseHelper {
 
   // 創建表格
   Future _onCreate(Database db, int version) async {
-    await db.execute('''
-      CREATE TABLE items (
-        id INTEGER PRIMARY KEY AUTOINCREMENT,  // 自動遞增的主鍵
-        name TEXT,                             // 名稱字段
-        description TEXT                      // 描述字段
-      )
-    ''');
+    print('Creating tables...');
+    await db.execute(
+      'CREATE TABLE items ('
+      'id INTEGER PRIMARY KEY AUTOINCREMENT, '
+      'name TEXT, '
+      'description TEXT)'
+    );
+    print('Tables created.');
   }
+
 
   // 插入資料到表格中
   Future<int> insertItem(Map<String, dynamic> data) async {
     Database db = await database;
-    return await db.insert('items', data);  // 插入資料並返回生成的 ID
+    int id = await db.insert('items', data);  // 插入資料並返回生成的 ID
+    print('Inserted item: $data with id: $id');
+    return id;
   }
 
   // 獲取所有資料
   Future<List<Map<String, dynamic>>> getItems() async {
     Database db = await database;
-    return await db.query('items');  // 查詢表中的所有資料
+    List<Map<String, dynamic>> items = await db.query('items');  // 查詢表中的所有資料
+    print('Fetched items: $items');
+    return items;
   }
 
   // 更新資料
   Future<int> updateItem(int id, Map<String, dynamic> data) async {
     Database db = await database;
-    return await db.update('items', data, where: 'id = ?', whereArgs: [id]);  // 根據 ID 更新資料
+    int count = await db.update('items', data, where: 'id = ?', whereArgs: [id]);  // 根據 ID 更新資料
+    print('Updated item with id: $id, updated count: $count');
+    return count;
   }
 
   // 刪除資料
   Future<int> deleteItem(int id) async {
     Database db = await database;
-    return await db.delete('items', where: 'id = ?', whereArgs: [id]);  // 根據 ID 刪除資料
+    int count = await db.delete('items', where: 'id = ?', whereArgs: [id]);  // 根據 ID 刪除資料
+    print('Deleted item with id: $id, deleted count: $count');
+    return count;
+  }
+
+  // 查詢所有資料
+  Future<List<Map<String, dynamic>>> queryAllItems() async {
+    final db = await database;
+    List<Map<String, dynamic>> items = await db.query('items');
+    print('Queried all items: $items');
+    return items;
+  }
+
+  // 根據名稱刪除資料
+  Future<int> deleteItemByName(String name) async {
+    final db = await database;
+    int count = await db.delete('items', where: 'name = ?', whereArgs: [name]);
+    print('Deleted item with name: $name, deleted count: $count');
+    return count;
   }
 }
