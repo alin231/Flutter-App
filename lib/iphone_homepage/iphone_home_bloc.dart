@@ -79,17 +79,21 @@ class IphoneHomeBloc extends Bloc<IphoneHomeEvent, IphoneHomeState> {
     return [
       SelectionPopupModel(
         id: 1,
-        title: "Item One",
+        title: "Chinese (Traditional)",
         isSelected: true,
       ),
       SelectionPopupModel(
         id: 2,
-        title: "Item Two",
+        title: "English",
       ),
       SelectionPopupModel(
         id: 3,
-        title: "Item Three",
-      )
+        title: "Korean",
+      ),
+      SelectionPopupModel(
+        id: 4,
+        title: "Japanese",
+      ),
     ];
   }
 
@@ -97,17 +101,21 @@ class IphoneHomeBloc extends Bloc<IphoneHomeEvent, IphoneHomeState> {
     return [
       SelectionPopupModel(
         id: 1,
-        title: "Item One",
+        title: "Chinese (Traditional)",
         isSelected: true,
       ),
       SelectionPopupModel(
         id: 2,
-        title: "Item Two",
+        title: "English",
       ),
       SelectionPopupModel(
         id: 3,
-        title: "Item Three",
-      )
+        title: "Korean",
+      ),
+      SelectionPopupModel(
+        id: 4,
+        title: "Japanese",
+      ),
     ];
   }
 
