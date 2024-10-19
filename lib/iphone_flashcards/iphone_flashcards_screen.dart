@@ -279,7 +279,7 @@ class RecentlyaddedlistItemWidget extends StatelessWidget {
               Text(
                 recentlyaddedlistItemModelObj.pun!,
                 style: TextStyle(
-                  color: Color(0XFF5F6369),
+                  color:Color(0XFF3781E4),
                   fontSize: 16,
                   fontFamily: 'Google Sans',
                   fontWeight: FontWeight.w400,

@@ -121,34 +121,31 @@ class IphoneFlashcardsBloc
   }
 
   Future<List<RecentlyaddedlistItemModel>> fillRecentlyaddedlistItemList() async {
-    // 預設值為 "Empty"
-    List<RecentlyaddedlistItemModel> recentlyAddedItems = [
-      RecentlyaddedlistItemModel(dinosaur: "Empty", englishWord: "", pun: ""),
-      RecentlyaddedlistItemModel(dinosaur: "Empty", englishWord: "", pun: ""),
-      RecentlyaddedlistItemModel(dinosaur: "Empty", englishWord: "", pun: ""),
-      RecentlyaddedlistItemModel(dinosaur: "Empty", englishWord: "", pun: ""),
-      RecentlyaddedlistItemModel(dinosaur: "Empty", englishWord: "", pun: "")
-    ];
+    // 預設空的列表，準備存放所有的資料
+    List<RecentlyaddedlistItemModel> recentlyAddedItems = [];
 
     DatabaseHelper dbHelper = DatabaseHelper();
 
-    // 從資料庫中查詢最近的五筆資料
+    // 從資料庫中查詢所有的資料
     List<Map<String, dynamic>> data = await dbHelper.getItems('user_words');
 
     if (data.isNotEmpty) {
-      // 確保最多只取 5 筆資料
-      for (var i = 0; i < (data.length > 5 ? 5 : data.length); i++) {
-        recentlyAddedItems[i] = RecentlyaddedlistItemModel(
-          dinosaur: data[i]['chinese_word'],   // 從 'chinese_word' 字段取值
-          englishWord: data[i]['english_word'], // 從 'english_word' 字段取值
-          pun: data[i]['pun'],                 // 從 'pun' 字段取值
-          id: data[i]['id'].toString(),
+      // 迭代所有資料，將每一筆資料加入 recentlyAddedItems 列表
+      for (var i = 0; i < data.length; i++) {
+        recentlyAddedItems.add(
+          RecentlyaddedlistItemModel(
+            dinosaur: data[i]['chinese_word'],    // 從 'chinese_word' 字段取值
+            englishWord: data[i]['english_word'], // 從 'english_word' 字段取值
+            pun: data[i]['pun'],                  // 從 'pun' 字段取值
+            id: data[i]['id'].toString(),
+          ),
         );
       }
     }
 
     return recentlyAddedItems;
   }
+
 }
 
 /// Represents the state of IphoneFlashcards in the application.
