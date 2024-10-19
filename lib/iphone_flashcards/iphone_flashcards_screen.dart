@@ -123,47 +123,44 @@ class IphoneFlashcardsScreen extends StatelessWidget {
       padding: EdgeInsets.symmetric(horizontal: 32),
       decoration: BoxDecoration(
         color: Colors.white,
-        boxShadow: [
-          BoxShadow(
-            spreadRadius: 2,
-            blurRadius: 2,
-          )
-        ],
       ),
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
           SizedBox(height: 54),
-          TextButton.icon(
-            onPressed: () {
+            Align(
+            alignment: Alignment.centerLeft,
+            child: TextButton.icon(
+              onPressed: () {
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => IphoneHomeScreen.builder(context),
+                builder: (context) => IphoneHomeScreen.builder(context),
                 ),
               );
-            },
-            icon: SvgPicture.asset(
+              },
+              icon: SvgPicture.asset(
               "assets/images/img_arrow_left.svg",
               height: 14,
               width: 14,
-            ),
-            label: Padding(
+              ),
+              label: Padding(
               padding: EdgeInsets.only(left: 8),
               child: Text(
                 "Back",
                 style: TextStyle(
-                  color: Color(0XFF5F6369),
-                  fontSize: 15,
-                  fontFamily: 'Google Sans',
-                  fontWeight: FontWeight.w400,
+                color: Color(0XFF5F6369),
+                fontSize: 15,
+                fontFamily: 'Google Sans',
+                fontWeight: FontWeight.w400,
                 ),
               ),
-            ),
-            style: TextButton.styleFrom(
+              ),
+              style: TextButton.styleFrom(
               padding: EdgeInsets.symmetric(horizontal: 16),
+              ),
             ),
-          ),
+            ),
           SizedBox(height: 14),
           Container(
             width: double.maxFinite,

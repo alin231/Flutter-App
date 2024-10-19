@@ -56,48 +56,44 @@ class IphoneDailyPunScreen extends StatelessWidget {
       ),
       decoration: BoxDecoration(
         color: Color(0XFFFFFFFF),
-        boxShadow: [
-          BoxShadow(
-            spreadRadius: 2,
-            blurRadius: 2,
-          )
-        ],
       ),
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
             SizedBox(height: 26),
-            TextButton.icon(
+            Align(
+            alignment: Alignment.centerLeft,
+            child: TextButton.icon(
               onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => IphoneHomeScreen.builder(context),
-                  ),
-                );
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                builder: (context) => IphoneHomeScreen.builder(context),
+                ),
+              );
               },
               icon: SvgPicture.asset(
-                "assets/images/img_arrow_left.svg",
-                height: 14,
-                width: 14,
+              "assets/images/img_arrow_left.svg",
+              height: 14,
+              width: 14,
               ),
               label: Padding(
-                padding: EdgeInsets.only(left: 8),
-                child: Text(
-                  "Back",
-                  style: TextStyle(
-                    color: Color(0XFF5F6369),
-                    fontSize: 15,
-                    fontFamily: 'Google Sans',
-                    fontWeight: FontWeight.w400,
-                  ),
+              padding: EdgeInsets.only(left: 8),
+              child: Text(
+                "Back",
+                style: TextStyle(
+                color: Color(0XFF5F6369),
+                fontSize: 15,
+                fontFamily: 'Google Sans',
+                fontWeight: FontWeight.w400,
                 ),
               ),
-              style: TextButton.styleFrom(
-                padding: EdgeInsets.symmetric(horizontal: 16), // 控制左右的 padding，讓點擊區域更大
               ),
-            )
-            ,
+              style: TextButton.styleFrom(
+              padding: EdgeInsets.symmetric(horizontal: 16),
+              ),
+            ),
+            ),
           SizedBox(height: 8),
           Container(
             width: double.maxFinite,
