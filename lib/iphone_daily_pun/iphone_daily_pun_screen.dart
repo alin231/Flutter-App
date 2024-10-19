@@ -72,26 +72,6 @@ class IphoneDailyPunScreen extends StatelessWidget {
                         ],
                       ),
                     ),
-                    child: ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.transparent,
-                        side: BorderSide.none,
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.zero),
-                        padding: EdgeInsets.zero,
-                        elevation: 0,
-                      ),
-                      onPressed: () {},
-                      child: Text(
-                        "Show all results",
-                        style: TextStyle(
-                          color: Color(0XFFFFFFFF),
-                          fontSize: 14,
-                          fontFamily: 'Google Sans',
-                          fontWeight: FontWeight.w400,
-                        ),
-                      ),
-                    ),
                   ),
                 ),
                 SizedBox(height: 16)
@@ -328,136 +308,12 @@ Widget _buildTranslationSection(BuildContext context) {
 
 }
 
-
-
-
-
-
-
-
-
-
-
-  /// Section Widget
-//   Widget _buildPunLibrariesSection(BuildContext context) {
-//     return Container(
-//       width: double.maxFinite,
-//       margin: EdgeInsets.only(
-//         left: 26,
-//         right: 30,
-//       ),
-//       child: Column(
-//         crossAxisAlignment: CrossAxisAlignment.start,
-//         children: [
-//           Text(
-//             "Pun Libraries",
-//             style: TextStyle(
-//               color: Color(0XFF4B4F56),
-//               fontSize: 24.095813751220703,
-//               fontFamily: 'Google Sans',
-//               fontWeight: FontWeight.w500,
-//             ),
-//           ),
-//           SizedBox(height: 18),
-//           BlocSelector<IphoneDailyPunBloc, IphoneDailyPunState,
-//               IphoneDailyPunModel?>(
-//             selector: (state) => state.iphoneDailyPunModelObj,
-//             builder: (context, iphoneDailyPunModelObj) {
-//               return ResponsiveGridListBuilder(
-//                 minItemWidth: 1,
-//                 minItemsPerRow: 2,
-//                 maxItemsPerRow: 2,
-//                 horizontalGridSpacing: 14,
-//                 verticalGridSpacing: 14,
-//                 builder: (context, items) => ListView(
-//                   shrinkWrap: true,
-//                   padding: EdgeInsets.zero,
-//                   physics: NeverScrollableScrollPhysics(),
-//                   children: items,
-//                 ),
-//                 gridItems: List.generate(
-//                   iphoneDailyPunModelObj?.gridbasicItemList.length ?? 0,
-//                   (index) {
-//                     GridbasicItemModel model =
-//                         iphoneDailyPunModelObj?.gridbasicItemList[index] ??
-//                             GridbasicItemModel();
-//                     return GridbasicItemWidget(
-//                       model,
-//                     );
-//                   },
-//                 ),
-//               );
-//             },
-//           )
-//         ],
-//       ),
-//     );
-//   }
-// }
-
-// ignore_for_file: must_be_immutable
-
-
-
-
-
-// class GridbasicItemWidget extends StatelessWidget {
-//   GridbasicItemWidget(this.gridbasicItemModelObj, {Key? key})
-//       : super(
-//           key: key,
-//         );
-
-//   GridbasicItemModel gridbasicItemModelObj;
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return Container(
-//       width: double.maxFinite,
-//       padding: EdgeInsets.only(
-//         left: 12,
-//         top: 10,
-//         bottom: 10,
-//       ),
-//       decoration: BoxDecoration(
-//         color: Color(0XFFF5F5F5),
-//         borderRadius: BorderRadius.circular(
-//           6,
-//         ),
-//       ),
-//       child: Column(
-//         mainAxisSize: MainAxisSize.min,
-//         crossAxisAlignment: CrossAxisAlignment.start,
-//         mainAxisAlignment: MainAxisAlignment.center,
-//         children: [
-//           SizedBox(height: 2),
-//           SizedBox(
-//             height: 20,
-//             width: 28,
-//             child: SvgPicture.asset(
-//               gridbasicItemModelObj.basicEnglish!,
-//             ),
-//           ),
-//           SizedBox(height: 26),
-//           Text(
-//             gridbasicItemModelObj.basicenglish1!,
-//             style: TextStyle(
-//               color: Color(0XFF333333),
-//               fontSize: 14,
-//               fontFamily: 'Google Sans',
-//               fontWeight: FontWeight.w500,
-//             ),
-//           )
-//         ],
-//       ),
-//     );
-//   }
-// }
-  /// Section Widget
   Widget _buildRecentlyAddedList(BuildContext context) {
+    
+    FlashcardsDeleter dbHelper = FlashcardsDeleter();
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: 26),
-      child: BlocSelector<IphoneDailyPunBloc, IphoneDailyPunState,
-          IphoneDailyPunModel?>(
+      child: BlocSelector<IphoneDailyPunBloc, IphoneDailyPunState, IphoneDailyPunModel?>(
         selector: (state) => state.iphoneDailyPunModelObj,
         builder: (context, iphoneDailyPunModelObj) {
           return ListView.separated(
@@ -469,14 +325,18 @@ Widget _buildTranslationSection(BuildContext context) {
                 height: 12,
               );
             },
-            itemCount:
-                iphoneDailyPunModelObj?.recentlyaddedlistItemList.length ?? 0,
+            itemCount: iphoneDailyPunModelObj?.recentlyaddedlistItemList.length ?? 0,
             itemBuilder: (context, index) {
               RecentlyaddedlistItemModel model =
                   iphoneDailyPunModelObj?.recentlyaddedlistItemList[index] ??
                       RecentlyaddedlistItemModel();
               return RecentlyaddedlistItemWidget(
                 model,
+                onDelete: (id) async {
+                  // 在这里处理删除逻辑
+                  await dbHelper.deleteItem(int.parse(id));
+                  // 可以在这里添加状态更新或其他操作
+                },
               );
             },
           );
@@ -486,41 +346,34 @@ Widget _buildTranslationSection(BuildContext context) {
   }
 
 
+
 // ignore_for_file: must_be_immutable
 class RecentlyaddedlistItemWidget extends StatelessWidget {
-  RecentlyaddedlistItemWidget(this.recentlyaddedlistItemModelObj, {Key? key})
-      : super(
-          key: key,
-        );
+  final RecentlyaddedlistItemModel recentlyaddedlistItemModelObj;
+  final Function(String) onDelete; // 添加一个删除回调函数
 
-  RecentlyaddedlistItemModel recentlyaddedlistItemModelObj;
+  const RecentlyaddedlistItemWidget(
+    this.recentlyaddedlistItemModelObj, {
+    Key? key,
+    required this.onDelete, // 接收删除回调
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Ink(
       decoration: BoxDecoration(
         color: Color(0XFFF5F5F5),
-        borderRadius: BorderRadius.circular(
-          8,
-        ),
+        borderRadius: BorderRadius.circular(8),
       ),
       child: ListTile(
         minVerticalPadding: 0,
         minTileHeight: 0,
         minLeadingWidth: 0,
         shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(
-            8,
-          ),
+          borderRadius: BorderRadius.circular(8),
         ),
-        visualDensity: VisualDensity(
-          vertical: -4,
-          horizontal: -4,
-        ),
-        contentPadding: EdgeInsets.symmetric(
-          horizontal: 6,
-          vertical: 12,
-        ),
+        visualDensity: VisualDensity(vertical: -4, horizontal: -4),
+        contentPadding: EdgeInsets.symmetric(horizontal: 6, vertical: 12),
         title: Padding(
           padding: EdgeInsets.only(top: 2),
           child: Column(
@@ -531,6 +384,24 @@ class RecentlyaddedlistItemWidget extends StatelessWidget {
                 style: TextStyle(
                   color: Color(0XFF5F6369),
                   fontSize: 24.095813751220703,
+                  fontFamily: 'Google Sans',
+                  fontWeight: FontWeight.w400,
+                ),
+              ),
+              Text(
+                recentlyaddedlistItemModelObj.englishWord!,
+                style: TextStyle(
+                  color: Color(0XFF5F6369),
+                  fontSize: 24.095813751220703,
+                  fontFamily: 'Google Sans',
+                  fontWeight: FontWeight.w400,
+                ),
+              ),
+              Text(
+                recentlyaddedlistItemModelObj.pun!,
+                style: TextStyle(
+                  color: Color(0XFF3781E4),
+                  fontSize: 16,
                   fontFamily: 'Google Sans',
                   fontWeight: FontWeight.w400,
                 ),
@@ -556,21 +427,27 @@ class RecentlyaddedlistItemWidget extends StatelessWidget {
                         fontFamily: 'Google Sans',
                         fontWeight: FontWeight.w400,
                       ),
-                    )
+                    ),
                   ],
                 ),
                 textAlign: TextAlign.left,
-              )
+              ),
             ],
           ),
         ),
-        trailing: Padding(
-          padding: EdgeInsets.zero,
-          child: SizedBox(
-            height: 44,
-            width: 40,
-            child: SvgPicture.asset(
-              "assets/images/img_starrr.svg",
+        trailing: GestureDetector(
+          onTap: () {
+            // 调用删除回调，并传递当前项的 ID
+            onDelete(recentlyaddedlistItemModelObj.id!);
+          },
+          child: Padding(
+            padding: EdgeInsets.zero,
+            child: SizedBox(
+              height: 44,
+              width: 40,
+              child: SvgPicture.asset(
+                "assets/images/img_starrr.svg",
+              ),
             ),
           ),
         ),

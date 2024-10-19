@@ -181,3 +181,17 @@ class IphoneFlashcardsInitialEvent extends IphoneFlashcardsEvent {
   @override
   List<Object?> get props => [];
 }
+
+class FlashcardsDeleter {
+  final DatabaseHelper dbHelper = DatabaseHelper();
+
+  // 删除数据库中的字卡
+  Future<void> deleteItem(int id) async {
+    try {
+      await dbHelper.deleteItem('user_words', id);
+      print("Item with id $id deleted successfully.");
+    } catch (e) {
+      print("Error deleting item: $e");
+    }
+  }
+}

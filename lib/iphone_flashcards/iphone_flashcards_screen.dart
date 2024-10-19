@@ -72,26 +72,6 @@ class IphoneFlashcardsScreen extends StatelessWidget {
                           ],
                         ),
                       ),
-                      child: ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: Colors.transparent,
-                          side: BorderSide.none,
-                          shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.zero),
-                          padding: EdgeInsets.zero,
-                          elevation: 0,
-                        ),
-                        onPressed: () {},
-                        child: Text(
-                          "Show all results",
-                          style: TextStyle(
-                            color: Color(0XFFFFFFFF),
-                            fontSize: 14,
-                            fontFamily: 'Google Sans',
-                            fontWeight: FontWeight.w400,
-                          ),
-                        ),
-                      ),
                     ),
                   ),
                   SizedBox(height: 16)
@@ -229,6 +209,8 @@ class RecentlyaddedlistItemWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    FlashcardsDeleter dbHelper = FlashcardsDeleter();
+
     return Ink(
       decoration: BoxDecoration(
         color: Color(0XFFF5F5F5),
@@ -267,24 +249,6 @@ class RecentlyaddedlistItemWidget extends StatelessWidget {
                   fontWeight: FontWeight.w400,
                 ),
               ),
-              Text(
-                recentlyaddedlistItemModelObj.englishWord!,
-                style: TextStyle(
-                  color: Color(0XFF5F6369),
-                  fontSize: 24.095813751220703,
-                  fontFamily: 'Google Sans',
-                  fontWeight: FontWeight.w400,
-                ),
-              ),
-              Text(
-                recentlyaddedlistItemModelObj.pun!,
-                style: TextStyle(
-                  color:Color(0XFF3781E4),
-                  fontSize: 16,
-                  fontFamily: 'Google Sans',
-                  fontWeight: FontWeight.w400,
-                ),
-              ),
               SizedBox(height: 2),
               RichText(
                 text: TextSpan(
@@ -316,15 +280,25 @@ class RecentlyaddedlistItemWidget extends StatelessWidget {
         ),
         trailing: Padding(
           padding: EdgeInsets.zero,
-          child: SizedBox(
-            height: 44,
-            width: 40,
-            child: SvgPicture.asset(
-              "assets/images/img_starrr.svg",
+          child: GestureDetector(
+            onTap: () async {
+              // 點擊圖片後刪除字卡
+              await dbHelper.deleteItem(int.parse(recentlyaddedlistItemModelObj.id!));
+              // 此處可以根據需求刷新頁面或顯示提示
+              print("Deleted card with ID: ${recentlyaddedlistItemModelObj.id}");
+            },
+            child: SizedBox(
+              height: 44,
+              width: 40,
+              child: SvgPicture.asset(
+                "assets/images/img_starrr.svg",
+              ),
             ),
           ),
         ),
-        onTap: () {},
+        onTap: () {
+          // 這裡可以執行其他操作，如跳轉到詳細頁面
+        },
       ),
     );
   }

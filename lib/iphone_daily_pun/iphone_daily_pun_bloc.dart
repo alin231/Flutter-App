@@ -42,20 +42,15 @@ class GridbasicItemModel extends Equatable {
 // ignore_for_file: must_be_immutable
 class IphoneDailyPunModel extends Equatable {
     IphoneDailyPunModel(
-      {this.quizpreparationsectionItemList = const [],
-      this.recentlyaddedlistItemList = const []});
+      {this.recentlyaddedlistItemList = const []});
 
-  List<QuizpreparationsectionItemModel> quizpreparationsectionItemList;
 
   List<RecentlyaddedlistItemModel> recentlyaddedlistItemList;
 
   IphoneDailyPunModel copyWith({
-    List<QuizpreparationsectionItemModel>? quizpreparationsectionItemList,
     List<RecentlyaddedlistItemModel>? recentlyaddedlistItemList,
   }) {
     return IphoneDailyPunModel(
-      quizpreparationsectionItemList:
-          quizpreparationsectionItemList ?? this.quizpreparationsectionItemList,
       recentlyaddedlistItemList:
           recentlyaddedlistItemList ?? this.recentlyaddedlistItemList,
     );
@@ -63,7 +58,7 @@ class IphoneDailyPunModel extends Equatable {
 
   @override
   List<Object?> get props =>
-      [quizpreparationsectionItemList, recentlyaddedlistItemList];
+      [recentlyaddedlistItemList];
   // IphoneDailyPunModel({this.gridbasicItemList = const []});
 
   // List<GridbasicItemModel> gridbasicItemList;
@@ -80,21 +75,42 @@ class IphoneDailyPunModel extends Equatable {
 
 
 
-class QuizpreparationsectionItemModel extends Equatable {
-  QuizpreparationsectionItemModel({this.id}) {
+// ignore_for_file: must_be_immutable
+class RecentlyaddedlistItemModel extends Equatable {
+  RecentlyaddedlistItemModel({
+    this.dinosaur,
+    this.id,
+    this.englishWord,
+    this.pun,
+  }) {
+    dinosaur = dinosaur ?? "Empty";
     id = id ?? "";
+    englishWord = englishWord ?? "";
+    pun = pun ?? "";
   }
 
+  String? dinosaur;
   String? id;
+  String? englishWord; // 新增字段
+  String? pun;         // 新增字段
 
-  QuizpreparationsectionItemModel copyWith({String? id}) {
-    return QuizpreparationsectionItemModel(
+  // 修改 copyWith 方法，加入 englishWord 和 pun 字段
+  RecentlyaddedlistItemModel copyWith({
+    String? dinosaur,
+    String? id,
+    String? englishWord,
+    String? pun,
+  }) {
+    return RecentlyaddedlistItemModel(
+      dinosaur: dinosaur ?? this.dinosaur,
       id: id ?? this.id,
+      englishWord: englishWord ?? this.englishWord,
+      pun: pun ?? this.pun,
     );
   }
 
   @override
-  List<Object?> get props => [id];
+  List<Object?> get props => [dinosaur, id, englishWord, pun]; // 更新 props
 }
 
 
@@ -112,43 +128,37 @@ class IphoneDailyPunBloc
     emit(
       state.copyWith(
         iphoneDailyPunModelObj: state.iphoneDailyPunModelObj?.copyWith(
-          quizpreparationsectionItemList: fillQuizpreparationsectionItemList(),
           recentlyaddedlistItemList: await fillRecentlyaddedlistItemList(),
         ),
       ),
     );
   }
 
-  List<QuizpreparationsectionItemModel> fillQuizpreparationsectionItemList() {
-    return List.generate(3, (index) => QuizpreparationsectionItemModel());
-  }
 
-  // 修改的部分：從資料庫讀取資料，最多替換五個 Dinosaur 項目
+
   Future<List<RecentlyaddedlistItemModel>> fillRecentlyaddedlistItemList() async {
-    // 預設值為 "Empty"
-    List<RecentlyaddedlistItemModel> recentlyAddedItems = [
-      RecentlyaddedlistItemModel(dinosaur: "Empty"),
-      RecentlyaddedlistItemModel(dinosaur: "Empty"),
-      RecentlyaddedlistItemModel(dinosaur: "Empty"),
-      RecentlyaddedlistItemModel(dinosaur: "Empty"),
-      RecentlyaddedlistItemModel(dinosaur: "Empty")
-    ];
+    // 預設空的列表，準備存放所有的資料
+    List<RecentlyaddedlistItemModel> recentlyAddedItems = [];
 
     DatabaseHelper dbHelper = DatabaseHelper();
 
-    // 從資料庫中查詢最近的五筆資料
-    List<Map<String, dynamic>> data = await dbHelper.getItems('dailypun_result');
-  
+    // 從資料庫中查詢所有的資料
+    List<Map<String, dynamic>> data = await dbHelper.getItems('daily_pun');
+
     if (data.isNotEmpty) {
-      // 確保最多只取 5 筆資料
-      for (var i = 0; i < (data.length > 5 ? 5 : data.length); i++) {
-        recentlyAddedItems[i] = RecentlyaddedlistItemModel(
-          dinosaur: data[i]['chinese_word'], // 假設從資料庫的 'chinese_word' 字段中取值
-          id: data[i]['id'].toString(),
+      // 迭代所有資料，將每一筆資料加入 recentlyAddedItems 列表
+      for (var i = 0; i < data.length; i++) {
+        recentlyAddedItems.add(
+          RecentlyaddedlistItemModel(
+            dinosaur: data[i]['chinese_word'],    // 從 'chinese_word' 字段取值
+            englishWord: data[i]['english_word'], // 從 'english_word' 字段取值
+            pun: data[i]['pun'],                  // 從 'pun' 字段取值
+            id: data[i]['id'].toString(),
+          ),
         );
       }
     }
-  
+
     return recentlyAddedItems;
   }
   // _onInitialize(
@@ -215,31 +225,16 @@ class IphoneDailyPunInitialEvent extends IphoneDailyPunEvent {
   List<Object?> get props => [];
 }
 
+class FlashcardsDeleter {
+  final DatabaseHelper dbHelper = DatabaseHelper();
 
-
-
-
-
-class RecentlyaddedlistItemModel extends Equatable {
-  RecentlyaddedlistItemModel({this.dinosaur, this.id}) {
-    dinosaur = dinosaur ?? "Empty";
-    id = id ?? "";
+  // 删除数据库中的字卡
+  Future<void> deleteItem(int id) async {
+    try {
+      await dbHelper.deleteItem('daily_pun', id);
+      print("Item with id $id deleted successfully.");
+    } catch (e) {
+      print("Error deleting item: $e");
+    }
   }
-
-  String? dinosaur;
-
-  String? id;
-
-  RecentlyaddedlistItemModel copyWith({
-    String? dinosaur,
-    String? id,
-  }) {
-    return RecentlyaddedlistItemModel(
-      dinosaur: dinosaur ?? this.dinosaur,
-      id: id ?? this.id,
-    );
-  }
-
-  @override
-  List<Object?> get props => [dinosaur, id];
 }
