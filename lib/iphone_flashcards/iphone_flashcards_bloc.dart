@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'iphone_flashcards_screen.dart';
-import 'package:myapp/database_helper.dart';
+import 'package:myapp/database_helper.dart'; // 已經存在
+
 /// This class defines the variables used in the [iphone_flashcards_screen],
 /// and is typically used to hold data that is passed between different parts of the application.
 
@@ -96,7 +97,7 @@ class IphoneFlashcardsBloc
       state.copyWith(
         iphoneFlashcardsModelObj: state.iphoneFlashcardsModelObj?.copyWith(
           quizpreparationsectionItemList: fillQuizpreparationsectionItemList(),
-          recentlyaddedlistItemList: fillRecentlyaddedlistItemList(),
+          recentlyaddedlistItemList: await fillRecentlyaddedlistItemList(), // 修改
         ),
       ),
     );
@@ -106,14 +107,33 @@ class IphoneFlashcardsBloc
     return List.generate(3, (index) => QuizpreparationsectionItemModel());
   }
 
-  List<RecentlyaddedlistItemModel> fillRecentlyaddedlistItemList() {
-    return [
-      RecentlyaddedlistItemModel(dinosaur: "Dinosaur"),
-      RecentlyaddedlistItemModel(dinosaur: "Dinosaur"),
-      RecentlyaddedlistItemModel(dinosaur: "Dinosaur"),
-      RecentlyaddedlistItemModel(dinosaur: "Dinosaur"),
-      RecentlyaddedlistItemModel(dinosaur: "Dinosaur")
+  // 修改的部分：從資料庫讀取資料，最多替換五個 Dinosaur 項目
+  Future<List<RecentlyaddedlistItemModel>> fillRecentlyaddedlistItemList() async {
+    // 預設值為 "Empty"
+    List<RecentlyaddedlistItemModel> recentlyAddedItems = [
+      RecentlyaddedlistItemModel(dinosaur: "Empty"),
+      RecentlyaddedlistItemModel(dinosaur: "Empty"),
+      RecentlyaddedlistItemModel(dinosaur: "Empty"),
+      RecentlyaddedlistItemModel(dinosaur: "Empty"),
+      RecentlyaddedlistItemModel(dinosaur: "Empty")
     ];
+
+    DatabaseHelper dbHelper = DatabaseHelper();
+
+    // 從資料庫中查詢最近的五筆資料
+    List<Map<String, dynamic>> data = await dbHelper.getItems('user_words');
+  
+    if (data.isNotEmpty) {
+      // 確保最多只取 5 筆資料
+      for (var i = 0; i < (data.length > 5 ? 5 : data.length); i++) {
+        recentlyAddedItems[i] = RecentlyaddedlistItemModel(
+          dinosaur: data[i]['chinese_word'], // 假設從資料庫的 'chinese_word' 字段中取值
+          id: data[i]['id'].toString(),
+        );
+      }
+    }
+  
+    return recentlyAddedItems;
   }
 }
 

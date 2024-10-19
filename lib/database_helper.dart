@@ -23,8 +23,8 @@ class DatabaseHelper {
 
   // 初始化資料庫
   Future<Database> _initDatabase() async {
-    String path = join(await getDatabasesPath(), 'example.db');
-    print('Initializing database at: $path');
+    String path = join(await getDatabasesPath(), 'multi_tables.db');
+    print('初始化資料庫於: $path');
 
     return await openDatabase(
       path,
@@ -35,62 +35,94 @@ class DatabaseHelper {
 
   // 創建表格
   Future _onCreate(Database db, int version) async {
-    print('Creating tables...');
+    print('創建表格...');
+
+    // 創建 user_words 表
     await db.execute(
-      'CREATE TABLE items ('
+      'CREATE TABLE user_words ('
       'id INTEGER PRIMARY KEY AUTOINCREMENT, '
-      'name TEXT, '
-      'description TEXT)'
+      'chinese_word TEXT, '  // 中文單字
+      'english_word TEXT, '  // 英文單字
+      'pun TEXT, '           // 諧音/雙關
+      'definition TEXT)'      // 解釋
     );
-    print('Tables created.');
+
+    // 創建 user_data 表
+    await db.execute(
+      'CREATE TABLE user_data ('
+      'id INTEGER PRIMARY KEY AUTOINCREMENT, '
+      'username TEXT, '   // 帳號
+      'password TEXT)'    // 密碼
+    );
+
+    // 創建 dailypun_result 表
+    await db.execute(
+      'CREATE TABLE dailypun_result ('
+      'id INTEGER PRIMARY KEY AUTOINCREMENT, '
+      'chinese_word TEXT, '  // 中文單字
+      'english_word TEXT, '  // 英文單字
+      'pun TEXT, '           // 諧音/雙關
+      'definition TEXT)'      // 解釋
+    );
+
+    print('表格創建完成。');
   }
 
-
-  // 插入資料到表格中
-  Future<int> insertItem(Map<String, dynamic> data) async {
+  // 插入資料到指定表格中
+  Future<int> insertItem(String tableName, Map<String, dynamic> data) async {
     Database db = await database;
-    int id = await db.insert('items', data);  // 插入資料並返回生成的 ID
-    print('Inserted item: $data with id: $id');
+    int id = await db.insert(tableName, data);  // 插入資料並返回生成的 ID
+    print('插入至 $tableName: $data, 生成的 ID: $id');
     return id;
   }
 
-  // 獲取所有資料
-  Future<List<Map<String, dynamic>>> getItems() async {
+  // 獲取表格中所有資料
+  Future<List<Map<String, dynamic>>> getItems(String tableName) async {
     Database db = await database;
-    List<Map<String, dynamic>> items = await db.query('items');  // 查詢表中的所有資料
-    print('Fetched items: $items');
+    List<Map<String, dynamic>> items = await db.query(tableName);  // 查詢表中的所有資料
+    print('從 $tableName 獲取資料: $items');
     return items;
   }
 
-  // 更新資料
-  Future<int> updateItem(int id, Map<String, dynamic> data) async {
+  // 根據 ID 更新資料
+  Future<int> updateItem(String tableName, int id, Map<String, dynamic> data) async {
     Database db = await database;
-    int count = await db.update('items', data, where: 'id = ?', whereArgs: [id]);  // 根據 ID 更新資料
-    print('Updated item with id: $id, updated count: $count');
+    int count = await db.update(tableName, data, where: 'id = ?', whereArgs: [id]);  // 根據 ID 更新資料
+    print('更新 $tableName 中 ID 為 $id 的資料，更新數量: $count');
     return count;
   }
 
-  // 刪除資料
-  Future<int> deleteItem(int id) async {
+  // 根據 ID 刪除資料
+  Future<int> deleteItem(String tableName, int id) async {
     Database db = await database;
-    int count = await db.delete('items', where: 'id = ?', whereArgs: [id]);  // 根據 ID 刪除資料
-    print('Deleted item with id: $id, deleted count: $count');
+    int count = await db.delete(tableName, where: 'id = ?', whereArgs: [id]);  // 根據 ID 刪除資料
+    print('刪除 $tableName 中 ID 為 $id 的資料，刪除數量: $count');
     return count;
   }
 
-  // 查詢所有資料
-  Future<List<Map<String, dynamic>>> queryAllItems() async {
-    final db = await database;
-    List<Map<String, dynamic>> items = await db.query('items');
-    print('Queried all items: $items');
-    return items;
+  // 刪除所有資料
+  Future<int> deleteAllItems(String tableName) async {
+    Database db = await database;
+    int count = await db.delete(tableName);  // 刪除表中的所有資料
+    print('刪除 $tableName 中的所有資料，刪除數量: $count');
+    return count;
   }
 
-  // 根據名稱刪除資料
-  Future<int> deleteItemByName(String name) async {
-    final db = await database;
-    int count = await db.delete('items', where: 'name = ?', whereArgs: [name]);
-    print('Deleted item with name: $name, deleted count: $count');
-    return count;
+  // 查詢最近一次插入的資料
+  Future<Map<String, dynamic>?> getLatestItem(String tableName) async {
+    Database db = await database;
+    List<Map<String, dynamic>> items = await db.query(
+      tableName,
+      orderBy: 'id DESC',  // 按 id 遞減排序，這樣第一筆就是最新的
+      limit: 1,            // 只取一筆資料
+    );
+    
+    if (items.isNotEmpty) {
+      print('最近插入的資料: ${items.first}');
+      return items.first;
+    } else {
+      print('無法從 $tableName 中獲取最近插入的資料');
+      return null;
+    }
   }
 }
