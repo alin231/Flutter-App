@@ -6,6 +6,7 @@ import '/iphone_homepage/iphone_home_screen.dart';
 import 'package:myapp/global_variables.dart' as global;
 
 
+
 class IphoneDailyPunScreen extends StatelessWidget {
   const IphoneDailyPunScreen({Key? key})
       : super(
@@ -190,9 +191,6 @@ class IphoneDailyPunScreen extends StatelessWidget {
     return response.split('/').map((s) => s.trim()).toList();
   }
 
-
-
-
   /// Section Widget
   Widget _buildTranslationSection(BuildContext context) {
     String aiResponse = global.dailypun; // Assuming this holds the AI response
@@ -250,43 +248,16 @@ class IphoneDailyPunScreen extends StatelessWidget {
                     textAlign: TextAlign.left,
                   ),
                 ),
-BlocBuilder<IphoneDailyPunBloc, IphoneDailyPunState>(
-  builder: (context, state) {
-    return ListView.builder(
-      itemCount: state.iphoneDailyPunModelObj?.recentlyaddedlistItemList.length ?? 0,
-      itemBuilder: (context, index) {
-        // Fetch the item from the list using the current index
-        final item = state.iphoneDailyPunModelObj?.recentlyaddedlistItemList[index];
-
-        // Ensure that the item is not null
-        if (item == null) return Container();
-
-        return IconButton(
-          icon: BlocBuilder<IphoneDailyPunBloc, IphoneDailyPunState>(
-            builder: (context, state) {
-              // Check if the current item is starred
-              final isStarFilled = state.iphoneDailyPunModelObj?.recentlyaddedlistItemList
-            .firstWhere((element) => element.id == item.id)
-            .dinosaur == "Starred";
-
-              return SvgPicture.asset(
-          isStarFilled
-              ? "assets/images/img_star_filled.svg"
-              : "assets/images/img_starrr.svg",
-              );
-            },
-          ),
-          onPressed: () {
-            // Dispatch the ToggleStarEvent with the item's ID
-            context.read<IphoneDailyPunBloc>().add(ToggleStarEvent(id: item.id!));
-          },
-        );
-      },
-    );
-  },
-)
-
-
+                Padding(
+                  padding: EdgeInsets.zero,
+                  child: SizedBox(
+                    height: 40,
+                    width: 42,
+                    child: SvgPicture.asset(
+                      "assets/images/img_starrr.svg",
+                    ),
+                  ),
+                )
               ],
             ),
           ),
@@ -504,16 +475,14 @@ BlocBuilder<IphoneDailyPunBloc, IphoneDailyPunState>(
 //   }
 // }
   /// Section Widget
-Widget _buildRecentlyAddedList(BuildContext context) {
-  return Padding(
-    padding: EdgeInsets.symmetric(horizontal: 26),
-    child: BlocSelector<IphoneDailyPunBloc, IphoneDailyPunState,
-        IphoneDailyPunModel?>(
-      selector: (state) => state.iphoneDailyPunModelObj,
-      builder: (context, iphoneDailyPunModelObj) {
-        return Container(
-          height: 300, // Set a fixed height or use MediaQuery to set a dynamic height
-          child: ListView.separated(
+  Widget _buildRecentlyAddedList(BuildContext context) {
+    return Padding(
+      padding: EdgeInsets.symmetric(horizontal: 26),
+      child: BlocSelector<IphoneDailyPunBloc, IphoneDailyPunState,
+          IphoneDailyPunModel?>(
+        selector: (state) => state.iphoneDailyPunModelObj,
+        builder: (context, iphoneDailyPunModelObj) {
+          return ListView.separated(
             padding: EdgeInsets.zero,
             physics: NeverScrollableScrollPhysics(),
             shrinkWrap: true,
@@ -532,12 +501,12 @@ Widget _buildRecentlyAddedList(BuildContext context) {
                 model,
               );
             },
-          ),
-        );
-      },
-    ),
-  );
-}
+          );
+        },
+      ),
+    );
+  }
+
 
 // ignore_for_file: must_be_immutable
 class RecentlyaddedlistItemWidget extends StatelessWidget {

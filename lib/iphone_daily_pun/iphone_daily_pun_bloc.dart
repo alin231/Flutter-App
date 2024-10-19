@@ -98,10 +98,10 @@ class QuizpreparationsectionItemModel extends Equatable {
 
 
 /// A bloc that manages the state of a IphoneDailyPun according to the event that is dispatched to it.
-class IphoneDailyPunBloc extends Bloc<IphoneDailyPunEvent, IphoneDailyPunState> {
+class IphoneDailyPunBloc
+    extends Bloc<IphoneDailyPunEvent, IphoneDailyPunState> {
   IphoneDailyPunBloc(IphoneDailyPunState initialState) : super(initialState) {
     on<IphoneDailyPunInitialEvent>(_onInitialize);
-    on<ToggleStarEvent>(_onToggleStar);  // Add this line
   }
 
   _onInitialize(
@@ -117,28 +117,6 @@ class IphoneDailyPunBloc extends Bloc<IphoneDailyPunEvent, IphoneDailyPunState> 
       ),
     );
   }
-
-  void _onToggleStar(
-    ToggleStarEvent event,
-    Emitter<IphoneDailyPunState> emit,
-  ) {
-    final updatedList = state.iphoneDailyPunModelObj?.recentlyaddedlistItemList.map((item) {
-      if (item.id == event.id) {
-        return item.copyWith(dinosaur: item.dinosaur == "Starred" ? "Unstarred" : "Starred");
-      }
-      return item;
-    }).toList();
-
-    emit(
-      state.copyWith(
-        iphoneDailyPunModelObj: state.iphoneDailyPunModelObj?.copyWith(
-          recentlyaddedlistItemList: updatedList!,
-        ),
-      ),
-    );
-  }
-}
-
 
   List<QuizpreparationsectionItemModel> fillQuizpreparationsectionItemList() {
     return List.generate(3, (index) => QuizpreparationsectionItemModel());
@@ -182,7 +160,7 @@ class IphoneDailyPunBloc extends Bloc<IphoneDailyPunEvent, IphoneDailyPunState> 
   //     GridbasicItemModel()
   //   ];
   // }
-
+}
 
 /// Represents the state of IphoneDailyPun in the application.
 
@@ -244,13 +222,4 @@ class RecentlyaddedlistItemModel extends Equatable {
 
   @override
   List<Object?> get props => [dinosaur, id];
-}
-
-class ToggleStarEvent extends IphoneDailyPunEvent {
-  final String id;
-
-  ToggleStarEvent({required this.id});
-
-  @override
-  List<Object?> get props => [id];
 }
