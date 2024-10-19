@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'iphone_flashcards_bloc.dart';
 import '/iphone_homepage/iphone_home_screen.dart';
+import 'package:myapp/global_variables.dart' as global;
 
 class IphoneFlashcardsScreen extends StatelessWidget {
   const IphoneFlashcardsScreen({Key? key})
@@ -341,7 +342,7 @@ class RecentlyaddedlistItemWidget extends StatelessWidget {
                 text: TextSpan(
                   children: [
                     TextSpan(
-                      text: "English  →  ",
+                      text: global.targetLanguage + "  →  ",
                       style: TextStyle(
                         color: Color(0XFF000000),
                         fontSize: 11,
@@ -350,7 +351,7 @@ class RecentlyaddedlistItemWidget extends StatelessWidget {
                       ),
                     ),
                     TextSpan(
-                      text: "Chinese (Traditional)",
+                      text: global.punLanguage,
                       style: TextStyle(
                         color: Color(0XFF005AD4),
                         fontSize: 11,

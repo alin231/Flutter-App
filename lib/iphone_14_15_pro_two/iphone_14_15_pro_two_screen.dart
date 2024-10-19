@@ -524,6 +524,7 @@ PreferredSizeWidget _buildAppBar(BuildContext context) {
                           'pun': global.pun,                    // 對應資料庫中的字段
                           'definition': global.pundef           // 對應資料庫中的字段
                         });
+                        
 
                       },
                       child: Row(
