@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'iphone_daily_pun_bloc.dart';
 import '/iphone_homepage/iphone_home_screen.dart';
+import 'package:myapp/global_variables.dart' as global;
 
 
 
@@ -102,7 +103,6 @@ class IphoneDailyPunScreen extends StatelessWidget {
       ),
     );
   }
-
   /// Section Widget
   Widget _buildDailyPunSection(BuildContext context) {
     return Container(
@@ -186,9 +186,17 @@ class IphoneDailyPunScreen extends StatelessWidget {
       ),
     );
   }
+  List<String> partitionResponse(String response) {
+    // Split the response by the delimiter
+    return response.split('/').map((s) => s.trim()).toList();
+  }
 
   /// Section Widget
   Widget _buildTranslationSection(BuildContext context) {
+    String aiResponse = global.dailypun; // Assuming this holds the AI response
+
+  // Partition the response
+    List<String> parts = partitionResponse(aiResponse);
     return Container(
       width: double.maxFinite,
       margin: EdgeInsets.symmetric(horizontal: 26),
@@ -257,7 +265,7 @@ class IphoneDailyPunScreen extends StatelessWidget {
           Padding(
             padding: EdgeInsets.only(left: 16),
             child: Text(
-              "Dinosaur",
+              parts[0],
               style: TextStyle(
                 color: Color(0XFF5F6369),
                 fontSize: 24.095813751220703,
@@ -269,7 +277,7 @@ class IphoneDailyPunScreen extends StatelessWidget {
           Padding(
             padding: EdgeInsets.only(left: 16),
             child: Text(
-              "di • no • saur",
+              parts[1],
               style: TextStyle(
                 color: Color(0XFF5F6369),
                 fontSize: 13,
@@ -282,7 +290,7 @@ class IphoneDailyPunScreen extends StatelessWidget {
           Padding(
             padding: EdgeInsets.only(left: 16),
             child: Text(
-              "恐龍",
+              parts[2],
               style: TextStyle(
                 color: Color(0XFF5F6369),
                 fontSize: 26,
@@ -301,7 +309,7 @@ class IphoneDailyPunScreen extends StatelessWidget {
                 Align(
                   alignment: Alignment.center,
                   child: Text(
-                    "呆腦獸",
+                    parts[3],
                     style: TextStyle(
                       color: Color(0XFF005AD4),
                       fontSize: 16,
