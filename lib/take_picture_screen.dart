@@ -58,7 +58,7 @@ class TakePictureScreenState extends State<TakePictureScreen> {
         onPressed: () async {
           try {
             await _initializeControllerFuture;
-            print("hello1\n");
+            //print("hello1\n");
             // final path = join(
             //   (await getTemporaryDirectory()).path,
             //   '${DateTime.now()}.png',
@@ -67,7 +67,9 @@ class TakePictureScreenState extends State<TakePictureScreen> {
 
             // Take the picture and save it to the specified path
             XFile picture = await _controller.takePicture();
-            print("hello2\n");
+            print("Image path: ${picture.path}");
+
+            //print("hello2\n");
 
             // Get the detected word from the image
             String detectedWord = await _getWordFromImage(picture.path);
@@ -97,6 +99,7 @@ class TakePictureScreenState extends State<TakePictureScreen> {
     }
     
     final prompt = "Detect the single word in the image. If detect successfully, just return the single word. If there are multiple words, respond with ";
+    print(prompt);
     final model = GenerativeModel(
       model: 'gemini-1.5-flash-latest',
       apiKey: apiKey,
@@ -107,6 +110,7 @@ class TakePictureScreenState extends State<TakePictureScreen> {
     );
     final imageBytes = await File(imagePath).readAsBytes();
     final encodedImage = base64Encode(imageBytes);
+    print("hello3\n");
 
     final response = await model.generateContent([
       Content.text("$prompt"),
