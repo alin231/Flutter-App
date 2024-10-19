@@ -3,6 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:path/path.dart' show join;
 import 'package:path_provider/path_provider.dart';
 import 'dart:io';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
+// Import your Google Generative AI package here
+import 'package:google_generative_ai/google_generative_ai.dart';
+
 
 // 創建並初始化 CameraController
 class TakePictureScreen extends StatefulWidget {
@@ -74,11 +79,37 @@ class TakePictureScreenState extends State<TakePictureScreen> {
       ),
     );
   }
+
+
+Future<String> _getWordFromImage(String imagePath) async {
+    // Initialize the Gemini model
+    final model = GenerativeModel("gemini-1.5-flash");
+
+    // Read the image file as bytes
+    final imageBytes = await File(imagePath).readAsBytes();
+
+    // Send the request to the Gemini API with a specific prompt
+    final response = await model.generateContent([
+      'Detect the single word in the image. If detect successfully, just return the single word. If there are multiple words, respond with "Cannot detect your target word."',
+      base64Encode(imageBytes),
+    ]);
+
+    // Check the response for the specific phrase
+    String detectedText = response.text ?? 'No response';
+    
+    // Handle the detection of multiple words
+    if (detectedText.split(' ').length > 1) {
+      return "Cannot detect your target word.";
+    }
+
+    return detectedText; // Return the detected word if only one
+  }
 }
 
 // 顯示拍攝的圖片
 class DisplayPictureScreen extends StatelessWidget {
   final String imagePath;
+  final String result;
 
   const DisplayPictureScreen({Key? key, required this.imagePath}) : super(key: key);
 
@@ -86,7 +117,14 @@ class DisplayPictureScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: Text('顯示照片')),
-      body: Image.file(File(imagePath)),
+      body: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Image.file(File(imagePath)),
+          SizedBox(height: 20),
+          Text('Result: $result', style: TextStyle(fontSize: 20)),
+        ],
+      ),
     );
   }
 }
