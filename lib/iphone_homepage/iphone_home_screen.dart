@@ -7,6 +7,8 @@ import 'package:myapp/iphone_flashcards/iphone_flashcards_screen.dart';
 import 'package:myapp/iphone_daily_pun/iphone_daily_pun_screen.dart';
 import 'package:myapp/global_variables.dart' as global;
 import 'package:myapp/ai_service.dart';
+import 'package:myapp/take_picture_screen.dart';
+import 'package:myapp/camera_available.dart';
 
 
 ///SelectionPopupModel is common model
@@ -184,8 +186,7 @@ class IphoneHomeScreen extends StatelessWidget {
                 SizedBox(height: 22),
                 SizedBox(
                   width: 338,
-                  child: BlocSelector<IphoneHomeBloc, IphoneHomeState,
-                      TextEditingController?>(
+                  child: BlocSelector<IphoneHomeBloc, IphoneHomeState, TextEditingController?>(
                     selector: (state) => state.frame2017oneController,
                     builder: (context, frame2017oneController) {
                       return TextFormField(
@@ -209,27 +210,19 @@ class IphoneHomeScreen extends StatelessWidget {
                             fontWeight: FontWeight.w400,
                           ),
                           enabledBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(
-                              8,
-                            ),
+                            borderRadius: BorderRadius.circular(8),
                             borderSide: BorderSide.none,
                           ),
                           focusedBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(
-                              8,
-                            ),
+                            borderRadius: BorderRadius.circular(8),
                             borderSide: BorderSide.none,
                           ),
                           disabledBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(
-                              8,
-                            ),
+                            borderRadius: BorderRadius.circular(8),
                             borderSide: BorderSide.none,
                           ),
                           border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(
-                              8,
-                            ),
+                            borderRadius: BorderRadius.circular(8),
                             borderSide: BorderSide.none,
                           ),
                           filled: true,
@@ -241,8 +234,7 @@ class IphoneHomeScreen extends StatelessWidget {
                     },
                   ),
                 ),
-                
-                
+
                 SizedBox(height: 18),
                 _buildLanguageSelectionSection(context),
                 Spacer(),
@@ -255,107 +247,102 @@ class IphoneHomeScreen extends StatelessWidget {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      SizedBox(
-                        width: 42,
-                        child: Column(
-                          children: [
-                            Padding(
-                              padding: EdgeInsets.only(
-                                left: 6,
-                                right: 4,
-                              ),
+                      // Camera Button
+                      Column(
+                        children: [
+                          IconButton(
+                            icon: Padding(
+                              padding: EdgeInsets.all(0),
                               child: SizedBox(
                                 height: 26,
-                                width: double.maxFinite,
+                                width: 26,
                                 child: SvgPicture.asset(
                                   "assets/images/img_vector_26x28.svg",
                                 ),
                               ),
                             ),
-                            SizedBox(height: 10),
-                            Text(
-                              "Camera",
-                              style: TextStyle(
-                                color: Color(0XFFD8E3F1),
-                                fontSize: 11,
-                                fontFamily: 'Google Sans',
-                                fontWeight: FontWeight.w500,
-                              ),
-                            )
-                          ],
-                        ),
-                      ),
-                      IconButton(
-                        onPressed: () {
-                          final controller = context.read<IphoneHomeBloc>().state.frame2017oneController;
-
-                          // Check if the controller is not null
-                          if (controller != null) {
-                            final userInput = controller.text; // Get the input text
-                            if (userInput.isNotEmpty) {
-                              global.norminput = userInput; // Store the input in the global variable
-                              print("Stored in global.norminput: $userInput"); // For verification
-                              final userTargetLanguage = global.targetLanguage;
-                              final userPunLanguage = global.punLanguage;
-                              if (userPunLanguage != null && userPunLanguage.isNotEmpty) {
-                                print("Selected Pun language: $userPunLanguage"); // For verification
+                            onPressed: () {
+                              if (firstCamera != null) {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => TakePictureScreen(camera: firstCamera!),
+                                  ),
+                                );
                               } else {
-                                print("No language selected"); // Handle no language selection case
+                                // Handle the case when firstCamera is null
+                                print("Camera is not available");
                               }
-                              if (userTargetLanguage != null && userTargetLanguage.isNotEmpty) {
-                                print("Selected Target language: $userTargetLanguage"); // For verification
-                              } else {
-                                print("No language selected"); // Handle no language selection case
-                              }
-
-                              
-                              controller.clear(); // Clear the input field
-
-                              // Now navigate to the new screen
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) => Iphone1415ProTwoScreen.builder(context),
-                                ),
-                              );
-                            } else {
-                              print("Input cannot be empty"); // Handle empty input case
-                            }
-                          } else {
-                            print("Controller is null"); // Handle null case if needed
-                          }
-                        },
-                        constraints: BoxConstraints(
-                          minHeight: 112,
-                          minWidth: 112,
-                        ),
-                        padding: EdgeInsets.all(0),
-                        icon: Container(
-                          width: 112,
-                          height: 112,
-                          decoration: BoxDecoration(
-                            color: Color(0XFFFFFFFF),
-                            borderRadius: BorderRadius.circular(
-                              56,
+                            },
+                          ),
+                          SizedBox(height: 5),
+                          Text(
+                            "Camera",
+                            style: TextStyle(
+                              color: Color(0XFFD8E3F1),
+                              fontSize: 11,
+                              fontFamily: 'Google Sans',
+                              fontWeight: FontWeight.w500,
                             ),
-                            boxShadow: [
-                              BoxShadow(
-                                color: Color(0X14000000),
-                                spreadRadius: 2,
-                                blurRadius: 2,
-                                offset: Offset(
-                                  0,
-                                  0,
-                                ),
-                              )
-                            ],
                           ),
-                          padding: EdgeInsets.all(22),
-                          child: Image.asset(
-                            "assets/images/img_pun.png",
-                          ),
-                        ),
+                        ],
                       ),
+                      // Pun Button
+                      Column(
+                        children: [
+                          IconButton(
+                            onPressed: () {
+                              final controller = context.read<IphoneHomeBloc>().state.frame2017oneController;
+
+                              if (controller != null) {
+                                final userInput = controller.text;
+                                if (userInput.isNotEmpty) {
+                                  global.norminput = userInput;
+                                  print("Stored in global.norminput: $userInput");
+                                  controller.clear();
+
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) => Iphone1415ProTwoScreen.builder(context),
+                                    ),
+                                  );
+                                } else {
+                                  print("Input cannot be empty");
+                                }
+                              } else {
+                                print("Controller is null");
+                              }
+                            },
+                            constraints: BoxConstraints(
+                              minHeight: 112,
+                              minWidth: 112,
+                            ),
+                            padding: EdgeInsets.all(0),
+                            icon: Container(
+                              width: 112,
+                              height: 112,
+                              decoration: BoxDecoration(
+                                color: Color(0XFFFFFFFF),
+                                borderRadius: BorderRadius.circular(56),
+                                boxShadow: [
+                                  BoxShadow(
+                                    color: Color(0X14000000),
+                                    spreadRadius: 2,
+                                    blurRadius: 2,
+                                    offset: Offset(0, 0),
+                                  ),
+                                ],
+                              ),
+                              padding: EdgeInsets.all(22),
+                              child: Image.asset(
+                                "assets/images/img_pun.png",
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                      // Flashcards Button
                       Column(
                         children: [
                           IconButton(
@@ -381,8 +368,7 @@ class IphoneHomeScreen extends StatelessWidget {
                               ),
                             ),
                           ),
-
-                          SizedBox(height: 10),
+                          SizedBox(height: 5),
                           Text(
                             "Flashcards",
                             style: TextStyle(
@@ -391,12 +377,13 @@ class IphoneHomeScreen extends StatelessWidget {
                               fontFamily: 'Google Sans',
                               fontWeight: FontWeight.w500,
                             ),
-                          )
+                          ),
                         ],
-                      )
+                      ),
                     ],
                   ),
                 )
+
               ],
             ),
           ),
@@ -411,9 +398,8 @@ class IphoneHomeScreen extends StatelessWidget {
       onTap: () async {
         // Generate the AI response
         String prompt = "Generate a random english word"; // Specify your prompt
-        String response = await generateWord(prompt);
-        print(response);
-        String formattedPrompt = "幫我用諧音成中文的方式記憶外文單字:$response。先取得該單字的羅馬拼音， 分解音節，接著在生成貼近羅馬拼音的中文諧音的過程中，嚴格將各音節對照注音聲母，r舉例對照:ch對應ㄑ不要對應到ㄎ、f對應ㄈ、w對應ㄨ等。確保念起來相似。並盡可能產出與該單字的意思有相關性的諧音。舉例:dinosaur的諧音 是呆腦獸，恐龍就是一種呆腦獸。如果無法產出直接與意思相關的諧音，請產出符合常理、可形成通順語句的諧音，不一定要是連在一起的語詞，也可以是幾個擴寫後可加入該單字中文意思形成通順語句的字。注意該句子裡需要出現單字中文意思以及諧音的那幾個字。舉例:adress的諧音是兒醉死，兒子醉死了忘記地址。諧音不可以直接假設是隨機人名 ，除非是專有名詞。最後幫我嚴格依照格式輸出，輸出為:此外文單字/單字翻成中文的意思/諧音/解釋";
+        String response = await generateAIResponse(prompt);
+        String formattedPrompt = "幫我用諧音成中文的方式記憶外文單字:$prompt。先取得該單字的羅馬拼音， 分解音節，接著在生成貼近羅馬拼音的中文諧音的過程中，嚴格將各音節對照注音聲母，r舉例對照:ch對應ㄑ不要對應到ㄎ、f對應ㄈ、w對應ㄨ等。確保念起來相似。並盡可能產出與該單字的意思有相關性的諧音。舉例:dinosaur的諧音 是呆腦獸，恐龍就是一種呆腦獸。如果無法產出直接與意思相關的諧音，請產出符合常理、可形成通順語句的諧音，不一定要是連在一起的語詞，也可以是幾個擴寫後可加入該單字中文意思形成通順語句的字。注意該句子裡需要出現單字中文意思以及諧音的那幾個字。舉例:adress的諧音是兒醉死，兒子醉死了忘記地址。諧音不可以直接假設是隨機人名 ，除非是專有名詞。最後幫我嚴格依照格式輸出，輸出為:外文意思/中文意思/諧音/解釋";
         String answer = await generateAIResponse(formattedPrompt);
         // Optionally, you can store the response in a global variable
         global.dailypun = answer;
@@ -490,7 +476,7 @@ class IphoneHomeScreen extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    "Your Native Language",
+                    "Pun language (Your Native Language)",
                     style: TextStyle(
                       color: Color(0XFFFFFFFF),
                       fontSize: 14,
@@ -589,9 +575,9 @@ class IphoneHomeScreen extends StatelessWidget {
                         fontWeight: FontWeight.w400,
                       ),
                       onChanged: (value) {
-                        context.read<IphoneHomeBloc>().add(onSelected1(value: value!));
+                        context.read<IphoneHomeBloc>().add(onSelected(value: value!));
                       },
-                      items: iphoneHomeModelObj?.dropdownItemList1
+                      items: iphoneHomeModelObj?.dropdownItemList
                           .map((SelectionPopupModel item) {
                         return DropdownMenuItem<SelectionPopupModel>(
                           value: item,

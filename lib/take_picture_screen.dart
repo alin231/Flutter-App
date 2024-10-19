@@ -68,6 +68,7 @@ class TakePictureScreenState extends State<TakePictureScreen> {
 
             // Get the detected word from the image
             String detectedWord = await _getWordFromImage(picture.path);
+            print(detectedWord);
 
             // Navigate to the display screen with the image path and result
             Navigator.push(
