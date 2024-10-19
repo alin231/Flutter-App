@@ -8,6 +8,7 @@ import 'dart:convert';
 // Import your Google Generative AI package here
 import 'package:google_generative_ai/google_generative_ai.dart';
 import 'global_variables.dart' as global;
+import 'iphone_14_15_pro_two/iphone_14_15_pro_two_screen.dart';
 
 class TakePictureScreen extends StatefulWidget {
   final CameraDescription camera;
@@ -70,15 +71,13 @@ class TakePictureScreenState extends State<TakePictureScreen> {
             // Get the detected word from the image
             String detectedWord = await _getWordFromImage(picture.path);
             print(detectedWord);
+            global.norminput = detectedWord;
 
             // Navigate to the display screen with the image path and result
             Navigator.push(
               context,
               MaterialPageRoute(
-                builder: (context) => DisplayPictureScreen(
-                  imagePath: picture.path,
-                  result: detectedWord, // Pass the detected word
-                ),
+                builder: (context) => Iphone1415ProTwoScreen(),
               ),
             );
           } catch (e) {
