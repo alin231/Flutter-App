@@ -117,7 +117,7 @@ _onInitialize(
     return [
       SelectionPopupModel(
         id: 1,
-        title: "Swedish",
+        title: "Chinese (Traditional)",
         isSelected: true,
       ),
       SelectionPopupModel(
