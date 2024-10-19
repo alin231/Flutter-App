@@ -512,7 +512,7 @@ PreferredSizeWidget _buildAppBar(BuildContext context) {
                         global.otherlanguage = parts[0];
                         global.translation = parts[1];
                         global.pun = parts[2];
-                        global.pun = parts[3];
+                        global.pundef = parts[3];
                         // Save the pun to the database
                         // 實例化 DatabaseHelper
                         final dbHelper = DatabaseHelper();

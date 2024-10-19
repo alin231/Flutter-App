@@ -249,6 +249,24 @@ class RecentlyaddedlistItemWidget extends StatelessWidget {
                   fontWeight: FontWeight.w400,
                 ),
               ),
+              Text(
+                recentlyaddedlistItemModelObj.englishWord!,
+                style: TextStyle(
+                  color: Color(0XFF5F6369),
+                  fontSize: 24.095813751220703,
+                  fontFamily: 'Google Sans',
+                  fontWeight: FontWeight.w400,
+                ),
+              ),
+              Text(
+                recentlyaddedlistItemModelObj.pun!,
+                style: TextStyle(
+                  color: Color(0XFF3781E4),
+                  fontSize: 16,
+                  fontFamily: 'Google Sans',
+                  fontWeight: FontWeight.w400,
+                ),
+              ),
               SizedBox(height: 2),
               RichText(
                 text: TextSpan(
@@ -262,15 +280,6 @@ class RecentlyaddedlistItemWidget extends StatelessWidget {
                         fontWeight: FontWeight.w400,
                       ),
                     ),
-                    TextSpan(
-                      text: global.punLanguage,
-                      style: TextStyle(
-                        color: Color(0XFF005AD4),
-                        fontSize: 11,
-                        fontFamily: 'Google Sans',
-                        fontWeight: FontWeight.w400,
-                      ),
-                    )
                   ],
                 ),
                 textAlign: TextAlign.left,
@@ -286,6 +295,10 @@ class RecentlyaddedlistItemWidget extends StatelessWidget {
               await dbHelper.deleteItem(int.parse(recentlyaddedlistItemModelObj.id!));
               // 此處可以根據需求刷新頁面或顯示提示
               print("Deleted card with ID: ${recentlyaddedlistItemModelObj.id}");
+              // 提示用户保存成功
+              ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(content: Text('${recentlyaddedlistItemModelObj.dinosaur} deleted!')),
+              );
             },
             child: SizedBox(
               height: 44,
