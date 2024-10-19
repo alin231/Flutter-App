@@ -6,6 +6,7 @@ import '/iphone_homepage/iphone_home_screen.dart';
 import 'package:myapp/global_variables.dart' as global;
 import 'package:google_generative_ai/google_generative_ai.dart';
 import 'dart:io';
+import 'package:myapp/database_helper.dart';
 
 
 class Iphone1415ProTwoScreen extends StatelessWidget {
@@ -382,156 +383,6 @@ PreferredSizeWidget _buildAppBar(BuildContext context) {
     ),
   );
 }
-//   Widget _buildKoreanSection(BuildContext context) {
-//   // Access the global variable for the AI response
-//   String aiResponse = global.normresponse; // Assuming this holds the AI response
-
-//   // Partition the response
-//   List<String> parts = partitionResponse(aiResponse);
-
-//   return Container(
-//     width: double.maxFinite,
-//     padding: EdgeInsets.symmetric(horizontal: 24, vertical: 18),
-//     decoration: BoxDecoration(
-//       color: Color(0XFFFFFFFF),
-//       borderRadius: BorderRadius.circular(8),
-//     ),
-//     child: Column(
-//       mainAxisSize: MainAxisSize.min,
-//       crossAxisAlignment: CrossAxisAlignment.start,
-//       children: [
-//         Text(
-//           "Korean",
-//           style: TextStyle(
-//             color: Color(0XFF000000),
-//             fontSize: 11,
-//             fontFamily: 'Google Sans',
-//             fontWeight: FontWeight.w400,
-//           ),
-//         ),
-//         SizedBox(height: 16),
-//         // Display part[1] (Chinese meaning)
-//         if (parts.length > 1)
-//           Text(
-//             parts[0],
-//             style: TextStyle(
-//               color: Color(0XFF5F6369),
-//               fontSize: 24,
-//               fontFamily: 'Google Sans',
-//               fontWeight: FontWeight.w400,
-//             ),
-//           ),
-//         SizedBox(height: 8),
-//         // Display part[2] (Pinyin)
-//         if (parts.length > 2)
-//           Text(
-//             parts[2],
-//             style: TextStyle(
-//               color: Color(0XFF5F6369),
-//               fontSize: 24,
-//               fontFamily: 'Google Sans',
-//               fontWeight: FontWeight.w400,
-//             ),
-//           ),
-//         SizedBox(height: 8),
-//         // Display part[3] (Explanation)
-//         if (parts.length > 3)
-//           Text(
-//             parts[3],
-//             style: TextStyle(
-//               color: Color(0XFF5F6369),
-//               fontSize: 24,
-//               fontFamily: 'Google Sans',
-//               fontWeight: FontWeight.w400,
-//             ),
-//           ),
-//       ],
-//     ),
-//   );
-// }
-
-
-  // Widget _buildChineseSection(BuildContext context) {
-  //   // Access the global variable for the AI response
-  //   String aiResponse = global.normresponse; // Assuming this holds the AI response
-
-  //   // Partition the response
-  //   List<String> parts = partitionResponse(aiResponse);
-
-  //   return Container(
-  //     width: double.maxFinite,
-  //     padding: EdgeInsets.only(
-  //       left: 24,
-  //       top: 24,
-  //       bottom: 24,
-  //     ),
-  //     decoration: BoxDecoration(
-  //       color: Color(0XFFFFFFFF),
-  //       borderRadius: BorderRadius.circular(8),
-  //     ),
-  //     child: Column(
-  //       mainAxisSize: MainAxisSize.min,
-  //       crossAxisAlignment: CrossAxisAlignment.start,
-  //       children: [
-  //         Text(
-  //           "Chinese (Traditional)",
-  //           style: TextStyle(
-  //             color: Color(0XFF000000),
-  //             fontSize: 11,
-  //             fontFamily: 'Google Sans',
-  //             fontWeight: FontWeight.w400,
-  //           ),
-  //         ),
-  //         SizedBox(height: 16),
-  //         // Check if parts are available before accessing them
-  //         if (parts.isNotEmpty) ...[
-  //           Text(
-  //             parts[0], // English word
-  //             style: TextStyle(
-  //               color: Color(0XFF5F6369),
-  //               fontSize: 24,
-  //               fontFamily: 'Google Sans',
-  //               fontWeight: FontWeight.w400,
-  //             ),
-  //           ),
-  //           SizedBox(height: 8),
-  //           if (parts.length > 1) 
-  //             Text(
-  //               parts[1], // Chinese meaning
-  //               style: TextStyle(
-  //                 color: Color(0XFF5F6369),
-  //                 fontSize: 24,
-  //                 fontFamily: 'Google Sans',
-  //                 fontWeight: FontWeight.w400,
-  //               ),
-  //             ),
-  //           SizedBox(height: 8),
-  //           if (parts.length > 2) 
-  //             Text(
-  //               parts[2], // Pinyin or phonetic
-  //               style: TextStyle(
-  //                 color: Color(0XFF5F6369),
-  //                 fontSize: 24,
-  //                 fontFamily: 'Google Sans',
-  //                 fontWeight: FontWeight.w400,
-  //               ),
-  //             ),
-  //           SizedBox(height: 8),
-  //           if (parts.length > 3) 
-  //             Text(
-  //               parts[3], // Explanation
-  //               style: TextStyle(
-  //                 color: Color(0XFF5F6369),
-  //                 fontSize: 24,
-  //                 fontFamily: 'Google Sans',
-  //                 fontWeight: FontWeight.w400,
-  //               ),
-  //             ),
-  //         ],
-  //       ],
-  //     ),
-  //   );
-  // }
 
   // /// Section Widget
   Widget _buildKoreanSection(BuildContext context) {
@@ -657,11 +508,22 @@ PreferredSizeWidget _buildAppBar(BuildContext context) {
                         padding: EdgeInsets.zero,
                         elevation: 0,
                       ),
-                      onPressed: () {
+                      onPressed: () async  {
                         global.otherlanguage = parts[0];
                         global.translation = parts[1];
                         global.pun = parts[2];
                         global.pun = parts[3];
+                        // Save the pun to the database
+                        // 實例化 DatabaseHelper
+                        final dbHelper = DatabaseHelper();
+
+                        // 調用 insertItem 方法並插入資料
+                        await dbHelper.insertItem('user_words', {
+                          'chinese_word': global.otherlanguage,  // 對應資料庫中的字段
+                          'english_word': global.translation,   // 對應資料庫中的字段
+                          'pun': global.pun,                    // 對應資料庫中的字段
+                          'definition': global.pundef           // 對應資料庫中的字段
+                        });
 
                       },
                       child: Row(
