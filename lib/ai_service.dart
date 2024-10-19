@@ -33,6 +33,7 @@ Future<String> generateWord(String prompt) async {
     exit(1);
   }
   
+  final p = "$prompt Just generate one word and output that word.";
   final model = GenerativeModel(
     model: 'gemini-1.5-flash-latest',
     apiKey: apiKey,
@@ -42,7 +43,7 @@ Future<String> generateWord(String prompt) async {
     generationConfig: GenerationConfig(maxOutputTokens: 200),
   );
   
-  final content = [Content.text("$prompt")];
+  final content = [Content.text("$p")];
   final response = await model.generateContent(content);
   
   return response.text?.toString() ?? '';
