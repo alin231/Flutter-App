@@ -6,6 +6,7 @@ import 'package:myapp/iphone_14_15_pro_two/iphone_14_15_pro_two_screen.dart';
 import 'package:myapp/iphone_flashcards/iphone_flashcards_screen.dart';
 import 'package:myapp/iphone_daily_pun/iphone_daily_pun_screen.dart';
 import 'package:myapp/global_variables.dart' as global;
+import 'package:myapp/ai_service.dart';
 
 
 ///SelectionPopupModel is common model
@@ -407,7 +408,15 @@ class IphoneHomeScreen extends StatelessWidget {
   /// Section Widget
   Widget _buildDailyPunSection(BuildContext context) {
     return GestureDetector(
-      onTap: () {
+      onTap: () async {
+        // Generate the AI response
+        String prompt = "Generate a random english word"; // Specify your prompt
+        String response = await generateAIResponse(prompt);
+        String formattedPrompt = "幫我用 $response 這個單字的中文諧音，輸出為:外文單字/中文意思/諧音/解釋";
+        String answer = await generateAIResponse(formattedPrompt);
+        // Optionally, you can store the response in a global variable
+        global.dailypun = answer;
+        print(global.dailypun);
         Navigator.push(
           context,
           MaterialPageRoute(
