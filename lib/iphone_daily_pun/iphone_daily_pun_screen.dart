@@ -6,7 +6,6 @@ import '/iphone_homepage/iphone_home_screen.dart';
 import 'package:myapp/global_variables.dart' as global;
 
 
-
 class IphoneDailyPunScreen extends StatelessWidget {
   const IphoneDailyPunScreen({Key? key})
       : super(
@@ -226,7 +225,7 @@ class IphoneDailyPunScreen extends StatelessWidget {
                     text: TextSpan(
                       children: [
                         TextSpan(
-                          text: "English  →  ",
+                          text: global.targetLanguage + "  →  ",
                           style: TextStyle(
                             color: Color(0XFF000000),
                             fontSize: 11,
@@ -235,7 +234,7 @@ class IphoneDailyPunScreen extends StatelessWidget {
                           ),
                         ),
                         TextSpan(
-                          text: "Chinese (Traditional)",
+                          text: global.punLanguage,
                           style: TextStyle(
                             color: Color(0XFF005AD4),
                             fontSize: 11,
