@@ -26,3 +26,24 @@ Future<String> generateAIResponse(String prompt) async {
   
   return response.text?.toString() ?? '';
 }
+Future<String> generateWord(String prompt) async {
+  final apiKey = global.apiKey; // Ensure global is accessible
+  if (apiKey == null) {
+    stderr.writeln(r'No $GEMINI_API_KEY environment variable');
+    exit(1);
+  }
+  
+  final model = GenerativeModel(
+    model: 'gemini-1.5-flash-latest',
+    apiKey: apiKey,
+    safetySettings: [
+      SafetySetting(HarmCategory.dangerousContent, HarmBlockThreshold.high)
+    ],
+    generationConfig: GenerationConfig(maxOutputTokens: 200),
+  );
+  
+  final content = [Content.text("$prompt")];
+  final response = await model.generateContent(content);
+  
+  return response.text?.toString() ?? '';
+}

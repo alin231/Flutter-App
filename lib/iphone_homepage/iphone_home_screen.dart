@@ -411,7 +411,8 @@ class IphoneHomeScreen extends StatelessWidget {
       onTap: () async {
         // Generate the AI response
         String prompt = "Generate a random english word"; // Specify your prompt
-        String response = await generateAIResponse(prompt);
+        String response = await generateWord(prompt);
+        print(response);
         String formattedPrompt = "幫我用諧音成中文的方式記憶外文單字:$prompt。先取得該單字的羅馬拼音， 分解音節，接著在生成貼近羅馬拼音的中文諧音的過程中，嚴格將各音節對照注音聲母，r舉例對照:ch對應ㄑ不要對應到ㄎ、f對應ㄈ、w對應ㄨ等。確保念起來相似。並盡可能產出與該單字的意思有相關性的諧音。舉例:dinosaur的諧音 是呆腦獸，恐龍就是一種呆腦獸。如果無法產出直接與意思相關的諧音，請產出符合常理、可形成通順語句的諧音，不一定要是連在一起的語詞，也可以是幾個擴寫後可加入該單字中文意思形成通順語句的字。注意該句子裡需要出現單字中文意思以及諧音的那幾個字。舉例:adress的諧音是兒醉死，兒子醉死了忘記地址。諧音不可以直接假設是隨機人名 ，除非是專有名詞。最後幫我嚴格依照格式輸出，輸出為:外文意思/中文意思/諧音/解釋";
         String answer = await generateAIResponse(formattedPrompt);
         // Optionally, you can store the response in a global variable
