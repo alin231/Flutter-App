@@ -57,16 +57,17 @@ class TakePictureScreenState extends State<TakePictureScreen> {
         child: Icon(Icons.camera_alt),
         onPressed: () async {
           try {
-            print("hello\n");
             await _initializeControllerFuture;
-
-            final path = join(
-              (await getTemporaryDirectory()).path,
-              '${DateTime.now()}.png',
-            );
+            print("hello1\n");
+            // final path = join(
+            //   (await getTemporaryDirectory()).path,
+            //   '${DateTime.now()}.png',
+            // );
+            
 
             // Take the picture and save it to the specified path
             XFile picture = await _controller.takePicture();
+            print("hello2\n");
 
             // Get the detected word from the image
             String detectedWord = await _getWordFromImage(picture.path);
