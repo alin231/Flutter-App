@@ -490,7 +490,7 @@ class IphoneHomeScreen extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    "Pun language (Your Native Language)",
+                    "Your Native Language",
                     style: TextStyle(
                       color: Color(0XFFFFFFFF),
                       fontSize: 14,
