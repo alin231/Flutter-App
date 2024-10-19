@@ -8,9 +8,7 @@ String translation = "";
 String pun = "";
 String pundef = "";
 
-enum PunLanguage {
-  zh_cn, // Chinese, 
-  en,
-  jp,
-  kr
-}
+
+// shawn's variable
+String punLanguage = "";
+String targetLanguage = "";

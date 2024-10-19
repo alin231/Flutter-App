@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'iphone_home_screen.dart';
-import 'package:myapp/global_variables.dart' as globals;
+import 'package:myapp/global_variables.dart' as global;
+
 
 /// This class defines the variables used in the [iphone_home_screen],
 /// and is typically used to hold data that is passed between different parts of the application.
@@ -38,29 +39,42 @@ class IphoneHomeBloc extends Bloc<IphoneHomeEvent, IphoneHomeState> {
     on<onSelected1>(_onSelected1);
   }
 
-  _onInitialize(
-    IphoneHomeInitialEvent event,
-    Emitter<IphoneHomeState> emit,
-  ) async {
-    emit(
-      state.copyWith(
-        frame2017oneController: TextEditingController(),
+_onInitialize(
+  IphoneHomeInitialEvent event,
+  Emitter<IphoneHomeState> emit,
+) async {
+  // 初始化 TextEditingController
+  emit(
+    state.copyWith(
+      frame2017oneController: TextEditingController(),
+    ),
+  );
+
+  // 初始化下拉列表項目
+  List<SelectionPopupModel> initialDropdownList = fillDropdownItemList();
+  List<SelectionPopupModel> initialDropdownList1 = fillDropdownItemList1();
+
+  // 將預設選中的項目設置到 global 變數
+  global.targetLanguage = initialDropdownList.firstWhere((item) => item.isSelected, orElse: () => initialDropdownList[0]).title;
+  global.punLanguage = initialDropdownList1.firstWhere((item) => item.isSelected, orElse: () => initialDropdownList1[0]).title;
+
+  // 更新 Bloc 狀態
+  emit(
+    state.copyWith(
+      iphoneHomeModelObj: state.iphoneHomeModelObj?.copyWith(
+        dropdownItemList: initialDropdownList,
+        dropdownItemList1: initialDropdownList1,
       ),
-    );
-    emit(
-      state.copyWith(
-        iphoneHomeModelObj: state.iphoneHomeModelObj?.copyWith(
-          dropdownItemList: fillDropdownItemList(),
-          dropdownItemList1: fillDropdownItemList1(),
-        ),
-      ),
-    );
-  }
+    ),
+  );
+}
+
 
   _onSelected(
     onSelected event,
     Emitter<IphoneHomeState> emit,
   ) {
+    global.targetLanguage = event.value.title;
     emit(state.copyWith(
       selectedDropDownValue: event.value,
     ));
@@ -70,6 +84,7 @@ class IphoneHomeBloc extends Bloc<IphoneHomeEvent, IphoneHomeState> {
     onSelected1 event,
     Emitter<IphoneHomeState> emit,
   ) {
+     global.targetLanguage = event.value.title;
     emit(state.copyWith(
       selectedDropDownValue1: event.value,
     ));
@@ -96,7 +111,8 @@ class IphoneHomeBloc extends Bloc<IphoneHomeEvent, IphoneHomeState> {
       ),
     ];
   }
-
+// A value of type 'SelectionPopupModel' can't be assigned to a variable of type 'String'.
+// Try changing the type of the variable, or casting the right-hand type to 'String'.dartinvalid_assignment
   List<SelectionPopupModel> fillDropdownItemList1() {
     return [
       SelectionPopupModel(

@@ -287,12 +287,27 @@ class IphoneHomeScreen extends StatelessWidget {
                       IconButton(
                         onPressed: () {
                           final controller = context.read<IphoneHomeBloc>().state.frame2017oneController;
+
                           // Check if the controller is not null
                           if (controller != null) {
                             final userInput = controller.text; // Get the input text
                             if (userInput.isNotEmpty) {
                               global.norminput = userInput; // Store the input in the global variable
                               print("Stored in global.norminput: $userInput"); // For verification
+                              final userTargetLanguage = global.targetLanguage;
+                              final userPunLanguage = global.punLanguage;
+                              
+                              if (userTargetLanguage != null && userTargetLanguage.isNotEmpty) {
+                                print("Selected Target language: $userTargetLanguage"); // For verification
+                              } else {
+                                print("No language selected"); // Handle no language selection case
+                              }
+
+                              if (userPunLanguage != null && userPunLanguage.isNotEmpty) {
+                                print("Selected Pun language: $userPunLanguage"); // For verification
+                              } else {
+                                print("No language selected"); // Handle no language selection case
+                              }
                               controller.clear(); // Clear the input field
 
                               // Now navigate to the new screen
