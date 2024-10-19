@@ -4,8 +4,8 @@ String normresponse = "";
 String norminput = "";
 
 enum PunLanguage {
-  ZH_CN, // Chinese, 
-  EN,
-  JP,
-  KR
+  zh_cn, // Chinese, 
+  en,
+  jp,
+  kr
 }
