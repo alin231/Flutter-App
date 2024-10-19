@@ -76,7 +76,6 @@ class TakePictureScreenState extends State<TakePictureScreen> {
             print(detectedWord);
             global.norminput = detectedWord;
 
-            // Navigate to the display screen with the image path and result
             Navigator.push(
               context,
               MaterialPageRoute(
@@ -97,32 +96,40 @@ class TakePictureScreenState extends State<TakePictureScreen> {
       stderr.writeln(r'No $GEMINI_API_KEY environment variable');
       exit(1);
     }
-    
+
     final prompt = "Detect the single word in the image. If detect successfully, just return the single word. If there are multiple words, respond with ";
     print(prompt);
     final model = GenerativeModel(
       model: 'gemini-1.5-flash-latest',
-      apiKey: global.apiKey,
+      apiKey: apiKey,
       safetySettings: [
         SafetySetting(HarmCategory.dangerousContent, HarmBlockThreshold.high)
       ],
       generationConfig: GenerationConfig(maxOutputTokens: 200),
     );
+
     final imageFile = File(imagePath);
     if (!await imageFile.exists()) {
       print("Image file does not exist at $imagePath");
       return "Image not found.";
     }
 
-    final imageBytes = await File(imagePath).readAsBytes();
-    final encodedImage = base64Encode(imageBytes);
-    print("hello3\n");
+    // Read the image as bytes
+    final imageBytes = await imageFile.readAsBytes();
+
+    // You can create a DataPart for the image directly instead of base64 encoding it
+    final imageDataPart = DataPart('image/jpeg', imageBytes);
 
     try {
-      final response = await model.generateContent([
-        Content.text(prompt),
-        Content.text(encodedImage),
-      ]);
+      // Prepare your content to include the prompt and the image data
+      final content = [
+        Content.multi([
+          TextPart(prompt),
+          imageDataPart, // Use the image data part here
+        ])
+      ];
+
+      final response = await model.generateContent(content);
       String detectedText = response.text ?? 'No response';
       print("API Response: $detectedText");
       
@@ -136,6 +143,7 @@ class TakePictureScreenState extends State<TakePictureScreen> {
       return "API call error.";
     }
   }
+
 }
 
 // 顯示拍攝的圖片
