@@ -3,6 +3,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'iphone_14_15_pro_two_bloc.dart';
 import '/iphone_homepage/iphone_home_screen.dart';
+import 'package:myapp/global_variables.dart' as global;
+import 'package:google_generative_ai/google_generative_ai.dart';
+import 'dart:io';
 
 
 class Iphone1415ProTwoScreen extends StatelessWidget {
@@ -23,8 +26,55 @@ class Iphone1415ProTwoScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // Access the global variable for the prompt
+    //String prompt = global.norminput;
+
+    // // Generate AI response
+    // String aiResponse = generateAIResponse(prompt);
+
+    // // Store the AI response in another global variable
+    // global.normresponse = aiResponse;
+
     return BlocBuilder<Iphone1415ProTwoBloc, Iphone1415ProTwoState>(
       builder: (context, state) {
+        // return SafeArea(
+        //   child: Scaffold(
+        //     extendBody: true,
+        //     extendBodyBehindAppBar: true,
+        //     appBar: _buildAppBar(context),
+        //     body: Container(
+        //       width: double.maxFinite,
+        //       height: MediaQuery.of(context).size.height,
+        //       decoration: BoxDecoration(
+        //         gradient: LinearGradient(
+        //           begin: Alignment(1.23, -0.04),
+        //           end: Alignment(-0.19, 1.13),
+        //           colors: [
+        //             Color(0XFFF0F5FA),
+        //             Color(0XCC0D2442),
+        //             Color(0XFF3976C7)
+        //           ],
+        //         ),
+        //       ),
+        //       child: Container(
+        //         margin: EdgeInsets.only(top: 56),
+        //         padding: EdgeInsets.only(
+        //           left: 26,
+        //           top: 8,
+        //           right: 26,
+        //         ),
+        //         child: Column(
+        //           mainAxisSize: MainAxisSize.max,
+        //           children: [
+        //             _buildChineseSection(context),
+        //             SizedBox(height: 16),
+        //             _buildKoreanSection(context)
+        //           ],
+        //         ),
+        //       ),
+        //     ),
+        //   ),
+        // );
         return SafeArea(
           child: Scaffold(
             extendBody: true,
@@ -51,13 +101,33 @@ class Iphone1415ProTwoScreen extends StatelessWidget {
                   top: 8,
                   right: 26,
                 ),
-                child: Column(
-                  mainAxisSize: MainAxisSize.max,
-                  children: [
-                    _buildChineseSection(context),
-                    SizedBox(height: 16),
-                    _buildKoreanSection(context)
-                  ],
+                child: FutureBuilder<String>(
+                  future: generateAIResponse(global.norminput), // Call the async function
+                  builder: (context, snapshot) {
+                    if (snapshot.connectionState == ConnectionState.waiting) {
+                      return Center(child: CircularProgressIndicator()); // Show loading indicator
+                    } else if (snapshot.hasError) {
+                      return Center(child: Text("Error: ${snapshot.error}")); // Show error message
+                    } else if (snapshot.hasData) {
+                      // Store the AI response in a global variable
+                      global.normresponse = snapshot.data!;
+                      return Column(
+                        mainAxisSize: MainAxisSize.max,
+                        children: [
+                          _buildChineseSection(context),
+                          SizedBox(height: 16),
+                          _buildKoreanSection(context),
+                          SizedBox(height: 16),
+                          Text(
+                            "AI Response: ${global.normresponse}", // Display AI response
+                            style: TextStyle(fontSize: 16),
+                          ),
+                        ],
+                      );
+                    } else {
+                      return Center(child: Text("No data received.")); // Handle empty case
+                    }
+                  },
                 ),
               ),
             ),
@@ -190,6 +260,29 @@ PreferredSizeWidget _buildAppBar(BuildContext context) {
     ),
   );
 }
+  Future<String> generateAIResponse(String prompt) async {
+    final apiKey = global.apiKey;
+    if (apiKey == null) {
+      stderr.writeln(r'No $GEMINI_API_KEY environment variable');
+      exit(1);
+    }
+    final model = GenerativeModel(
+        model: 'tunedModels/trainedmodel-4cayin7v72qz',
+        apiKey: apiKey,
+        safetySettings: [
+          SafetySetting(HarmCategory.dangerousContent, HarmBlockThreshold.high)
+        ],
+        generationConfig: GenerationConfig(maxOutputTokens: 200));
+    print('Prompt: $prompt');
+    final content = [Content.text(prompt)];
+    final tokenCount = await model.countTokens(content);
+    print('Token count: ${tokenCount.totalTokens}');
+
+    final response = await model.generateContent(content);
+    print('Response:');
+    print(response.text);
+    return "Generated response for: $prompt"; // Example response
+  }
 
   /// Section Widget
   Widget _buildChineseSection(BuildContext context) {
