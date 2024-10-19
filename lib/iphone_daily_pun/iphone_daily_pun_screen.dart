@@ -191,122 +191,122 @@ class IphoneDailyPunScreen extends StatelessWidget {
   }
 
   /// Section Widget
-  Widget _buildTranslationSection(BuildContext context) {
-    String aiResponse = global.dailypun; // Assuming this holds the AI response
+Widget _buildTranslationSection(BuildContext context) {
+  String aiResponse = global.dailypun; // Assuming this holds the AI response
 
   // Partition the response
-    List<String> parts = partitionResponse(aiResponse);
-    return Container(
-      width: double.maxFinite,
-      margin: EdgeInsets.symmetric(horizontal: 26),
-      padding: EdgeInsets.symmetric(
-        horizontal: 4,
-        vertical: 8,
-      ),
-      decoration: BoxDecoration(
-        color: Color(0XFFF5F5F5),
-        borderRadius: BorderRadius.circular(
-          8,
-        ),
-      ),
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          SizedBox(
-            width: double.maxFinite,
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Padding(
-                  padding: EdgeInsets.only(left: 18),
-                  child: RichText(
-                    text: TextSpan(
-                      children: [
-                        TextSpan(
-                          text: global.targetLanguage + "  →  ",
-                          style: TextStyle(
-                            color: Color(0XFF000000),
-                            fontSize: 11,
-                            fontFamily: 'Google Sans',
-                            fontWeight: FontWeight.w400,
-                          ),
+  List<String> parts = partitionResponse(aiResponse);
+  
+  return Container(
+    width: double.maxFinite,
+    margin: EdgeInsets.symmetric(horizontal: 26),
+    padding: EdgeInsets.symmetric(
+      horizontal: 4,
+      vertical: 8,
+    ),
+    decoration: BoxDecoration(
+      color: Color(0XFFF5F5F5),
+      borderRadius: BorderRadius.circular(8),
+    ),
+    child: Column(
+      mainAxisSize: MainAxisSize.min,
+      crossAxisAlignment: CrossAxisAlignment.start,
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        SizedBox(
+          width: double.maxFinite,
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Padding(
+                padding: EdgeInsets.only(left: 18),
+                child: RichText(
+                  text: TextSpan(
+                    children: [
+                      TextSpan(
+                        text: global.targetLanguage + "  →  ",
+                        style: TextStyle(
+                          color: Color(0XFF000000),
+                          fontSize: 11,
+                          fontFamily: 'Google Sans',
+                          fontWeight: FontWeight.w400,
                         ),
-                        TextSpan(
-                          text: global.punLanguage,
-                          style: TextStyle(
-                            color: Color(0XFF005AD4),
-                            fontSize: 11,
-                            fontFamily: 'Google Sans',
-                            fontWeight: FontWeight.w400,
-                          ),
-                        )
-                      ],
-                    ),
-                    textAlign: TextAlign.left,
+                      ),
+                      TextSpan(
+                        text: global.punLanguage,
+                        style: TextStyle(
+                          color: Color(0XFF005AD4),
+                          fontSize: 11,
+                          fontFamily: 'Google Sans',
+                          fontWeight: FontWeight.w400,
+                        ),
+                      ),
+                    ],
+                  ),
+                  textAlign: TextAlign.left,
+                ),
+              ),
+              Padding(
+                padding: EdgeInsets.zero,
+                child: SizedBox(
+                  height: 40,
+                  width: 42,
+                  child: SvgPicture.asset(
+                    "assets/images/img_starrr.svg",
                   ),
                 ),
-                Padding(
-                  padding: EdgeInsets.zero,
-                  child: SizedBox(
-                    height: 40,
-                    width: 42,
-                    child: SvgPicture.asset(
-                      "assets/images/img_starrr.svg",
-                    ),
-                  ),
-                )
-              ],
-            ),
-          ),
-          SizedBox(height: 4),
-          Padding(
-            padding: EdgeInsets.only(left: 16),
-            child: Text(
-              parts[0],
-              style: TextStyle(
-                color: Color(0XFF5F6369),
-                fontSize: 24.095813751220703,
-                fontFamily: 'Google Sans',
-                fontWeight: FontWeight.w400,
               ),
+            ],
+          ),
+        ),
+        SizedBox(height: 4),
+        Padding(
+          padding: EdgeInsets.only(left: 16),
+          child: Text(
+            parts[0],
+            style: TextStyle(
+              color: Color(0XFF5F6369),
+              fontSize: 24.1,
+              fontFamily: 'Google Sans',
+              fontWeight: FontWeight.w400,
             ),
           ),
-          Padding(
-            padding: EdgeInsets.only(left: 16),
-            child: Text(
-              parts[1],
-              style: TextStyle(
-                color: Color(0XFF5F6369),
-                fontSize: 13,
-                fontFamily: 'Google Sans',
-                fontWeight: FontWeight.w400,
-              ),
+        ),
+        Padding(
+          padding: EdgeInsets.only(left: 16),
+          child: Text(
+            parts[1],
+            style: TextStyle(
+              color: Color(0XFF5F6369),
+              fontSize: 13,
+              fontFamily: 'Google Sans',
+              fontWeight: FontWeight.w400,
             ),
           ),
-          SizedBox(height: 2),
-          Padding(
-            padding: EdgeInsets.only(left: 16),
-            child: Text(
-              parts[2],
-              style: TextStyle(
-                color: Color(0XFF5F6369),
-                fontSize: 26,
-                fontFamily: 'Google Sans',
-                fontWeight: FontWeight.w400,
-              ),
+        ),
+        SizedBox(height: 2),
+        Padding(
+          padding: EdgeInsets.only(left: 16),
+          child: Text(
+            parts[2],
+            style: TextStyle(
+              color: Color(0XFF5F6369),
+              fontSize: 26,
+              fontFamily: 'Google Sans',
+              fontWeight: FontWeight.w400,
             ),
           ),
-          SizedBox(height: 4),
-          Container(
-            width: double.maxFinite,
-            margin: EdgeInsets.symmetric(horizontal: 16),
-            child: Row(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Align(
-                  alignment: Alignment.center,
+        ),
+        SizedBox(height: 4),
+        Container(
+          width: double.maxFinite,
+          margin: EdgeInsets.symmetric(horizontal: 16),
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Expanded( // Use Expanded here to ensure the text takes up available space
+                child: Align(
+                  alignment: Alignment.centerLeft,
                   child: Text(
                     parts[3],
                     style: TextStyle(
@@ -317,36 +317,15 @@ class IphoneDailyPunScreen extends StatelessWidget {
                     ),
                   ),
                 ),
-                Spacer(),
-                Text(
-                  "powered by ",
-                  style: TextStyle(
-                    color: Color(0XFF5F6368),
-                    fontSize: 10,
-                    fontFamily: 'Google Sans',
-                    fontWeight: FontWeight.w400,
-                  ),
-                ),
-                Padding(
-                  padding: EdgeInsets.only(
-                    left: 6,
-                    top: 4,
-                  ),
-                  child: SizedBox(
-                    height: 8,
-                    width: 12,
-                    child: SvgPicture.asset(
-                      "assets/images/img_logo.svg",
-                    ),
-                  ),
-                )
-              ],
-            ),
-          )
-        ],
-      ),
-    );
-  }
+              ),
+            ],
+          ),
+        ),
+      ],
+    ),
+  );
+}
+
 }
 
 
