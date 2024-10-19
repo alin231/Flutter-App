@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'iphone_home_screen.dart';
+import 'package:myapp/global_variables.dart' as globals;
 
 /// This class defines the variables used in the [iphone_home_screen],
 /// and is typically used to hold data that is passed between different parts of the application.
@@ -109,6 +110,7 @@ class IphoneHomeBloc extends Bloc<IphoneHomeEvent, IphoneHomeState> {
       )
     ];
   }
+
 }
 
 /// Represents the state of IphoneHome in the application.

@@ -5,6 +5,8 @@ import 'iphone_home_bloc.dart';
 import 'package:myapp/iphone_14_15_pro_two/iphone_14_15_pro_two_screen.dart';
 import 'package:myapp/iphone_flashcards/iphone_flashcards_screen.dart';
 import 'package:myapp/iphone_daily_pun/iphone_daily_pun_screen.dart';
+import 'package:myapp/global_variables.dart' as global;
+
 
 ///SelectionPopupModel is common model
 ///used for setting data into dropdowns
@@ -284,12 +286,28 @@ class IphoneHomeScreen extends StatelessWidget {
                       ),
                       IconButton(
                         onPressed: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => Iphone1415ProTwoScreen.builder(context),
-                            ),
-                          );
+                          final controller = context.read<IphoneHomeBloc>().state.frame2017oneController;
+                          // Check if the controller is not null
+                          if (controller != null) {
+                            final userInput = controller.text; // Get the input text
+                            if (userInput.isNotEmpty) {
+                              global.norminput = userInput; // Store the input in the global variable
+                              print("Stored in global.norminput: $userInput"); // For verification
+                              controller.clear(); // Clear the input field
+
+                              // Now navigate to the new screen
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => Iphone1415ProTwoScreen.builder(context),
+                                ),
+                              );
+                            } else {
+                              print("Input cannot be empty"); // Handle empty input case
+                            }
+                          } else {
+                            print("Controller is null"); // Handle null case if needed
+                          }
                         },
                         constraints: BoxConstraints(
                           minHeight: 112,

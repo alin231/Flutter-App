@@ -270,18 +270,44 @@ PreferredSizeWidget _buildAppBar(BuildContext context) {
         model: 'tunedModels/trainedmodel-4cayin7v72qz',
         apiKey: apiKey,
         safetySettings: [
-          SafetySetting(HarmCategory.dangerousContent, HarmBlockThreshold.high)
+          //SafetySetting(HarmCategory.dangerousContent, HarmBlockThreshold.high)
         ],
         generationConfig: GenerationConfig(maxOutputTokens: 200));
-    print('Prompt: $prompt');
-    final content = [Content.text(prompt)];
-    final tokenCount = await model.countTokens(content);
-    print('Token count: ${tokenCount.totalTokens}');
+    //print('Prompt: $prompt');
+    //i want to make the content put into gemini be "幫我用"+prompt+"這個單字的中文諧音，輸出為:英文單字/中文意思/諧音/諧音/解釋"
+    // String contentPrompt = "幫我用 $prompt 這個單字的中文諧音，輸出為:英文單字/中文意思/諧音/諧音/解釋\n";
+    
+    // final content = [Content.text(contentPrompt)];
+    // print(content);
+    // try {
+    //   final tokenCount = await model.countTokens(content);
+    //   print('Token count: ${tokenCount.totalTokens}');
 
-    final response = await model.generateContent(content);
-    print('Response:');
-    print(response.text);
-    return "Generated response for: $prompt"; // Example response
+    //   final response = await model.generateContent(content);
+    //   // Check if response contains any errors
+    //   if (response.text != null && response.text!.isEmpty) {
+    //     print('Received an empty response from the API.');
+    //   } 
+    //   print('Response:');
+    //   print(response.text);
+    //   //return response.text; // Return the actual response from the model
+    //   return response.text.toString(); // Example response
+    // } catch (e) {
+    //   print('Error during API call: $e');
+    //   return 'An error occurred while generating the response.';
+    // }
+    // Construct the prompt as required
+  String formattedPrompt = "幫我用 $prompt 這個單字的中文諧音，輸出為:英文單字/中文意思/諧音/諧音/解釋";
+  
+  print('Prompt: $formattedPrompt');
+  
+  // Generate content using the formatted prompt
+  final response = await model.generateContent([Content.text(formattedPrompt)]);
+  
+  print('Response:');
+  print(response.text);
+  
+  return response.text.toString();  // Return the actual response text
   }
 
   /// Section Widget
