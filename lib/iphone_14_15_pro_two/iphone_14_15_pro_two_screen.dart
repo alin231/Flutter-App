@@ -276,6 +276,7 @@ PreferredSizeWidget _buildAppBar(BuildContext context) {
     //print('Prompt: $prompt');
     //i want to make the content put into gemini be "幫我用"+prompt+"這個單字的中文諧音，輸出為:英文單字/中文意思/諧音/諧音/解釋"
         String formattedPrompt = "幫我用 $prompt 這個單字的中文諧音，輸出為:外文單字/中文意思/諧音/解釋";
+        //add more to prompt like examples
         
         print('Prompt: $formattedPrompt');
         
@@ -369,7 +370,7 @@ PreferredSizeWidget _buildAppBar(BuildContext context) {
         SizedBox(height: 16),
         // Display part[0] for Chinese
         Text(
-          parts.isNotEmpty ? parts[0] : "", // English word
+          parts.isNotEmpty ? parts[1] : "", // English word
           style: TextStyle(
             color: Color(0XFF5F6369),
             fontSize: 24,
@@ -381,73 +382,73 @@ PreferredSizeWidget _buildAppBar(BuildContext context) {
     ),
   );
 }
-  Widget _buildKoreanSection(BuildContext context) {
-  // Access the global variable for the AI response
-  String aiResponse = global.normresponse; // Assuming this holds the AI response
+//   Widget _buildKoreanSection(BuildContext context) {
+//   // Access the global variable for the AI response
+//   String aiResponse = global.normresponse; // Assuming this holds the AI response
 
-  // Partition the response
-  List<String> parts = partitionResponse(aiResponse);
+//   // Partition the response
+//   List<String> parts = partitionResponse(aiResponse);
 
-  return Container(
-    width: double.maxFinite,
-    padding: EdgeInsets.symmetric(horizontal: 24, vertical: 18),
-    decoration: BoxDecoration(
-      color: Color(0XFFFFFFFF),
-      borderRadius: BorderRadius.circular(8),
-    ),
-    child: Column(
-      mainAxisSize: MainAxisSize.min,
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text(
-          "Korean",
-          style: TextStyle(
-            color: Color(0XFF000000),
-            fontSize: 11,
-            fontFamily: 'Google Sans',
-            fontWeight: FontWeight.w400,
-          ),
-        ),
-        SizedBox(height: 16),
-        // Display part[1] (Chinese meaning)
-        if (parts.length > 1)
-          Text(
-            parts[1],
-            style: TextStyle(
-              color: Color(0XFF5F6369),
-              fontSize: 24,
-              fontFamily: 'Google Sans',
-              fontWeight: FontWeight.w400,
-            ),
-          ),
-        SizedBox(height: 8),
-        // Display part[2] (Pinyin)
-        if (parts.length > 2)
-          Text(
-            parts[2],
-            style: TextStyle(
-              color: Color(0XFF5F6369),
-              fontSize: 24,
-              fontFamily: 'Google Sans',
-              fontWeight: FontWeight.w400,
-            ),
-          ),
-        SizedBox(height: 8),
-        // Display part[3] (Explanation)
-        if (parts.length > 3)
-          Text(
-            parts[3],
-            style: TextStyle(
-              color: Color(0XFF5F6369),
-              fontSize: 24,
-              fontFamily: 'Google Sans',
-              fontWeight: FontWeight.w400,
-            ),
-          ),
-      ],
-    ),
-  );
-}
+//   return Container(
+//     width: double.maxFinite,
+//     padding: EdgeInsets.symmetric(horizontal: 24, vertical: 18),
+//     decoration: BoxDecoration(
+//       color: Color(0XFFFFFFFF),
+//       borderRadius: BorderRadius.circular(8),
+//     ),
+//     child: Column(
+//       mainAxisSize: MainAxisSize.min,
+//       crossAxisAlignment: CrossAxisAlignment.start,
+//       children: [
+//         Text(
+//           "Korean",
+//           style: TextStyle(
+//             color: Color(0XFF000000),
+//             fontSize: 11,
+//             fontFamily: 'Google Sans',
+//             fontWeight: FontWeight.w400,
+//           ),
+//         ),
+//         SizedBox(height: 16),
+//         // Display part[1] (Chinese meaning)
+//         if (parts.length > 1)
+//           Text(
+//             parts[0],
+//             style: TextStyle(
+//               color: Color(0XFF5F6369),
+//               fontSize: 24,
+//               fontFamily: 'Google Sans',
+//               fontWeight: FontWeight.w400,
+//             ),
+//           ),
+//         SizedBox(height: 8),
+//         // Display part[2] (Pinyin)
+//         if (parts.length > 2)
+//           Text(
+//             parts[2],
+//             style: TextStyle(
+//               color: Color(0XFF5F6369),
+//               fontSize: 24,
+//               fontFamily: 'Google Sans',
+//               fontWeight: FontWeight.w400,
+//             ),
+//           ),
+//         SizedBox(height: 8),
+//         // Display part[3] (Explanation)
+//         if (parts.length > 3)
+//           Text(
+//             parts[3],
+//             style: TextStyle(
+//               color: Color(0XFF5F6369),
+//               fontSize: 24,
+//               fontFamily: 'Google Sans',
+//               fontWeight: FontWeight.w400,
+//             ),
+//           ),
+//       ],
+//     ),
+//   );
+// }
 
 
   // Widget _buildChineseSection(BuildContext context) {
@@ -533,222 +534,224 @@ PreferredSizeWidget _buildAppBar(BuildContext context) {
   // }
 
   // /// Section Widget
-//   Widget _buildKoreanSection(BuildContext context) {
-//     return SizedBox(
-//       width: double.maxFinite,
-//       child: Column(
-//         children: [
-//           Container(
-//             width: double.maxFinite,
-//             padding: EdgeInsets.symmetric(
-//               horizontal: 24,
-//               vertical: 18,
-//             ),
-//             decoration: BoxDecoration(
-//               color: Color(0XFFFFFFFF),
-//               borderRadius: BorderRadius.circular(
-//                 8,
-//               ),
-//             ),
-//             child: Column(
-//               mainAxisSize: MainAxisSize.min,
-//               crossAxisAlignment: CrossAxisAlignment.start,
-//               children: [
-//                 SizedBox(height: 6),
-//                 Text(
-//                   "Korean",
-//                   style: TextStyle(
-//                     color: Color(0XFF000000),
-//                     fontSize: 11,
-//                     fontFamily: 'Google Sans',
-//                     fontWeight: FontWeight.w400,
-//                   ),
-//                 ),
-//                 SizedBox(height: 16),
-//                 Text(
-//                   "여름",
-//                   style: TextStyle(
-//                     color: Color(0XFF5F6369),
-//                     fontSize: 24.095813751220703,
-//                     fontFamily: 'Google Sans',
-//                     fontWeight: FontWeight.w400,
-//                   ),
-//                 ),
-//                 Text(
-//                   "yeo reum",
-//                   style: TextStyle(
-//                     color: Color(0XFF5F6369),
-//                     fontSize: 13,
-//                     fontFamily: 'Google Sans',
-//                     fontWeight: FontWeight.w400,
-//                   ),
-//                 ),
-//                 SizedBox(height: 28),
-//                 Image.asset(
-//                   "assets/images/img_logo.png",
-//                   height: 20,
-//                   width: 24,
-//                 ),
-//                 SizedBox(height: 6),
-//                 Text(
-//                   "有熱嗎？",
-//                   style: TextStyle(
-//                     color: Color(0XFF005AD4),
-//                     fontSize: 26,
-//                     fontFamily: 'Google Sans',
-//                     fontWeight: FontWeight.w700,
-//                   ),
-//                 ),
-//                 SizedBox(height: 2),
-//                 Text(
-//                   "可以聯想成「有熱嗎」，因為夏天通常天氣炎熱。這樣透過「有熱嗎」的諧音，你就比較容易記住「여름」這個發音了。",
-//                   maxLines: 3,
-//                   overflow: TextOverflow.ellipsis,
-//                   style: TextStyle(
-//                     color: Color(0XFF005AD4),
-//                     fontSize: 14,
-//                     fontFamily: 'Google Sans',
-//                     fontWeight: FontWeight.w700,
-//                   ),
-//                 ),
-//                 SizedBox(height: 12),
-//                 Text(
-//                   "Pun in Chinese (Traditional)",
-//                   style: TextStyle(
-//                     color: Color(0XFF005AD4),
-//                     fontSize: 11,
-//                     fontFamily: 'Google Sans',
-//                     fontWeight: FontWeight.w400,
-//                   ),
-//                 )
-//               ],
-//             ),
-//           ),
-//           SizedBox(height: 16),
-//           Container(
-//             width: double.maxFinite,
-//             margin: EdgeInsets.only(
-//               left: 4,
-//               right: 2,
-//             ),
-//             child: Row(
-//               children: [
-//                 Expanded(
-//                   child: Container(
-//                     width: double.maxFinite,
-//                     height: 44,
-//                     decoration: BoxDecoration(
-//                       borderRadius: BorderRadius.circular(
-//                         6,
-//                       ),
-//                       gradient: LinearGradient(
-//                         begin: Alignment(1.26, -3.3),
-//                         end: Alignment(0, 1.34),
-//                         colors: [
-//                           Color(0XFF3781E4),
-//                           Color(0XFFC3DDFF),
-//                           Color(0XFFFFFFFF)
-//                         ],
-//                       ),
-//                     ),
-//                     child: ElevatedButton(
-//                       style: ElevatedButton.styleFrom(
-//                         backgroundColor: Colors.transparent,
-//                         side: BorderSide.none,
-//                         shape: RoundedRectangleBorder(
-//                             borderRadius: BorderRadius.zero),
-//                         padding: EdgeInsets.zero,
-//                         elevation: 0,
-//                       ),
-//                       onPressed: () {},
-//                       child: Row(
-//                         mainAxisAlignment: MainAxisAlignment.center,
-//                         crossAxisAlignment: CrossAxisAlignment.center,
-//                         children: [
-//                           Container(
-//                             margin: EdgeInsets.only(right: 8),
-//                             child: Image.asset(
-//                               "assets/images/img_vector_14x14.png",
-//                               height: 14,
-//                               width: 14,
-//                               fit: BoxFit.contain,
-//                             ),
-//                           ),
-//                           Text(
-//                             "Save",
-//                             style: TextStyle(
-//                               color: Color(0XFF005AD4),
-//                               fontSize: 14.041421890258789,
-//                               fontFamily: 'Google Sans',
-//                               fontWeight: FontWeight.w500,
-//                             ),
-//                           )
-//                         ],
-//                       ),
-//                     ),
-//                   ),
-//                 ),
-//                 SizedBox(width: 16),
-//                 Expanded(
-//                   child: Container(
-//                     width: double.maxFinite,
-//                     height: 44,
-//                     decoration: BoxDecoration(
-//                       borderRadius: BorderRadius.circular(
-//                         6,
-//                       ),
-//                       gradient: LinearGradient(
-//                         begin: Alignment(0.83, -1.59),
-//                         end: Alignment(0, 1),
-//                         colors: [
-//                           Color(0XFF005AD4),
-//                           Color(0XFF3781E4),
-//                           Color(0XFF569EFF)
-//                         ],
-//                       ),
-//                     ),
-//                     child: ElevatedButton(
-//                       style: ElevatedButton.styleFrom(
-//                         backgroundColor: Colors.transparent,
-//                         side: BorderSide.none,
-//                         shape: RoundedRectangleBorder(
-//                             borderRadius: BorderRadius.zero),
-//                         padding: EdgeInsets.zero,
-//                         elevation: 0,
-//                       ),
-//                       onPressed: () {},
-//                       child: Row(
-//                         mainAxisAlignment: MainAxisAlignment.center,
-//                         crossAxisAlignment: CrossAxisAlignment.center,
-//                         children: [
-//                           Container(
-//                             margin: EdgeInsets.only(right: 8),
-//                             child: SvgPicture.asset(
-//                               "assets/images/img_shuffle24dp5f6368fill0wght400grad0opsz24_1.svg",
-//                               height: 16,
-//                               width: 16,
-//                               fit: BoxFit.contain,
-//                             ),
-//                           ),
-//                           Text(
-//                             "Regenerate",
-//                             style: TextStyle(
-//                               color: Color(0XFFF0F5FA),
-//                               fontSize: 14.041421890258789,
-//                               fontFamily: 'Google Sans',
-//                               fontWeight: FontWeight.w500,
-//                             ),
-//                           )
-//                         ],
-//                       ),
-//                     ),
-//                   ),
-//                 )
-//               ],
-//             ),
-//           )
-//         ],
-//       ),
-//     );
-//   }
+  Widget _buildKoreanSection(BuildContext context) {
+    String aiResponse = global.normresponse; // Assuming this holds the AI response
+
+    // Partition the response
+    List<String> parts = partitionResponse(aiResponse);
+    return SizedBox(
+      width: double.maxFinite,
+      child: Column(
+        children: [
+          Container(
+            width: double.maxFinite,
+            padding: EdgeInsets.symmetric(
+              horizontal: 24,
+              vertical: 18,
+            ),
+            decoration: BoxDecoration(
+              color: Color(0XFFFFFFFF),
+              borderRadius: BorderRadius.circular(
+                8,
+              ),
+            ),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                SizedBox(height: 6),
+                Text(
+                  "Korean",
+                  style: TextStyle(
+                    color: Color(0XFF000000),
+                    fontSize: 11,
+                    fontFamily: 'Google Sans',
+                    fontWeight: FontWeight.w400,
+                  ),
+                ),
+                SizedBox(height: 16),
+                Text(
+                  parts[0],
+                  style: TextStyle(
+                    color: Color(0XFF5F6369),
+                    fontSize: 24.095813751220703,
+                    fontFamily: 'Google Sans',
+                    fontWeight: FontWeight.w400,
+                  ),
+                ),
+                
+                SizedBox(height: 28),
+                Image.asset(
+                  "assets/images/img_logo.png",
+                  height: 20,
+                  width: 24,
+                ),
+                SizedBox(height: 6),
+                Text(
+                  parts[2],
+                  style: TextStyle(
+                    color: Color(0XFF005AD4),
+                    fontSize: 26,
+                    fontFamily: 'Google Sans',
+                    fontWeight: FontWeight.w700,
+                  ),
+                ),
+                SizedBox(height: 2),
+                Text(
+                  parts[3],
+                  maxLines: 3,
+                  overflow: TextOverflow.ellipsis,
+                  style: TextStyle(
+                    color: Color(0XFF005AD4),
+                    fontSize: 14,
+                    fontFamily: 'Google Sans',
+                    fontWeight: FontWeight.w700,
+                  ),
+                ),
+                SizedBox(height: 12),
+                Text(
+                  "Pun in Chinese (Traditional)",
+                  style: TextStyle(
+                    color: Color(0XFF005AD4),
+                    fontSize: 11,
+                    fontFamily: 'Google Sans',
+                    fontWeight: FontWeight.w400,
+                  ),
+                )
+              ],
+            ),
+          ),
+          SizedBox(height: 16),
+          Container(
+            width: double.maxFinite,
+            margin: EdgeInsets.only(
+              left: 4,
+              right: 2,
+            ),
+            child: Row(
+              children: [
+                Expanded(
+                  child: Container(
+                    width: double.maxFinite,
+                    height: 44,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(
+                        6,
+                      ),
+                      gradient: LinearGradient(
+                        begin: Alignment(1.26, -3.3),
+                        end: Alignment(0, 1.34),
+                        colors: [
+                          Color(0XFF3781E4),
+                          Color(0XFFC3DDFF),
+                          Color(0XFFFFFFFF)
+                        ],
+                      ),
+                    ),
+                    child: ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Colors.transparent,
+                        side: BorderSide.none,
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.zero),
+                        padding: EdgeInsets.zero,
+                        elevation: 0,
+                      ),
+                      onPressed: () {
+                        global.otherlanguage = parts[0];
+                        global.translation = parts[1];
+                        global.pun = parts[2];
+                        global.pun = parts[3];
+
+                      },
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Container(
+                            margin: EdgeInsets.only(right: 8),
+                            child: Image.asset(
+                              "assets/images/img_vector_14x14.png",
+                              height: 14,
+                              width: 14,
+                              fit: BoxFit.contain,
+                            ),
+                          ),
+                          Text(
+                            "Save",
+                            style: TextStyle(
+                              color: Color(0XFF005AD4),
+                              fontSize: 14.041421890258789,
+                              fontFamily: 'Google Sans',
+                              fontWeight: FontWeight.w500,
+                            ),
+                          )
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
+                SizedBox(width: 16),
+                Expanded(
+                  child: Container(
+                    width: double.maxFinite,
+                    height: 44,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(
+                        6,
+                      ),
+                      gradient: LinearGradient(
+                        begin: Alignment(0.83, -1.59),
+                        end: Alignment(0, 1),
+                        colors: [
+                          Color(0XFF005AD4),
+                          Color(0XFF3781E4),
+                          Color(0XFF569EFF)
+                        ],
+                      ),
+                    ),
+                    child: ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Colors.transparent,
+                        side: BorderSide.none,
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.zero),
+                        padding: EdgeInsets.zero,
+                        elevation: 0,
+                      ),
+                      onPressed: () {},
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Container(
+                            margin: EdgeInsets.only(right: 8),
+                            child: SvgPicture.asset(
+                              "assets/images/img_shuffle24dp5f6368fill0wght400grad0opsz24_1.svg",
+                              height: 16,
+                              width: 16,
+                              fit: BoxFit.contain,
+                            ),
+                          ),
+                          Text(
+                            "Regenerate",
+                            style: TextStyle(
+                              color: Color(0XFFF0F5FA),
+                              fontSize: 14.041421890258789,
+                              fontFamily: 'Google Sans',
+                              fontWeight: FontWeight.w500,
+                            ),
+                          )
+                        ],
+                      ),
+                    ),
+                  ),
+                )
+              ],
+            ),
+          )
+        ],
+      ),
+    );
+  }
   }
