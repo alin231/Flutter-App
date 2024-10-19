@@ -4,7 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'iphone_home_screen.dart';
 import 'package:myapp/global_variables.dart' as global;
 
-
+// pun language don't have 1 after the variable name
 /// This class defines the variables used in the [iphone_home_screen],
 /// and is typically used to hold data that is passed between different parts of the application.
 
@@ -55,8 +55,8 @@ _onInitialize(
   List<SelectionPopupModel> initialDropdownList1 = fillDropdownItemList1();
 
   // 將預設選中的項目設置到 global 變數
-  global.targetLanguage = initialDropdownList.firstWhere((item) => item.isSelected, orElse: () => initialDropdownList[0]).title;
-  global.punLanguage = initialDropdownList1.firstWhere((item) => item.isSelected, orElse: () => initialDropdownList1[0]).title;
+  global.punLanguage = initialDropdownList.firstWhere((item) => item.isSelected, orElse: () => initialDropdownList[0]).title;
+  global.targetLanguage = initialDropdownList1.firstWhere((item) => item.isSelected, orElse: () => initialDropdownList1[0]).title;
 
   // 更新 Bloc 狀態
   emit(
@@ -74,7 +74,7 @@ _onInitialize(
     onSelected event,
     Emitter<IphoneHomeState> emit,
   ) {
-    global.targetLanguage = event.value.title;
+    global.punLanguage = event.value.title;
     emit(state.copyWith(
       selectedDropDownValue: event.value,
     ));
@@ -84,7 +84,7 @@ _onInitialize(
     onSelected1 event,
     Emitter<IphoneHomeState> emit,
   ) {
-     global.targetLanguage = event.value.title;
+    global.targetLanguage = event.value.title;
     emit(state.copyWith(
       selectedDropDownValue1: event.value,
     ));
@@ -117,7 +117,7 @@ _onInitialize(
     return [
       SelectionPopupModel(
         id: 1,
-        title: "Chinese (Traditional)",
+        title: "Swedish",
         isSelected: true,
       ),
       SelectionPopupModel(

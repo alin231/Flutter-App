@@ -296,18 +296,18 @@ class IphoneHomeScreen extends StatelessWidget {
                               print("Stored in global.norminput: $userInput"); // For verification
                               final userTargetLanguage = global.targetLanguage;
                               final userPunLanguage = global.punLanguage;
-                              
+                              if (userPunLanguage != null && userPunLanguage.isNotEmpty) {
+                                print("Selected Pun language: $userPunLanguage"); // For verification
+                              } else {
+                                print("No language selected"); // Handle no language selection case
+                              }
                               if (userTargetLanguage != null && userTargetLanguage.isNotEmpty) {
                                 print("Selected Target language: $userTargetLanguage"); // For verification
                               } else {
                                 print("No language selected"); // Handle no language selection case
                               }
 
-                              if (userPunLanguage != null && userPunLanguage.isNotEmpty) {
-                                print("Selected Pun language: $userPunLanguage"); // For verification
-                              } else {
-                                print("No language selected"); // Handle no language selection case
-                              }
+                              
                               controller.clear(); // Clear the input field
 
                               // Now navigate to the new screen
@@ -579,9 +579,9 @@ class IphoneHomeScreen extends StatelessWidget {
                         fontWeight: FontWeight.w400,
                       ),
                       onChanged: (value) {
-                        context.read<IphoneHomeBloc>().add(onSelected(value: value!));
+                        context.read<IphoneHomeBloc>().add(onSelected1(value: value!));
                       },
-                      items: iphoneHomeModelObj?.dropdownItemList
+                      items: iphoneHomeModelObj?.dropdownItemList1
                           .map((SelectionPopupModel item) {
                         return DropdownMenuItem<SelectionPopupModel>(
                           value: item,
