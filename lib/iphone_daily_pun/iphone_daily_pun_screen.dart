@@ -331,32 +331,42 @@ Widget _buildTranslationSection(BuildContext context) {
 
 // ignore_for_file: must_be_immutable
 class RecentlyaddedlistItemWidget extends StatelessWidget {
-  final RecentlyaddedlistItemModel recentlyaddedlistItemModelObj;
-  final Function(String) onDelete; // 添加一个删除回调函数
+  RecentlyaddedlistItemWidget(this.recentlyaddedlistItemModelObj, {Key? key, required this.onDelete})
+      : super(
+          key: key,
+        );
 
-  RecentlyaddedlistItemWidget(
-    this.recentlyaddedlistItemModelObj, {
-    Key? key,
-    required this.onDelete, // 接收删除回调
-  }) : super(key: key);
+  RecentlyaddedlistItemModel recentlyaddedlistItemModelObj;
+  final Future<void> Function(String id) onDelete;
 
-  FlashcardsControler dbHelper = FlashcardsControler();
   @override
   Widget build(BuildContext context) {
+    FlashcardsControler dbHelper = FlashcardsControler();
+
     return Ink(
       decoration: BoxDecoration(
         color: Color(0XFFF5F5F5),
-        borderRadius: BorderRadius.circular(8),
+        borderRadius: BorderRadius.circular(
+          8,
+        ),
       ),
       child: ListTile(
         minVerticalPadding: 0,
         minTileHeight: 0,
         minLeadingWidth: 0,
         shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(8),
+          borderRadius: BorderRadius.circular(
+            8,
+          ),
         ),
-        visualDensity: VisualDensity(vertical: -4, horizontal: -4),
-        contentPadding: EdgeInsets.symmetric(horizontal: 6, vertical: 12),
+        visualDensity: VisualDensity(
+          vertical: -4,
+          horizontal: -4,
+        ),
+        contentPadding: EdgeInsets.symmetric(
+          horizontal: 6,
+          vertical: 12,
+        ),
         title: Padding(
           padding: EdgeInsets.only(top: 2),
           child: Column(
@@ -402,10 +412,17 @@ class RecentlyaddedlistItemWidget extends StatelessWidget {
                         fontWeight: FontWeight.w400,
                       ),
                     ),
+                  ],
+                ),
+                textAlign: TextAlign.left,
+              ),
+              RichText(
+                text: TextSpan(
+                  children: [
                     TextSpan(
                       text: global.punLanguage,
                       style: TextStyle(
-                        color: Color(0XFF005AD4),
+                        color: Color(0XFF000000),
                         fontSize: 11,
                         fontFamily: 'Google Sans',
                         fontWeight: FontWeight.w400,
@@ -414,7 +431,7 @@ class RecentlyaddedlistItemWidget extends StatelessWidget {
                   ],
                 ),
                 textAlign: TextAlign.left,
-              ),
+              )
             ],
           ),
         ),
@@ -440,7 +457,9 @@ class RecentlyaddedlistItemWidget extends StatelessWidget {
             ),
           ),
         ),
-        onTap: () {},
+        onTap: () {
+          // 這裡可以執行其他操作，如跳轉到詳細頁面
+        },
       ),
     );
   }
