@@ -82,36 +82,42 @@ class RecentlyaddedlistItemModel extends Equatable {
     this.id,
     this.englishWord,
     this.pun,
+    this.definition, // 新增字段
   }) {
     dinosaur = dinosaur ?? "Empty";
     id = id ?? "";
     englishWord = englishWord ?? "";
     pun = pun ?? "";
+    definition = definition ?? ""; // 确保初始化
   }
 
   String? dinosaur;
   String? id;
   String? englishWord; // 新增字段
   String? pun;         // 新增字段
+  String? definition;  // 新增字段
 
-  // 修改 copyWith 方法，加入 englishWord 和 pun 字段
+  // 修改 copyWith 方法，加入 definition 字段
   RecentlyaddedlistItemModel copyWith({
     String? dinosaur,
     String? id,
     String? englishWord,
     String? pun,
+    String? definition, // 新增字段
   }) {
     return RecentlyaddedlistItemModel(
       dinosaur: dinosaur ?? this.dinosaur,
       id: id ?? this.id,
       englishWord: englishWord ?? this.englishWord,
       pun: pun ?? this.pun,
+      definition: definition ?? this.definition, // 新增字段
     );
   }
 
   @override
-  List<Object?> get props => [dinosaur, id, englishWord, pun]; // 更新 props
+  List<Object?> get props => [dinosaur, id, englishWord, pun, definition]; // 更新 props
 }
+
 
 
 /// A bloc that manages the state of a IphoneDailyPun according to the event that is dispatched to it.
@@ -154,6 +160,7 @@ class IphoneDailyPunBloc
             englishWord: data[i]['english_word'], // 從 'english_word' 字段取值
             pun: data[i]['pun'],                  // 從 'pun' 字段取值
             id: data[i]['id'].toString(),
+            definition: data[i]['definition'],    // 從 'definition' 字段取值
           ),
         );
       }
@@ -225,8 +232,24 @@ class IphoneDailyPunInitialEvent extends IphoneDailyPunEvent {
   List<Object?> get props => [];
 }
 
-class FlashcardsDeleter {
+class FlashcardsControler {
   final DatabaseHelper dbHelper = DatabaseHelper();
+
+  // 保存单字到数据库
+  Future<void> saveItem(RecentlyaddedlistItemModel item) async {
+    try {
+      await dbHelper.insertItem('daily_pun', {
+        'chinese_word': item.dinosaur,
+        'english_word': item.englishWord,
+        'pun': item.pun,
+        'definition':item.definition,
+      });
+      print("Item ${item.dinosaur} saved successfully.");
+    } catch (e) {
+      print("Error saving item: $e");
+    }
+  }
+
 
   // 删除数据库中的字卡
   Future<void> deleteItem(int id) async {

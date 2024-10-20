@@ -226,13 +226,33 @@ Widget _buildTranslationSection(BuildContext context) {
                   textAlign: TextAlign.left,
                 ),
               ),
-              Padding(
-                padding: EdgeInsets.zero,
-                child: SizedBox(
-                  height: 40,
-                  width: 42,
-                  child: SvgPicture.asset(
-                    "assets/images/img_starrr.svg",
+              GestureDetector(
+                onTap: () {
+                  // 创建一个新的 RecentlyaddedlistItemModel 实例，或直接使用现有实例
+                  RecentlyaddedlistItemModel itemToSave = RecentlyaddedlistItemModel(
+                    dinosaur: global.otherlanguage,
+                    englishWord: global.translation,
+                    pun: global.pun,
+                    definition: global.pundef,
+                  );
+
+                  // 调用保存单字的方法
+                  final FlashcardsControler dbHelper = FlashcardsControler();
+                  dbHelper.saveItem(itemToSave);
+                  
+                  // 提示用户保存成功
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(content: Text('${itemToSave.dinosaur} saved!')),
+                  );
+                },
+                child: Padding(
+                  padding: EdgeInsets.zero,
+                  child: SizedBox(
+                    height: 44,
+                    width: 40,
+                    child: SvgPicture.asset(
+                      "assets/images/img_starrr.svg",
+                    ),
                   ),
                 ),
               ),
@@ -283,22 +303,6 @@ Widget _buildTranslationSection(BuildContext context) {
           margin: EdgeInsets.symmetric(horizontal: 16),
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Expanded( // Use Expanded here to ensure the text takes up available space
-                child: Align(
-                  alignment: Alignment.centerLeft,
-                  child: Text(
-                    parts[3],
-                    style: TextStyle(
-                      color: Color(0XFF005AD4),
-                      fontSize: 16,
-                      fontFamily: 'Google Sans',
-                      fontWeight: FontWeight.w700,
-                    ),
-                  ),
-                ),
-              ),
-            ],
           ),
         ),
       ],
@@ -308,9 +312,10 @@ Widget _buildTranslationSection(BuildContext context) {
 
 }
 
+  
   Widget _buildRecentlyAddedList(BuildContext context) {
     
-    FlashcardsDeleter dbHelper = FlashcardsDeleter();
+    FlashcardsControler dbHelper = FlashcardsControler();
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: 26),
       child: BlocSelector<IphoneDailyPunBloc, IphoneDailyPunState, IphoneDailyPunModel?>(
@@ -352,12 +357,13 @@ class RecentlyaddedlistItemWidget extends StatelessWidget {
   final RecentlyaddedlistItemModel recentlyaddedlistItemModelObj;
   final Function(String) onDelete; // 添加一个删除回调函数
 
-  const RecentlyaddedlistItemWidget(
+  RecentlyaddedlistItemWidget(
     this.recentlyaddedlistItemModelObj, {
     Key? key,
     required this.onDelete, // 接收删除回调
   }) : super(key: key);
 
+  FlashcardsControler dbHelper = FlashcardsControler();
   @override
   Widget build(BuildContext context) {
     return Ink(
@@ -435,13 +441,19 @@ class RecentlyaddedlistItemWidget extends StatelessWidget {
             ],
           ),
         ),
-        trailing: GestureDetector(
-          onTap: () {
-            // 调用删除回调，并传递当前项的 ID
-            onDelete(recentlyaddedlistItemModelObj.id!);
-          },
-          child: Padding(
-            padding: EdgeInsets.zero,
+        trailing: Padding(
+          padding: EdgeInsets.zero,
+          child: GestureDetector(
+            onTap: () async {
+              // 點擊圖片後刪除字卡
+              await dbHelper.deleteItem(int.parse(recentlyaddedlistItemModelObj.id!));
+              // 此處可以根據需求刷新頁面或顯示提示
+              print("Deleted card with ID: ${recentlyaddedlistItemModelObj.id}");
+              // 提示用户保存成功
+              ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(content: Text('${recentlyaddedlistItemModelObj.dinosaur} deleted!')),
+              );
+            },
             child: SizedBox(
               height: 44,
               width: 40,
