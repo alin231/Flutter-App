@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:myapp/database_helper.dart';
 import 'iphone_daily_pun_bloc.dart';
 import '/iphone_homepage/iphone_home_screen.dart';
 import 'package:myapp/global_variables.dart' as global;
@@ -53,6 +52,29 @@ class IphoneDailyPunScreen extends StatelessWidget {
                 ),
                 SizedBox(height: 10),
                 _buildRecentlyAddedList(context),
+                SizedBox(height: 24),
+                Align(
+                  alignment: Alignment.center,
+                  child: Container(
+                    width: 200,
+                    height: 38,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(
+                        18,
+                      ),
+                      gradient: LinearGradient(
+                        begin: Alignment(0.83, -1.59),
+                        end: Alignment(0.07, 2.44),
+                        colors: [
+                          Color(0XFF005AD4),
+                          Color(0XFF3781E4),
+                          Color(0XFF569EFF)
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
+                SizedBox(height: 16)
               ],
             ),
           ),
@@ -204,41 +226,13 @@ Widget _buildTranslationSection(BuildContext context) {
                   textAlign: TextAlign.left,
                 ),
               ),
-              GestureDetector(
-                onTap: () {
-                  // 创建一个新的 RecentlyaddedlistItemModel 实例，或直接使用现有实例
-                  RecentlyaddedlistItemModel itemToSave = RecentlyaddedlistItemModel(
-                    dinosaur: global.otherlanguage,
-                    englishWord: global.translation,
-                    pun: global.pun,
-                    
-                  );
-
-                  // 调用保存单字的方法
-                  DatabaseHelper dbHelper = DatabaseHelper();
-                  Map<String, dynamic> dataToSave = {
-                    'chinese_word': itemToSave.dinosaur,
-                    'english_word': itemToSave.englishWord,
-                    'pun': itemToSave.pun,
-                    
-                  };
-
-                  // 将数据插入到 'dailypun_result' 表中
-                  dbHelper.insertItem('dailypun_result', dataToSave);
-                  
-                  // 提示用户保存成功
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    SnackBar(content: Text('${itemToSave.dinosaur} saved!')),
-                  );
-                },
-                child: Padding(
-                  padding: EdgeInsets.zero,
-                  child: SizedBox(
-                    height: 44,
-                    width: 40,
-                    child: SvgPicture.asset(
-                      "assets/images/img_starrr.svg",
-                    ),
+              Padding(
+                padding: EdgeInsets.zero,
+                child: SizedBox(
+                  height: 40,
+                  width: 42,
+                  child: SvgPicture.asset(
+                    "assets/images/img_starrr.svg",
                   ),
                 ),
               ),
@@ -298,7 +292,6 @@ Widget _buildTranslationSection(BuildContext context) {
 
 }
 
-  
   Widget _buildRecentlyAddedList(BuildContext context) {
     
     FlashcardsDeleter dbHelper = FlashcardsDeleter();
@@ -340,42 +333,31 @@ Widget _buildTranslationSection(BuildContext context) {
 
 // ignore_for_file: must_be_immutable
 class RecentlyaddedlistItemWidget extends StatelessWidget {
-  RecentlyaddedlistItemWidget(this.recentlyaddedlistItemModelObj, {Key? key, required this.onDelete})
-      : super(
-          key: key,
-        );
+  final RecentlyaddedlistItemModel recentlyaddedlistItemModelObj;
+  final Function(String) onDelete; // 添加一个删除回调函数
 
-  RecentlyaddedlistItemModel recentlyaddedlistItemModelObj;
-  final Future<void> Function(String id) onDelete;
+  const RecentlyaddedlistItemWidget(
+    this.recentlyaddedlistItemModelObj, {
+    Key? key,
+    required this.onDelete, // 接收删除回调
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    FlashcardsDeleter dbHelper = FlashcardsDeleter();
-
     return Ink(
       decoration: BoxDecoration(
         color: Color(0XFFF5F5F5),
-        borderRadius: BorderRadius.circular(
-          8,
-        ),
+        borderRadius: BorderRadius.circular(8),
       ),
       child: ListTile(
         minVerticalPadding: 0,
         minTileHeight: 0,
         minLeadingWidth: 0,
         shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(
-            8,
-          ),
+          borderRadius: BorderRadius.circular(8),
         ),
-        visualDensity: VisualDensity(
-          vertical: -4,
-          horizontal: -4,
-        ),
-        contentPadding: EdgeInsets.symmetric(
-          horizontal: 6,
-          vertical: 12,
-        ),
+        visualDensity: VisualDensity(vertical: -4, horizontal: -4),
+        contentPadding: EdgeInsets.symmetric(horizontal: 6, vertical: 12),
         title: Padding(
           padding: EdgeInsets.only(top: 2),
           child: Column(
@@ -425,38 +407,30 @@ class RecentlyaddedlistItemWidget extends StatelessWidget {
                 ),
                 textAlign: TextAlign.left,
               ),
-              RichText(
-                text: TextSpan(
-                  children: [
-                    TextSpan(
-                      text: global.punLanguage,
-                      style: TextStyle(
-                        color: Color(0XFF000000),
-                        fontSize: 11,
-                        fontFamily: 'Google Sans',
-                        fontWeight: FontWeight.w400,
-                      ),
-                    ),
-                  ],
-                ),
-                textAlign: TextAlign.left,
-              )
             ],
           ),
         ),
-        trailing: Padding(
-          padding: EdgeInsets.zero,
-          child: GestureDetector(
-            onTap: () async {
-              // 點擊圖片後刪除字卡
-              await dbHelper.deleteItem(int.parse(recentlyaddedlistItemModelObj.id!));
-              // 此處可以根據需求刷新頁面或顯示提示
-              print("Deleted card with ID: ${recentlyaddedlistItemModelObj.id}");
-              // 提示用户保存成功
-              ScaffoldMessenger.of(context).showSnackBar(
-                SnackBar(content: Text('${recentlyaddedlistItemModelObj.dinosaur} deleted!')),
-              );
-            },
+        trailing: GestureDetector(
+          onTap: () {
+            // 创建一个新的 RecentlyaddedlistItemModel 实例，或直接使用现有实例
+            RecentlyaddedlistItemModel itemToSave = RecentlyaddedlistItemModel(
+              dinosaur: recentlyaddedlistItemModelObj.dinosaur,
+              englishWord: recentlyaddedlistItemModelObj.englishWord,
+              pun: recentlyaddedlistItemModelObj.pun,
+              id: recentlyaddedlistItemModelObj.id, // 可选，取决于你的需求
+            );
+
+            // 调用保存单字的方法
+            final FlashcardsDeleter dbHelper = FlashcardsDeleter();
+            dbHelper.saveItem(itemToSave);
+            
+            // 提示用户保存成功
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(content: Text('${itemToSave.dinosaur} saved!')),
+            );
+          },
+          child: Padding(
+            padding: EdgeInsets.zero,
             child: SizedBox(
               height: 44,
               width: 40,
@@ -466,9 +440,8 @@ class RecentlyaddedlistItemWidget extends StatelessWidget {
             ),
           ),
         ),
-        onTap: () {
-          // 這裡可以執行其他操作，如跳轉到詳細頁面
-        },
+
+        onTap: () {},
       ),
     );
   }

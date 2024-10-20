@@ -228,6 +228,20 @@ class IphoneDailyPunInitialEvent extends IphoneDailyPunEvent {
 class FlashcardsDeleter {
   final DatabaseHelper dbHelper = DatabaseHelper();
 
+  // 保存单字到数据库
+  Future<void> saveItem(RecentlyaddedlistItemModel item) async {
+    try {
+      await dbHelper.insertItem('daily_pun', {
+        'chinese_word': item.dinosaur,
+        'english_word': item.englishWord,
+        'pun': item.pun,
+      });
+      print("Item ${item.dinosaur} saved successfully.");
+    } catch (e) {
+      print("Error saving item: $e");
+    }
+  }
+
   // 删除数据库中的字卡
   Future<void> deleteItem(int id) async {
     try {
