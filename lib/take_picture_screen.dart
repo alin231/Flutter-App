@@ -79,7 +79,7 @@ class TakePictureScreenState extends State<TakePictureScreen> {
             Navigator.push(
               context,
               MaterialPageRoute(
-                builder: (context) => Iphone1415ProTwoScreen(),
+                builder: (context) => Iphone1415ProTwoScreen.builder(context),
               ),
             );
           } catch (e) {
