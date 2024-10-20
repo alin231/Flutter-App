@@ -119,10 +119,10 @@ class Iphone1415ProTwoScreen extends StatelessWidget {
                           SizedBox(height: 16),
                           _buildKoreanSection(context),
                           SizedBox(height: 16),
-                          Text(
-                            "AI Response: ${global.normresponse}", // Display AI response
-                            style: TextStyle(fontSize: 16),
-                          ),
+                          // Text(
+                          //   "AI Response: ${global.normresponse}", // Display AI response
+                          //   style: TextStyle(fontSize: 16),
+                          // ),
                         ],
                       );
                     } else {
