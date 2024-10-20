@@ -211,7 +211,7 @@ Widget _buildTranslationSection(BuildContext context) {
                     dinosaur: global.otherlanguage,
                     englishWord: global.translation,
                     pun: global.pun,
-                    definition: global.pundef,
+                    
                   );
 
                   // 调用保存单字的方法
@@ -220,7 +220,7 @@ Widget _buildTranslationSection(BuildContext context) {
                     'chinese_word': itemToSave.dinosaur,
                     'english_word': itemToSave.englishWord,
                     'pun': itemToSave.pun,
-                    'definition': itemToSave.definition,
+                    
                   };
 
                   // 将数据插入到 'dailypun_result' 表中
@@ -301,7 +301,7 @@ Widget _buildTranslationSection(BuildContext context) {
   
   Widget _buildRecentlyAddedList(BuildContext context) {
     
-    FlashcardsControler dbHelper = FlashcardsControler();
+    FlashcardsDeleter dbHelper = FlashcardsDeleter();
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: 26),
       child: BlocSelector<IphoneDailyPunBloc, IphoneDailyPunState, IphoneDailyPunModel?>(
@@ -350,7 +350,7 @@ class RecentlyaddedlistItemWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    FlashcardsControler dbHelper = FlashcardsControler();
+    FlashcardsDeleter dbHelper = FlashcardsDeleter();
 
     return Ink(
       decoration: BoxDecoration(

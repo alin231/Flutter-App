@@ -82,42 +82,36 @@ class RecentlyaddedlistItemModel extends Equatable {
     this.id,
     this.englishWord,
     this.pun,
-    this.definition, // 新增字段
   }) {
     dinosaur = dinosaur ?? "Empty";
     id = id ?? "";
     englishWord = englishWord ?? "";
     pun = pun ?? "";
-    definition = definition ?? ""; // 确保初始化
   }
 
   String? dinosaur;
   String? id;
   String? englishWord; // 新增字段
   String? pun;         // 新增字段
-  String? definition;  // 新增字段
 
-  // 修改 copyWith 方法，加入 definition 字段
+  // 修改 copyWith 方法，加入 englishWord 和 pun 字段
   RecentlyaddedlistItemModel copyWith({
     String? dinosaur,
     String? id,
     String? englishWord,
     String? pun,
-    String? definition, // 新增字段
   }) {
     return RecentlyaddedlistItemModel(
       dinosaur: dinosaur ?? this.dinosaur,
       id: id ?? this.id,
       englishWord: englishWord ?? this.englishWord,
       pun: pun ?? this.pun,
-      definition: definition ?? this.definition, // 新增字段
     );
   }
 
   @override
-  List<Object?> get props => [dinosaur, id, englishWord, pun, definition]; // 更新 props
+  List<Object?> get props => [dinosaur, id, englishWord, pun]; // 更新 props
 }
-
 
 
 /// A bloc that manages the state of a IphoneDailyPun according to the event that is dispatched to it.
@@ -149,7 +143,7 @@ class IphoneDailyPunBloc
     DatabaseHelper dbHelper = DatabaseHelper();
 
     // 從資料庫中查詢所有的資料
-    List<Map<String, dynamic>> data = await dbHelper.getItems('dailypun_result');
+    List<Map<String, dynamic>> data = await dbHelper.getItems('daily_pun');
 
     if (data.isNotEmpty) {
       // 迭代所有資料，將每一筆資料加入 recentlyAddedItems 列表
@@ -160,7 +154,6 @@ class IphoneDailyPunBloc
             englishWord: data[i]['english_word'], // 從 'english_word' 字段取值
             pun: data[i]['pun'],                  // 從 'pun' 字段取值
             id: data[i]['id'].toString(),
-            definition: data[i]['definition'],    // 從 'definition' 字段取值
           ),
         );
       }
@@ -232,13 +225,13 @@ class IphoneDailyPunInitialEvent extends IphoneDailyPunEvent {
   List<Object?> get props => [];
 }
 
-class FlashcardsControler {
+class FlashcardsDeleter {
   final DatabaseHelper dbHelper = DatabaseHelper();
 
   // 删除数据库中的字卡
   Future<void> deleteItem(int id) async {
     try {
-      await dbHelper.deleteItem('dailypun_result', id);
+      await dbHelper.deleteItem('daily_pun', id);
       print("Item with id $id deleted successfully.");
     } catch (e) {
       print("Error deleting item: $e");
