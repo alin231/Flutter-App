@@ -70,6 +70,8 @@ class IphoneHomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SafeArea(
+      top: false,
+      bottom: false,
       child: Scaffold(
         extendBody: true,
         extendBodyBehindAppBar: true,

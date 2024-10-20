@@ -33,7 +33,7 @@ Future<String> generateWord(String prompt) async {
     exit(1);
   }
   
-  final p = "$prompt Just generate one word and output that word.";
+  final p = "$prompt Just generate one word from junior high school level and output that word.";
   final model = GenerativeModel(
     model: 'gemini-1.5-flash-latest',
     apiKey: apiKey,
