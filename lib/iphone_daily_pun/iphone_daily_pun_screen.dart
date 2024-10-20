@@ -4,7 +4,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'iphone_daily_pun_bloc.dart';
 import '/iphone_homepage/iphone_home_screen.dart';
 import 'package:myapp/global_variables.dart' as global;
-
+//import 'package:flutter_expandable/flutter_expandable.dart';
 
 class IphoneDailyPunScreen extends StatelessWidget {
   const IphoneDailyPunScreen({Key? key})
@@ -25,6 +25,8 @@ class IphoneDailyPunScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SafeArea(
+      top: false,
+      bottom: false,
       child: Scaffold(
         backgroundColor: Color(0XFFFFFFFF),
         body: SingleChildScrollView(
@@ -41,7 +43,7 @@ class IphoneDailyPunScreen extends StatelessWidget {
                 Padding(
                   padding: EdgeInsets.only(left: 32),
                   child: Text(
-                    "Daily Pun History",
+                    "",
                     style: TextStyle(
                       color: Color(0XFF333333),
                       fontSize: 24.095813751220703,
@@ -223,10 +225,10 @@ Widget _buildTranslationSection(BuildContext context) {
           child: Text(
             parts[0],
             style: TextStyle(
-              color: Color(0XFF5F6369),
+              color: Color(0XFF005AD4),
               fontSize: 24.1,
               fontFamily: 'Google Sans',
-              fontWeight: FontWeight.w400,
+              fontWeight: FontWeight.bold,
             ),
           ),
         ),
@@ -235,7 +237,7 @@ Widget _buildTranslationSection(BuildContext context) {
           child: Text(
             parts[1],
             style: TextStyle(
-              color: Color(0XFF5F6369),
+              color: Color(0XFF005AD4),
               fontSize: 13,
               fontFamily: 'Google Sans',
               fontWeight: FontWeight.w400,
@@ -251,9 +253,22 @@ Widget _buildTranslationSection(BuildContext context) {
               color: Color(0XFF5F6369),
               fontSize: 26,
               fontFamily: 'Google Sans',
-              fontWeight: FontWeight.w400,
+              fontWeight: FontWeight.bold,
             ),
           ),
+        ),
+        SizedBox(height: 2), // Add some space between the texts
+        Padding(
+          padding: EdgeInsets.only(left: 16),
+          child: Text(
+              parts[3],
+              style: TextStyle(
+                color: Color(0XFF5F6369), // Change to your desired blue color
+                fontSize: 13,
+                fontFamily: 'Google Sans',
+                fontWeight: FontWeight.w400,
+              ),
+            )
         ),
         SizedBox(height: 4),
         Container(

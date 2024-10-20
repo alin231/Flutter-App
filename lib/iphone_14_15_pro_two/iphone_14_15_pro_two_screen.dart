@@ -77,6 +77,8 @@ class Iphone1415ProTwoScreen extends StatelessWidget {
         //   ),
         // );
         return SafeArea(
+          // top: false;
+          // bottom: false;
           child: Scaffold(
             extendBody: true,
             extendBodyBehindAppBar: true,

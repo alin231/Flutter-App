@@ -24,6 +24,8 @@ class IphoneFlashcardsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SafeArea(
+      top: false,
+      bottom: false,
       child: Scaffold(
         backgroundColor: Color(0XFFFFFFFF),
         body: SizedBox(
