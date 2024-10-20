@@ -217,8 +217,8 @@ Widget _buildTranslationSection(BuildContext context) {
                   // 调用保存单字的方法
                   DatabaseHelper dbHelper = DatabaseHelper();
                   Map<String, dynamic> dataToSave = {
-                    'dinosaur': itemToSave.dinosaur,
-                    'englishWord': itemToSave.englishWord,
+                    'chinese_word': itemToSave.dinosaur,
+                    'english_word': itemToSave.englishWord,
                     'pun': itemToSave.pun,
                     'definition': itemToSave.definition,
                   };
