@@ -133,9 +133,13 @@ class TakePictureScreenState extends State<TakePictureScreen> {
       String detectedText = response.text ?? 'No response';
       print("API Response: $detectedText");
       
-      // Use regex to split by any whitespace
-      if (detectedText.split(RegExp(r'\s+')).length > 2) {
-        return "Cannot detect your target word.";
+      List<String> words = detectedText.split(RegExp(r'\s+')); // Split by whitespace
+      if (words.length <= 2) {
+        // detectedText has 2 or fewer words
+        print('Detected text has 2 or fewer words: $detectedText');
+      } else {
+        // detectedText has more than 2 words
+        print('Detected text has more than 2 words: $detectedText');
       }
 
       return detectedText;
