@@ -79,7 +79,7 @@ class TakePictureScreenState extends State<TakePictureScreen> {
             Navigator.push(
               context,
               MaterialPageRoute(
-                builder: (context) => Iphone1415ProTwoScreen(),
+                builder: (context) => Iphone1415ProTwoScreen.builder(context),
               ),
             );
           } catch (e) {
@@ -97,7 +97,7 @@ class TakePictureScreenState extends State<TakePictureScreen> {
       exit(1);
     }
 
-    final prompt = "Detect the object in this image and return what this object is. If detect successfully, just return the word.";
+    final prompt = "Detect the object in this image and return what this object is. If detect successfully, just return what the object is. For example, if it is a cake, just return 'cake'. If it is a palm tree, just return 'palm tree'.";
     print(prompt);
     final model = GenerativeModel(
       model: 'gemini-1.5-flash-latest',
@@ -133,8 +133,13 @@ class TakePictureScreenState extends State<TakePictureScreen> {
       String detectedText = response.text ?? 'No response';
       print("API Response: $detectedText");
       
-      if (detectedText.split(' ').length > 1) {
-        return "Cannot detect your target word.";
+      List<String> words = detectedText.split(RegExp(r'\s+')); // Split by whitespace
+      if (words.length <= 2) {
+        // detectedText has 2 or fewer words
+        print('Detected text has 2 or fewer words: $detectedText');
+      } else {
+        // detectedText has more than 2 words
+        print('Detected text has more than 2 words: $detectedText');
       }
 
       return detectedText;
