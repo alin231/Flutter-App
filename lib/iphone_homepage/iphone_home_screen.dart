@@ -70,6 +70,8 @@ class IphoneHomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SafeArea(
+      top: false,    // Only avoid the notch or status bar
+      bottom: false, // Ignore the bottom safe area (use full height)
       child: Scaffold(
         extendBody: true,
         extendBodyBehindAppBar: true,
