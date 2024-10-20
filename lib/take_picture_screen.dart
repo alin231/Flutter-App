@@ -97,7 +97,7 @@ class TakePictureScreenState extends State<TakePictureScreen> {
       exit(1);
     }
 
-    final prompt = "Detect the object in this image and return what this object is. If detect successfully, just return the word.";
+    final prompt = "Detect the object in this image and return what this object is. If detect successfully, just return what the object is. For example, if it is a cake, just return 'cake'. If it is a palm tree, just return 'palm tree'.";
     print(prompt);
     final model = GenerativeModel(
       model: 'gemini-1.5-flash-latest',
@@ -133,7 +133,8 @@ class TakePictureScreenState extends State<TakePictureScreen> {
       String detectedText = response.text ?? 'No response';
       print("API Response: $detectedText");
       
-      if (detectedText.split(' ').length > 1) {
+      // Use regex to split by any whitespace
+      if (detectedText.split(RegExp(r'\s+')).length > 2) {
         return "Cannot detect your target word.";
       }
 
