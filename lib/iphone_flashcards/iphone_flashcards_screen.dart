@@ -283,6 +283,22 @@ class RecentlyaddedlistItemWidget extends StatelessWidget {
                   ],
                 ),
                 textAlign: TextAlign.left,
+              ),
+              RichText(
+                text: TextSpan(
+                  children: [
+                    TextSpan(
+                      text: global.punLanguage,
+                      style: TextStyle(
+                        color: Color(0XFF000000),
+                        fontSize: 11,
+                        fontFamily: 'Google Sans',
+                        fontWeight: FontWeight.w400,
+                      ),
+                    ),
+                  ],
+                ),
+                textAlign: TextAlign.left,
               )
             ],
           ),

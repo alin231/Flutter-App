@@ -238,7 +238,7 @@ class FlashcardsControler {
   // 保存单字到数据库
   Future<void> saveItem(RecentlyaddedlistItemModel item) async {
     try {
-      await dbHelper.insertItem('daily_pun', {
+      await dbHelper.insertItem('dailypun_result', {
         'chinese_word': item.dinosaur,
         'english_word': item.englishWord,
         'pun': item.pun,
