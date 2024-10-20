@@ -478,6 +478,22 @@ class IphoneHomeScreen extends StatelessWidget {
   Widget _buildDailyPunSection(BuildContext context) {
     return GestureDetector(
       onTap: () async {
+        showDialog(
+        context: context,
+        barrierDismissible: false, // Prevent dismissing the dialog by tapping outside
+        builder: (BuildContext context) {
+          return AlertDialog(
+            content: Row(
+              children: [
+                CircularProgressIndicator(),
+                SizedBox(width: 20),
+                Text("Generating..."), // Optional text
+              ],
+            ),
+          );
+        },
+      );
+
         // Generate the AI response
         String prompt = "Generate a random" + global.targetLanguage + "word"; // Specify your prompt
         String response = await generateWord(prompt);
