@@ -70,6 +70,8 @@ class IphoneHomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SafeArea(
+      top: false,    // Only avoid the notch or status bar
+      bottom: false, // Ignore the bottom safe area (use full height)
       child: Scaffold(
         extendBody: true,
         extendBodyBehindAppBar: true,
@@ -215,7 +217,7 @@ class IphoneHomeScreen extends StatelessWidget {
                     builder: (context, frame2017oneController) {
                       return TextFormField(
                         focusNode: FocusNode(),
-                        autofocus: true,
+                        autofocus: false,
                         controller: frame2017oneController,
                         style: TextStyle(
                           color: Color(0XFF5F6369),
@@ -588,7 +590,7 @@ class IphoneHomeScreen extends StatelessWidget {
                     width: 140,
                     child: DropdownButtonFormField<SelectionPopupModel>(
                       focusNode: FocusNode(),
-                      autofocus: true,
+                      autofocus: false,
                       style: TextStyle(
                         color: Color(0XFF666666),
                         fontSize: 10.441558837890625,
@@ -666,7 +668,7 @@ class IphoneHomeScreen extends StatelessWidget {
                     width: 140,
                     child: DropdownButtonFormField<SelectionPopupModel>(
                       focusNode: FocusNode(),
-                      autofocus: true,
+                      autofocus: false,
                       style: TextStyle(
                         color: Color(0XFF666666),
                         fontSize: 10.441558837890625,
