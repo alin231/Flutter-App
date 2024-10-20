@@ -118,11 +118,11 @@ _onInitialize(
       SelectionPopupModel(
         id: 1,
         title: "Chinese (Traditional)",
-        isSelected: true,
       ),
       SelectionPopupModel(
         id: 2,
         title: "English",
+        isSelected: true,
       ),
       SelectionPopupModel(
         id: 3,
