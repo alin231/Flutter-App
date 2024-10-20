@@ -149,7 +149,7 @@ class IphoneDailyPunBloc
     DatabaseHelper dbHelper = DatabaseHelper();
 
     // 從資料庫中查詢所有的資料
-    List<Map<String, dynamic>> data = await dbHelper.getItems('daily_pun');
+    List<Map<String, dynamic>> data = await dbHelper.getItems('dailypun_result');
 
     if (data.isNotEmpty) {
       // 迭代所有資料，將每一筆資料加入 recentlyAddedItems 列表
@@ -254,7 +254,7 @@ class FlashcardsControler {
   // 删除数据库中的字卡
   Future<void> deleteItem(int id) async {
     try {
-      await dbHelper.deleteItem('daily_pun', id);
+      await dbHelper.deleteItem('dailypun_result', id);
       print("Item with id $id deleted successfully.");
     } catch (e) {
       print("Error deleting item: $e");
