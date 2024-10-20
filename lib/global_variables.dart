@@ -11,5 +11,5 @@ String pundef = "";
 
 
 // shawn's variable
-String punLanguage = "";
-String targetLanguage = "";
+String punLanguage = "Chinese (Traditional)";
+String targetLanguage = "English";
