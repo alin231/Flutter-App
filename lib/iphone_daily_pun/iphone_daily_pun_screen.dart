@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:myapp/database_helper.dart';
 import 'iphone_daily_pun_bloc.dart';
 import '/iphone_homepage/iphone_home_screen.dart';
 import 'package:myapp/global_variables.dart' as global;
@@ -214,8 +215,16 @@ Widget _buildTranslationSection(BuildContext context) {
                   );
 
                   // 调用保存单字的方法
-                  final FlashcardsControler dbHelper = FlashcardsControler();
-                  dbHelper.saveItem(itemToSave);
+                  DatabaseHelper dbHelper = DatabaseHelper();
+                  Map<String, dynamic> dataToSave = {
+                    'dinosaur': itemToSave.dinosaur,
+                    'englishWord': itemToSave.englishWord,
+                    'pun': itemToSave.pun,
+                    'definition': itemToSave.definition,
+                  };
+
+                  // 将数据插入到 'dailypun_result' 表中
+                  dbHelper.insertItem('dailypun_result', dataToSave);
                   
                   // 提示用户保存成功
                   ScaffoldMessenger.of(context).showSnackBar(
