@@ -52,29 +52,6 @@ class IphoneFlashcardsScreen extends StatelessWidget {
                   ),
                   SizedBox(height: 10),
                   _buildRecentlyAddedList(context),
-                  SizedBox(height: 24),
-                  Align(
-                    alignment: Alignment.center,
-                    child: Container(
-                      width: 200,
-                      height: 38,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(
-                          18,
-                        ),
-                        gradient: LinearGradient(
-                          begin: Alignment(0.83, -1.59),
-                          end: Alignment(0.07, 2.44),
-                          colors: [
-                            Color(0XFF005AD4),
-                            Color(0XFF3781E4),
-                            Color(0XFF569EFF)
-                          ],
-                        ),
-                      ),
-                    ),
-                  ),
-                  SizedBox(height: 16)
                 ],
               ),
             ),
